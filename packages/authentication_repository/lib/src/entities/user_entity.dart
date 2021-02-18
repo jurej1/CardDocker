@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:meta/meta.dart';
 
 class UserEntity extends Equatable {
@@ -55,6 +56,15 @@ class UserEntity extends Equatable {
       email: snap.data()['email'],
       id: snap.id,
       photoUrl: snap.data()['photoUrl'],
+    );
+  }
+
+  static UserEntity fromFirebaseUser(firebase_auth.User user) {
+    return UserEntity(
+      displayName: user.displayName,
+      email: user.email,
+      id: user.uid,
+      photoUrl: user.photoURL,
     );
   }
 }
