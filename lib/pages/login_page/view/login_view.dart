@@ -36,22 +36,28 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Login')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            EmailInput(focusNode: _emailFocusNode),
-            PasswordInput(),
-            const SizedBox(height: 20),
-            SubmitButton(),
-            const SizedBox(height: 10),
-            OrDivider(),
-            SwitchView(
-              routeName: SignUp.routeName,
-              title: 'Sign up',
-            ),
-          ],
-        ),
+      body: _buildForm(),
+    );
+  }
+
+  Widget _buildForm() {
+    return Padding(
+      padding: const EdgeInsets.all(23),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          EmailInput(focusNode: _emailFocusNode),
+          PasswordInput(),
+          const SizedBox(height: 20),
+          SubmitButton(),
+          const SizedBox(height: 10),
+          OrDivider(),
+          const SizedBox(height: 10),
+          SwitchView(
+            routeName: SignUp.routeName,
+            title: 'Sign up',
+          ),
+        ],
       ),
     );
   }
