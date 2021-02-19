@@ -54,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
           OrDivider(),
           const SizedBox(height: 10),
           SwitchView(
-            routeName: SignUp.routeName,
+            routeName: SignUpPage.routeName,
             title: 'Sign up',
           ),
         ],

@@ -1,10 +1,8 @@
 part of 'sign_up_form_bloc.dart';
 
-abstract class SignUpFormState extends Equatable {
+class SignUpFormState extends Equatable {
   const SignUpFormState();
 
   @override
   List<Object> get props => [];
 }
-
-class SignUpFormInitial extends SignUpFormState {}

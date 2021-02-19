@@ -5,7 +5,7 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('register'),
+        title: Text('Sign Up'),
       ),
     );
   }

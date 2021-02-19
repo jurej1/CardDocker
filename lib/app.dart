@@ -49,11 +49,11 @@ class _AppView extends StatelessWidget {
       //   );
       // },
       // onGenerateRoute: (_) => SplashPage.route(),
-      home: LoginPage(),
+      home: SignUpPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
-        SignUp.routeName: (context) => SignUp(),
+        SignUpPage.routeName: (context) => SignUpPage(),
       },
     );
   }

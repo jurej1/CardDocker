@@ -7,7 +7,7 @@ part 'sign_up_form_event.dart';
 part 'sign_up_form_state.dart';
 
 class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
-  SignUpFormBloc() : super(SignUpFormInitial());
+  SignUpFormBloc() : super(SignUpFormState());
 
   @override
   Stream<SignUpFormState> mapEventToState(

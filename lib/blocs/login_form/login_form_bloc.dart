@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:card_docker/pages/login_page/models/models.dart';
+import 'package:card_docker/models/models.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
