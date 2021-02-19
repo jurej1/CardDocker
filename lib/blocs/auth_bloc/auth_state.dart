@@ -1,10 +1,23 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState extends Equatable {
-  const AuthState();
-  
-  @override
-  List<Object> get props => [];
-}
+enum AuthStatus { authenticated, unauthenticated, unknown }
 
-class AuthInitial extends AuthState {}
+class AuthState extends Equatable {
+  const AuthState({
+    this.user = User.empty,
+    this.status = AuthStatus.unknown,
+  });
+
+  final User user;
+  final AuthStatus status;
+
+  factory AuthState.initial() {
+    return AuthState(
+      status: AuthStatus.unknown,
+      user: User.empty,
+    );
+  }
+
+  @override
+  List<Object> get props => [user, status];
+}

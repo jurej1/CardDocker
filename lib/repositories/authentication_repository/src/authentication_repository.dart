@@ -7,5 +7,7 @@ abstract class AuthenticationRepository {
 
   Future<void> authenticateWithGoogle();
 
+  Future<void> logout();
+
   Stream<User> get user;
 }

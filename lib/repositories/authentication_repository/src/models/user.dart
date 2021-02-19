@@ -24,6 +24,8 @@ class User extends Equatable {
     return 'User { id: $id, displayName: $displayName, photoUrl: $photoUrl, email: $email }';
   }
 
+  static const empty = User(displayName: null, email: null, id: null, photoUrl: null);
+
   User copyWith({
     String id,
     String displayName,

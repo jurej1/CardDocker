@@ -40,11 +40,18 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
   @override
   Stream<User> get user {
-    return _firebaseAuth.authStateChanges().map(
-          (firebaseUser) => User.fromEntity(
-            UserEntity.fromFirebaseUser(firebaseUser),
-          ),
-        );
+    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+      if (firebaseUser == null) {
+        return null;
+      } else {
+        return User.fromEntity(UserEntity.fromFirebaseUser(firebaseUser));
+      }
+    });
+  }
+
+  @override
+  Future<void> logout() {
+    return _firebaseAuth.signOut();
   }
 }
 
