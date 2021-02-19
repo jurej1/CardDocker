@@ -6,16 +6,12 @@ import 'package:card_docker/blocs/blocs.dart';
 
 class PasswordInput extends StatelessWidget {
   final double iconSize = 20;
-  final FocusNode focusNode;
-
-  const PasswordInput({Key key, @required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginFormBloc, LoginFormState>(
       builder: (context, state) {
         return TextField(
-          focusNode: focusNode,
           obscureText: state.isPasswordVisible,
           autocorrect: false,
           keyboardType: TextInputType.visiblePassword,
@@ -28,11 +24,9 @@ class PasswordInput extends StatelessWidget {
             ),
             suffixIcon: IconButton(
               iconSize: iconSize,
-              icon: !state.isPasswordVisible ? const Icon(Icons.remove_red_eye) : _crossEyeIcon(),
+              icon: state.isPasswordVisible ? const Icon(Icons.remove_red_eye) : _crossEyeIcon(),
               onPressed: () {
-                if (focusNode.hasFocus) {
-                  BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility());
-                }
+                BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility());
               },
             ),
           ),

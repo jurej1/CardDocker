@@ -1,5 +1,8 @@
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/pages/login_page/widgets/widgets.dart';
+import 'package:card_docker/pages/register_page/register_page.dart';
+import 'package:card_docker/widgets/or_divider.dart';
+import 'package:card_docker/widgets/swith_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +13,6 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -19,7 +21,7 @@ class _LoginViewState extends State<LoginView> {
     _emailFocusNode.addListener(() {
       if (!_emailFocusNode.hasFocus) {
         BlocProvider.of<LoginFormBloc>(context).add(EmailUnfocused());
-        _emailFocusNode.requestFocus(_passwordFocusNode);
+        _emailFocusNode.requestFocus();
       }
     });
   }
@@ -28,7 +30,6 @@ class _LoginViewState extends State<LoginView> {
   void dispose() {
     super.dispose();
     _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
   }
 
   @override
@@ -40,12 +41,18 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             EmailInput(focusNode: _emailFocusNode),
-            PasswordInput(focusNode: _passwordFocusNode),
+            PasswordInput(),
+            const SizedBox(height: 20),
+            SubmitButton(),
+            const SizedBox(height: 10),
+            OrDivider(),
+            SwitchView(
+              routeName: SignUp.routeName,
+              title: 'Sign up',
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

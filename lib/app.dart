@@ -1,6 +1,7 @@
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
+import 'package:card_docker/pages/register_page/register_page.dart';
 import 'package:card_docker/pages/splash_page/splash_page.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,10 @@ class _AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          buttonTheme: ButtonThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      )),
       navigatorKey: _navigator,
       // builder: (context, child) {
       //   return BlocListener<AuthBloc, AuthState>(
@@ -48,6 +53,7 @@ class _AppView extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
+        SignUp.routeName: (context) => SignUp(),
       },
     );
   }
