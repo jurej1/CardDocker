@@ -14,7 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({@required FirebaseAuthenticationRepository firebaseAuthenticationRepository})
       : assert(firebaseAuthenticationRepository != null),
         _authenticationRepository = firebaseAuthenticationRepository,
-        super(AuthState.initial());
+        super(Unknown());
 
   final FirebaseAuthenticationRepository _authenticationRepository;
   StreamSubscription _authSubscription;
@@ -39,23 +39,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
+  Stream<AuthState> _mapAuthStatusUpdatedToState(AuthStatusUpdated event) async* {
+    if (event.user != null) {
+      yield Authenticated(event.user);
+    } else {
+      yield Unauthenticated();
+    }
+  }
+
   @override
   Future<void> close() {
     _authSubscription?.cancel();
     return super.close();
-  }
-
-  Stream<AuthState> _mapAuthStatusUpdatedToState(AuthStatusUpdated event) async* {
-    if (event.user != null) {
-      yield AuthState(
-        status: AuthStatus.authenticated,
-        user: event.user,
-      );
-    } else {
-      yield AuthState(
-        user: User.empty,
-        status: AuthStatus.authenticated,
-      );
-    }
   }
 }
