@@ -1,4 +1,4 @@
-import 'package:card_docker/pages/register_page/view/register_view.dart';
+import 'package:card_docker/pages/sign_up/view/sign_up_view.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatelessWidget {
@@ -6,6 +6,6 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RegisterView();
+    return SignUpView();
   }
 }

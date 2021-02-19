@@ -1,6 +1,6 @@
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/pages/login_page/widgets/widgets.dart';
-import 'package:card_docker/pages/register_page/register_page.dart';
+import 'package:card_docker/pages/sign_up/sign_up.dart';
 import 'package:card_docker/widgets/or_divider.dart';
 import 'package:card_docker/widgets/swith_view_button.dart';
 import 'package:flutter/material.dart';

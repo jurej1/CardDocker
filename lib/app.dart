@@ -1,7 +1,7 @@
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
-import 'package:card_docker/pages/register_page/register_page.dart';
+import 'package:card_docker/pages/sign_up/sign_up.dart';
 import 'package:card_docker/pages/splash_page/splash_page.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
