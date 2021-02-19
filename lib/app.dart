@@ -34,13 +34,13 @@ class _AppView extends StatelessWidget {
       builder: (context, child) {
         return BlocListener<AuthBloc, AuthState>(
           listener: (contex, state) {
-            if (state is Authenticated) {
-              _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-            } else if (state is Unauthenticated) {
-              _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
-            }
+            // if (state is Authenticated) {
+            //   _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
+            // } else if (state is Unauthenticated) {
+            //   _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
+            // }
           },
-          child: child,
+          child: LoginPage(), // Do not forget to change this to state
         );
       },
       onGenerateRoute: (_) => SplashPage.route(),

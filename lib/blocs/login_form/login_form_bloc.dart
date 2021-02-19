@@ -27,6 +27,8 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
       yield* _mapPasswordChangedToState(event);
     } else if (event is LoginFormSubmit) {
       yield* _mapLoginFormSubmitToState();
+    } else if (event is ChangePasswordVisibility) {
+      yield _mapChangePasswordVisibilityToState();
     }
   }
 
@@ -73,4 +75,6 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
       }
     }
   }
+
+  LoginFormState _mapChangePasswordVisibilityToState() => state.copyWith(isPasswordVisible: !state.isPasswordVisible);
 }

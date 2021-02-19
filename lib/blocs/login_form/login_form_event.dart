@@ -26,3 +26,5 @@ class PasswordChanged extends LoginFormEvent {
 }
 
 class LoginFormSubmit extends LoginFormEvent {}
+
+class ChangePasswordVisibility extends LoginFormEvent {}
