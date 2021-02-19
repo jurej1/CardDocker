@@ -14,7 +14,6 @@ class EmailInput extends StatelessWidget {
     return BlocBuilder<LoginFormBloc, LoginFormState>(
       builder: (context, state) {
         return TextField(
-          focusNode: focusNode,
           autocorrect: false,
           keyboardType: TextInputType.emailAddress,
           textAlignVertical: TextAlignVertical.center,

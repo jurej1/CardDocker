@@ -16,6 +16,8 @@ class EmailChanged extends LoginFormEvent {
   List<Object> get props => [value];
 }
 
+class EmailUnfocused extends LoginFormEvent {}
+
 class PasswordChanged extends LoginFormEvent {
   final String value;
 

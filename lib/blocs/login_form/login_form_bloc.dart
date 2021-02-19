@@ -23,6 +23,8 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
   ) async* {
     if (event is EmailChanged) {
       yield* _mapEmailChangedToState(event);
+    } else if (event is EmailUnfocused) {
+      yield* _mapEmailUnfocuesToState();
     } else if (event is PasswordChanged) {
       yield* _mapPasswordChangedToState(event);
     } else if (event is LoginFormSubmit) {
@@ -36,7 +38,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
     final email = Email.dirty(event.value);
 
     yield state.copyWith(
-      email: email,
+      email: email.valid ? email : Email.pure(email.value),
       status: Formz.validate([email, state.password]),
     );
   }
@@ -77,4 +79,13 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
   }
 
   LoginFormState _mapChangePasswordVisibilityToState() => state.copyWith(isPasswordVisible: !state.isPasswordVisible);
+
+  Stream<LoginFormState> _mapEmailUnfocuesToState() async* {
+    final email = Email.dirty(state.email.value);
+
+    yield state.copyWith(
+      email: email,
+      status: Formz.validate([email, state.password]),
+    );
+  }
 }

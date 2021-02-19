@@ -30,7 +30,9 @@ class PasswordInput extends StatelessWidget {
               iconSize: iconSize,
               icon: !state.isPasswordVisible ? const Icon(Icons.remove_red_eye) : _crossEyeIcon(),
               onPressed: () {
-                if (focusNode.hasFocus) BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility());
+                if (focusNode.hasFocus) {
+                  BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility());
+                }
               },
             ),
           ),
