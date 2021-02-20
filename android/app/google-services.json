@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "715814634543",
+    "project_id": "carddocker",
+    "storage_bucket": "carddocker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715814634543:android:dbf658ae6a2f259ceff2da",
+        "android_client_info": {
+          "package_name": "com.jure_jures.card_docker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715814634543-8luhf5ov8gdicm3qck1ti2lhd7vb1pit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7knf43IA404PVtB9suNEY69XnRpDOlgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715814634543-8luhf5ov8gdicm3qck1ti2lhd7vb1pit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
