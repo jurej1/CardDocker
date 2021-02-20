@@ -6,7 +6,6 @@ import 'package:card_docker/models/email.dart';
 import 'package:card_docker/models/models.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 
 part 'sign_up_form_event.dart';
@@ -38,6 +37,8 @@ class SignUpFormBloc extends Bloc<SignUpFormEvent, SignUpFormState> {
       yield _mapSignUpPasswordUnfocusedToState();
     } else if (event is SignUpFormSubmit) {
       yield* _mapSignUpFormSubmitToState();
+    } else if (event is SignUpPasswordVisibilityChange) {
+      yield state.copyWith(isPasswordVisible: !state.isPasswordVisible);
     }
   }
 

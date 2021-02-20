@@ -1,8 +1,8 @@
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/pages/login_page/widgets/widgets.dart';
-import 'package:card_docker/pages/sign_up/sign_up.dart';
+import 'package:card_docker/pages/sign_up/sign_up_page.dart';
 import 'package:card_docker/widgets/or_divider.dart';
-import 'package:card_docker/widgets/swith_view_button.dart';
+import 'package:card_docker/widgets/switch_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,9 +54,10 @@ class _LoginViewState extends State<LoginView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           EmailInput(focusNode: _emailFocusNode),
+          const SizedBox(height: 4),
           PasswordInput(focusNode: _passwordFocusNode),
           const SizedBox(height: 20),
-          SubmitButton(),
+          LogInSubmitButton(),
           const SizedBox(height: 10),
           OrDivider(),
           const SizedBox(height: 10),

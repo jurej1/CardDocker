@@ -9,10 +9,6 @@ class Password extends FormzInput<String, PasswordValidationError> {
 
   @override
   PasswordValidationError validator(String value) {
-    if (value.length < 6) {
-      return PasswordValidationError.toShort;
-    } else {
-      return reg.RegVal.hasMatch(value, reg.RegexPattern.passwordNormal2) ? null : PasswordValidationError.invalid;
-    }
+    return reg.RegVal.hasMatch(value, reg.RegexPattern.passwordNormal2) ? null : PasswordValidationError.invalid;
   }
 }

@@ -6,7 +6,7 @@ class SignUpFormState extends Equatable {
     this.email = const Email.pure(),
     this.password = const Password.pure(),
     this.status = FormzStatus.pure,
-    this.isPasswordVisible,
+    this.isPasswordVisible = false,
   });
 
   final DisplayName displayName;
