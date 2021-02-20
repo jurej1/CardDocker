@@ -13,6 +13,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -21,7 +22,13 @@ class _LoginViewState extends State<LoginView> {
     _emailFocusNode.addListener(() {
       if (!_emailFocusNode.hasFocus) {
         BlocProvider.of<LoginFormBloc>(context).add(EmailUnfocused());
-        _emailFocusNode.requestFocus();
+        _emailFocusNode.requestFocus(_passwordFocusNode);
+      }
+    });
+
+    _passwordFocusNode.addListener(() {
+      if (!_passwordFocusNode.hasFocus) {
+        BlocProvider.of<LoginFormBloc>(context).add(PasswordUnfocused());
       }
     });
   }
@@ -47,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           EmailInput(focusNode: _emailFocusNode),
-          PasswordInput(),
+          PasswordInput(focusNode: _passwordFocusNode),
           const SizedBox(height: 20),
           SubmitButton(),
           const SizedBox(height: 10),

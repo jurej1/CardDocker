@@ -3,31 +3,32 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:card_docker/blocs/blocs.dart';
+import 'package:card_docker/models/models.dart';
 
 class PasswordInput extends StatelessWidget {
   final double iconSize = 20;
+  final FocusNode focusNode;
+
+  const PasswordInput({Key key, @required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginFormBloc, LoginFormState>(
       builder: (context, state) {
-        return TextField(
+        return TextFormField(
+          initialValue: state.password.value,
           obscureText: state.isPasswordVisible,
           autocorrect: false,
           keyboardType: TextInputType.visiblePassword,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
+            errorText: errorText(state.password.error),
             hintText: 'Password',
-            prefixIcon: Icon(
-              Icons.lock,
-              size: iconSize,
-            ),
+            prefixIcon: Icon(Icons.lock, size: iconSize),
             suffixIcon: IconButton(
               iconSize: iconSize,
               icon: state.isPasswordVisible ? const Icon(Icons.remove_red_eye) : _crossEyeIcon(),
-              onPressed: () {
-                BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility());
-              },
+              onPressed: () => BlocProvider.of<LoginFormBloc>(context).add(ChangePasswordVisibility()),
             ),
           ),
         );
@@ -46,5 +47,13 @@ class PasswordInput extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String errorText(PasswordValidationError error) {
+    if (error == PasswordValidationError.invalid) {
+      return 'Please enter a more complex password';
+    } else {
+      return 'Password to short';
+    }
   }
 }

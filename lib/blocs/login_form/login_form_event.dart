@@ -27,6 +27,8 @@ class PasswordChanged extends LoginFormEvent {
   List<Object> get props => [value];
 }
 
+class PasswordUnfocused extends LoginFormEvent {}
+
 class LoginFormSubmit extends LoginFormEvent {}
 
 class ChangePasswordVisibility extends LoginFormEvent {}
