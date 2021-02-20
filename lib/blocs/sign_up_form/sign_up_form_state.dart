@@ -5,28 +5,34 @@ class SignUpFormState extends Equatable {
     this.displayName = const DisplayName.pure(),
     this.email = const Email.pure(),
     this.password = const Password.pure(),
-    this.status,
+    this.status = FormzStatus.pure,
+    this.isPasswordVisible,
   });
 
   final DisplayName displayName;
   final Email email;
   final Password password;
   final FormzStatus status;
+  final bool isPasswordVisible;
 
   @override
-  List<Object> get props => [displayName, email, password, status];
+  List<Object> get props {
+    return [displayName, email, password, status, isPasswordVisible];
+  }
 
   SignUpFormState copyWith({
     DisplayName displayName,
     Email email,
     Password password,
     FormzStatus status,
+    bool isPasswordVisible,
   }) {
     return SignUpFormState(
       displayName: displayName ?? this.displayName,
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,
+      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
     );
   }
 }

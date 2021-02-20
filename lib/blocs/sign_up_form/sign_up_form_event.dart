@@ -35,3 +35,9 @@ class SignUpPasswordChanged extends SignUpFormEvent {
   @override
   List<Object> get props => [value];
 }
+
+class SignUpPasswordUnfocused extends SignUpFormEvent {}
+
+class SignUpFormSubmit extends SignUpFormEvent {}
+
+class SignUpPasswordVisibilityChange extends SignUpFormEvent {}
