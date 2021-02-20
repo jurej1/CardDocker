@@ -20,6 +20,7 @@ class PasswordInput extends StatelessWidget {
           autocorrect: false,
           keyboardType: TextInputType.visiblePassword,
           textAlignVertical: TextAlignVertical.center,
+          onChanged: (value) => BlocProvider.of<LoginFormBloc>(context).add(PasswordChanged(value.trim())),
           decoration: InputDecoration(
             errorText: state.password.invalid ? 'Password to weak' : null,
             hintText: 'Password',

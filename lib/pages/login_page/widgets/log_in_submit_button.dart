@@ -1,6 +1,7 @@
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 class LogInSubmitButton extends StatelessWidget {
   @override
@@ -11,11 +12,16 @@ class LogInSubmitButton extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 43,
           child: RaisedButton(
+            
             onPressed: () {
               if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
               BlocProvider.of<LoginFormBloc>(context).add(LoginFormSubmit());
             },
-            child: Text('Log in'),
+            child: state.status.isSubmissionInProgress
+                ? CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                )
+                : Text('Log in'),
             textColor: Colors.white,
           ),
         );

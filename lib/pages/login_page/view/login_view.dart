@@ -48,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget _buildForm() {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(23),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -61,10 +61,7 @@ class _LoginViewState extends State<LoginView> {
           const SizedBox(height: 10),
           OrDivider(),
           const SizedBox(height: 10),
-          SwitchView(
-            routeName: SignUpPage.routeName,
-            title: 'Sign up',
-          ),
+          SwitchView(routeName: SignUpPage.routeName, title: 'Sign up'),
         ],
       ),
     );

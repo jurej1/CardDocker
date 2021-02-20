@@ -1,4 +1,3 @@
-import 'package:card_docker/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +19,7 @@ class PasswordInput extends StatelessWidget {
           keyboardType: TextInputType.visiblePassword,
           obscureText: !state.isPasswordVisible,
           textAlignVertical: TextAlignVertical.center,
+          onChanged: (value) => BlocProvider.of<SignUpFormBloc>(context).add(SignUpPasswordChanged(value.trim())),
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.lock, size: iconSize),
             hintText: 'Password',

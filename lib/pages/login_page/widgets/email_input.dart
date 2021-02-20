@@ -24,7 +24,7 @@ class EmailInput extends StatelessWidget {
             suffixIcon: _suffixIcon(state),
             errorText: state.email.invalid ? 'Not valid email address' : null,
           ),
-          onChanged: (value) => BlocProvider.of<LoginFormBloc>(context).add(EmailChanged(value)),
+          onChanged: (value) => BlocProvider.of<LoginFormBloc>(context).add(EmailChanged(value.trim())),
         );
       },
     );

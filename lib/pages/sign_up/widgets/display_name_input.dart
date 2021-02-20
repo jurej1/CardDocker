@@ -24,7 +24,7 @@ class DisplayNameInput extends StatelessWidget {
             hintText: 'Name',
             errorText: state.displayName.invalid ? 'Min 5 characters.' : null,
           ),
-          onChanged: (value) => BlocProvider.of<SignUpFormBloc>(context).add(DisplayNameChanged(value)),
+          onChanged: (value) => BlocProvider.of<SignUpFormBloc>(context).add(DisplayNameChanged(value.trim())),
         );
       },
     );

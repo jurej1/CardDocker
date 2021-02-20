@@ -1,4 +1,7 @@
 import 'package:card_docker/blocs/blocs.dart';
+import 'package:card_docker/pages/login_page/login_page.dart';
+import 'package:card_docker/widgets/or_divider.dart';
+import 'package:card_docker/widgets/switch_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
@@ -20,14 +23,12 @@ class _SignUpViewState extends State<SignUpView> {
     _displayNameFocusNode.addListener(() {
       if (!_displayNameFocusNode.hasFocus) {
         BlocProvider.of<SignUpFormBloc>(context).add(DisplayNameUnfocused());
-        FocusScope.of(context).requestFocus(_emailFocusNode);
       }
     });
 
     _emailFocusNode.addListener(() {
       if (!_emailFocusNode.hasFocus) {
         BlocProvider.of<SignUpFormBloc>(context).add(SignUpEmailUnfocused());
-        FocusScope.of(context).requestFocus(_passwordFocusNode);
       }
     });
 
@@ -51,9 +52,10 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign Up')),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             DisplayNameInput(focusNode: _displayNameFocusNode),
             const SizedBox(height: 4),
@@ -62,6 +64,10 @@ class _SignUpViewState extends State<SignUpView> {
             PasswordInput(focusNode: _passwordFocusNode),
             const SizedBox(height: 20),
             SignUpSubmitButton(),
+            const SizedBox(height: 10),
+            OrDivider(),
+            const SizedBox(height: 10),
+            SwitchView(routeName: LoginPage.routeName, title: 'Log in'),
           ],
         ),
       ),
