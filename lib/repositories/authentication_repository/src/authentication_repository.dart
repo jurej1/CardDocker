@@ -1,9 +1,13 @@
+import 'package:meta/meta.dart';
+
 import 'models/user.dart';
 
 abstract class AuthenticationRepository {
-  Future<void> logInWithEmailAndPassword({String email, String password});
+  Future<void> logInWithEmailAndPassword({@required String email, @required String password});
 
-  Future<void> registerWithEmailAndPassword({String email, String password});
+  Future<void> signUpWithEmailAndPassword({@required String email, @required String password});
+
+  Future<void> updateDisplayName({@required String displayName});
 
   Future<void> authenticateWithGoogle();
 
