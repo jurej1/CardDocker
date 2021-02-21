@@ -1,0 +1,16 @@
+enum CredictCardCompany {
+  visa,
+  mastercard,
+  citibank,
+  chase,
+  americanExspress,
+  capitalOne,
+  bankOfAmerica,
+  discover,
+  synchronyFinancial,
+  barclays,
+  usBank,
+  usaa,
+  pncBank,
+  none,
+}
