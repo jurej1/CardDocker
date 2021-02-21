@@ -15,7 +15,7 @@ class SimpleBlocObserver extends BlocObserver {
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
-    print('Transition: ' + transition.toString());
+    print(transition);
     super.onTransition(bloc, transition);
   }
 }

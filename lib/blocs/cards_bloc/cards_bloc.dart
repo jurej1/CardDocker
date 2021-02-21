@@ -13,21 +13,11 @@ part 'cards_state.dart';
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
   CardsBloc({
     @required FirebaseCredictCardRepository firebaseCredictCardRepository,
-    @required AuthBloc authBloc,
   })  : _firebaseCredictCardRepository = firebaseCredictCardRepository,
-        _authBloc = authBloc,
-        super(CardsLoading()) {
-    _authSubsctiption = _authBloc.listen((state) {
-      if (state is Authenticated) {
-        add(LoadCards(state.user.id));
-      }
-    });
-  }
+        super(CardsLoading());
 
   final FirebaseCredictCardRepository _firebaseCredictCardRepository;
-  final AuthBloc _authBloc;
   StreamSubscription _cardsSubscription;
-  StreamSubscription _authSubsctiption;
 
   @override
   Stream<CardsState> mapEventToState(
@@ -43,8 +33,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
   }
 
   void _mapLoadCardsToState(LoadCards event) {
+    _cardsSubscription?.cancel();
     _cardsSubscription = _firebaseCredictCardRepository.cards(event.userId).listen((cards) {
-      this.add(CardsUpdated(cards));
+      add(CardsUpdated(cards));
     });
   }
 
@@ -58,8 +49,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
   @override
   Future<void> close() {
-    _authSubsctiption.cancel();
-    _cardsSubscription.cancel();
+    _cardsSubscription?.cancel();
     return super.close();
   }
 }

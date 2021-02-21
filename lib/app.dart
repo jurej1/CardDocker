@@ -15,14 +15,13 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(
+          create: (_) => AuthBloc(
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
         BlocProvider<CardsBloc>(
           create: (context) => CardsBloc(
-            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
-            authBloc: BlocProvider.of<AuthBloc>(context),
+            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context)
           ),
         )
       ],
@@ -49,6 +48,7 @@ class _AppView extends StatelessWidget {
           listener: (contex, state) {
             if (state is Authenticated) {
               _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
+              BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
             } else if (state is Unauthenticated) {
               _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
             }
