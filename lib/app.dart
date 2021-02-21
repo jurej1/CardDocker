@@ -1,11 +1,12 @@
-import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
 import 'package:card_docker/pages/sign_up/sign_up_page.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
+import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/blocs.dart';
 import 'pages/splash_page/splash_page.dart';
 
 class App extends StatelessWidget {
@@ -18,6 +19,12 @@ class App extends StatelessWidget {
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
+        BlocProvider<CardsBloc>(
+          create: (context) => CardsBloc(
+            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+            authBloc: BlocProvider.of<AuthBloc>(context),
+          ),
+        )
       ],
       child: _AppView(),
     );
@@ -42,7 +49,6 @@ class _AppView extends StatelessWidget {
           listener: (contex, state) {
             if (state is Authenticated) {
               _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-          
             } else if (state is Unauthenticated) {
               _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
             }
