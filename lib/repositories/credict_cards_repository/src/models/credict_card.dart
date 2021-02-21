@@ -1,7 +1,8 @@
-import 'package:card_docker/repositories/credict_cards_repository/src/entities/credict_card_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
+import 'package:card_docker/repositories/credict_cards_repository/src/entities/credict_card_entity.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/enums/enums.dart';
 
 class CredictCard extends Equatable {
@@ -16,7 +17,7 @@ class CredictCard extends Equatable {
 
   const CredictCard({
     this.id,
-    this.ownerId,
+    @required this.ownerId,
     this.created,
     this.company,
     this.bank,
@@ -52,7 +53,7 @@ class CredictCard extends Equatable {
     );
   }
 
-  CredictCard fromEntity(CredictCardEntity entity) {
+  static CredictCard fromEntity(CredictCardEntity entity) {
     return CredictCard(
       type: entity.type,
       balance: entity.balance,
