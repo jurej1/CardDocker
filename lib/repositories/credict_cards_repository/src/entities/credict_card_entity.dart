@@ -14,7 +14,7 @@ class CredictCardEntity extends Equatable {
   final int number; // only last 4 digits
 
   CredictCardEntity({
-    String id,
+    this.id,
     this.ownerId,
     Timestamp created,
     this.company,
@@ -22,8 +22,7 @@ class CredictCardEntity extends Equatable {
     this.balance,
     this.type,
     this.number,
-  })  : id = id ?? DateTime.now().toString(),
-        created = created ?? Timestamp.now();
+  }) : created = created ?? Timestamp.now();
 
   @override
   List<Object> get props => [id, ownerId, created, company, bank, balance, type, number];
