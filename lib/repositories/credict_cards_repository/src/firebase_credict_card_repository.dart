@@ -4,16 +4,16 @@ import 'package:card_docker/repositories/credict_cards_repository/src/models/cre
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseCredictCardRepository implements CredictCardsRepository {
-  final cardsRef = FirebaseFirestore.instance.collection('credict_cards');
+  final _cardsRef = FirebaseFirestore.instance.collection('credict_cards');
 
   @override
   Future<void> addCredictCard(CredictCard credictCard) {
-    return cardsRef.add(credictCard.toEntity().toDocument());
+    return _cardsRef.add(credictCard.toEntity().toDocument());
   }
 
   @override
   Stream<List<CredictCard>> cards(String userId) {
-    return cardsRef.orderBy('created').where('ownerId', isEqualTo: userId).snapshots().map((snapshot) {
+    return _cardsRef.orderBy('created').where('ownerId', isEqualTo: userId).snapshots().map((snapshot) {
       List<CredictCard> cards = [];
 
       snapshot.docs.forEach((doc) {
@@ -31,11 +31,11 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   @override
   Future<void> deleteCredictCard(CredictCard credictCard) {
-    return cardsRef.doc(credictCard.id).delete();
+    return _cardsRef.doc(credictCard.id).delete();
   }
 
   @override
   Future<void> updateCredictCard(CredictCard credictCard) {
-    return cardsRef.doc(credictCard.id).update(credictCard.toEntity().toDocument());
+    return _cardsRef.doc(credictCard.id).update(credictCard.toEntity().toDocument());
   }
 }
