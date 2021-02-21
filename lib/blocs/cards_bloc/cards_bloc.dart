@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
+import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 
 part 'cards_event.dart';
@@ -11,15 +12,15 @@ part 'cards_state.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
   CardsBloc({
-    FirebaseCredictCardRepository firebaseCredictCardRepository,
-    AuthBloc authBloc,
-  })  : assert(firebaseCredictCardRepository != null),
-        _firebaseCredictCardRepository = firebaseCredictCardRepository,
-        assert(authBloc != null),
+    @required FirebaseCredictCardRepository firebaseCredictCardRepository,
+    @required AuthBloc authBloc,
+  })  : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         _authBloc = authBloc,
         super(CardsLoading()) {
     _authSubsctiption = _authBloc.listen((state) {
-      if (state is Authenticated) add(LoadCards(state.user.id));
+      if (state is Authenticated) {
+        add(LoadCards(state.user.id));
+      }
     });
   }
 
@@ -42,10 +43,9 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
   }
 
   void _mapLoadCardsToState(LoadCards event) {
-    if (_authBloc.state is Authenticated) {
-      _cardsSubscription?.cancel();
-      _cardsSubscription = _firebaseCredictCardRepository.cards(event.userId).listen((cards) => add(CardsUpdated(cards)));
-    }
+    _cardsSubscription = _firebaseCredictCardRepository.cards(event.userId).listen((cards) {
+      this.add(CardsUpdated(cards));
+    });
   }
 
   CardsState _mapCardsUpdatedToState(CardsUpdated event) {
@@ -58,8 +58,8 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
   @override
   Future<void> close() {
-    _authSubsctiption?.cancel();
-    _cardsSubscription?.cancel();
+    _authSubsctiption.cancel();
+    _cardsSubscription.cancel();
     return super.close();
   }
 }

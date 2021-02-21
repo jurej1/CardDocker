@@ -18,22 +18,4 @@ class CardsLoadSuccess extends CardsState {
   List<Object> get props => [cards];
 }
 
-class CardDeletedSuccess extends CardsState {
-  final List<CredictCard> cards;
-
-  const CardDeletedSuccess({this.cards = const []});
-
-  @override
-  List<Object> get props => [cards];
-}
-
-class CardsUpdateFailure extends CardsState {
-  final List<CredictCard> cards;
-
-  const CardsUpdateFailure({this.cards = const []});
-
-  @override
-  List<Object> get props => [cards];
-}
-
 class CardsLoadFailure extends CardsState {}
