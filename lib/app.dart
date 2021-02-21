@@ -57,7 +57,6 @@ class _AppView extends StatelessWidget {
         );
       },
       initialRoute: SplashPage.routeName,
-      home: SignUpPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
