@@ -1,3 +1,4 @@
+import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
 import 'package:card_docker/pages/sign_up/sign_up_page.dart';
@@ -60,6 +61,7 @@ class _AppView extends StatelessWidget {
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),
+        AddCredictCardPage.routeName: (context) => AddCredictCardPage(),
       },
     );
   }
