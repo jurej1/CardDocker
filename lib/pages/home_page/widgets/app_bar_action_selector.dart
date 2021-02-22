@@ -11,6 +11,7 @@ class ActionSelector extends StatelessWidget {
         return Action.values.map((action) {
           return PopupMenuItem<Action>(
             child: Text(_actionText(action)),
+            value: action,
           );
         }).toList();
       },
