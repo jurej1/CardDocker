@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/src/entities/credict_card_entity.dart';
@@ -10,46 +11,35 @@ class CredictCard extends Equatable {
   final String ownerId;
   final Timestamp created;
   final CredictCardCompany company;
-  final String bank;
   final double balance;
   final CredictCardType type;
-  final int number;
+  final String note;
+  final Color color;
 
   const CredictCard({
     this.id,
     @required this.ownerId,
     this.created,
     this.company,
-    this.bank,
     this.balance,
     this.type,
-    this.number,
+    @required this.note,
+    this.color,
   });
 
   @override
-  List<Object> get props {
-    return [
-      id,
-      ownerId,
-      created,
-      company,
-      bank,
-      balance,
-      type,
-      number,
-    ];
-  }
+  List<Object> get props => [id, ownerId, created, company, balance, type, note, color];
 
   CredictCardEntity toEntity() {
     return CredictCardEntity(
       balance: balance,
-      bank: bank,
       company: company,
       created: created,
       id: id,
-      number: number,
       ownerId: ownerId,
       type: type,
+      note: note,
+      color: color,
     );
   }
 
@@ -57,12 +47,34 @@ class CredictCard extends Equatable {
     return CredictCard(
       type: entity.type,
       balance: entity.balance,
-      bank: entity.bank,
       company: entity.company,
       created: entity.created,
       id: entity.id,
-      number: entity.number,
       ownerId: entity.ownerId,
+      color: entity.color,
+      note: entity.note,
+    );
+  }
+
+  CredictCard copyWith({
+    String id,
+    String ownerId,
+    Timestamp created,
+    CredictCardCompany company,
+    double balance,
+    CredictCardType type,
+    String note,
+    Color color,
+  }) {
+    return CredictCard(
+      id: id ?? this.id,
+      ownerId: ownerId ?? this.ownerId,
+      created: created ?? this.created,
+      company: company ?? this.company,
+      balance: balance ?? this.balance,
+      type: type ?? this.type,
+      note: note ?? this.note,
+      color: color ?? this.color,
     );
   }
 }

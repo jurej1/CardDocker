@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         builder: (context, state) {
           if (state is CardsLoading) {
             return Center(
-              child: Text('Loading'),
+              child: CircularProgressIndicator(),
             );
           } else if (state is CardsLoadFailure) {
             return Center(
@@ -39,5 +39,31 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+enum _Action { logout, addCard }
+
+class _ActionSelector extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<_Action>(
+      itemBuilder: (context) {
+        return _Action.values.map((action) {
+          return PopupMenuItem<_Action>(
+            child: Text(_actionText(action)),
+          );
+        }).toList();
+      },
+    );
+  }
+
+  String _actionText(_Action action) {
+    if (action == _Action.addCard) {
+      return 'Add card';
+    } else if (action == _Action.logout) {
+      return 'Logout';
+    }
+    return '';
   }
 }
