@@ -14,11 +14,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home page'),
         actions: [
-          FlatButton(
-            child: Text('Logout'),
-            textColor: Colors.white,
-            onPressed: () => BlocProvider.of<AuthBloc>(context).add(LogoutRequested()),
-          ),
+          ActionSelector(),
         ],
       ),
       body: BlocBuilder<CardsBloc, CardsState>(
@@ -39,31 +35,5 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-enum _Action { logout, addCard }
-
-class _ActionSelector extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<_Action>(
-      itemBuilder: (context) {
-        return _Action.values.map((action) {
-          return PopupMenuItem<_Action>(
-            child: Text(_actionText(action)),
-          );
-        }).toList();
-      },
-    );
-  }
-
-  String _actionText(_Action action) {
-    if (action == _Action.addCard) {
-      return 'Add card';
-    } else if (action == _Action.logout) {
-      return 'Logout';
-    }
-    return '';
   }
 }
