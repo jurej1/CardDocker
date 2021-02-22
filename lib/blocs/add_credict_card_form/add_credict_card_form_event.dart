@@ -53,3 +53,5 @@ class CredictCardColorChanged extends AddCredictCardFormEvent {
   @override
   List<Object> get props => [color];
 }
+
+class CrediCardFormSubmit extends AddCredictCardFormEvent {}

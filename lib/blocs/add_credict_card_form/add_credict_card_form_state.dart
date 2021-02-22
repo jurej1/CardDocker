@@ -2,12 +2,12 @@ part of 'add_credict_card_form_bloc.dart';
 
 class AddCredictCardFormState extends Equatable {
   const AddCredictCardFormState({
-    this.status,
-    this.company,
-    this.balance,
-    this.type,
-    this.note,
-    this.color,
+    this.status = FormzStatus.pure,
+    this.company = CredictCardCompany.none,
+    this.balance = const Balance.pure(),
+    this.type = CredictCardType.none,
+    this.note = const Note.pure(),
+    this.color = Colors.red,
   });
 
   final FormzStatus status;
