@@ -42,20 +42,21 @@ class _AppView extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       )),
       navigatorKey: _navigator,
-      builder: (context, child) {
-        return BlocListener<AuthBloc, AuthState>(
-          listener: (contex, state) {
-            if (state is Authenticated) {
-              BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
-              _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-            } else if (state is Unauthenticated) {
-              _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
-            }
-          },
-          child: child,
-        );
-      },
-      initialRoute: SplashPage.routeName,
+      // builder: (context, child) {
+      //   return BlocListener<AuthBloc, AuthState>(
+      //     listener: (contex, state) {
+      //       if (state is Authenticated) {
+      //         BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
+      //         _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
+      //       } else if (state is Unauthenticated) {
+      //         _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
+      //       }
+      //     },
+      //     child: child,
+      //   );
+      // },
+      // initialRoute: SplashPage.routeName,
+      home: AddCredictCardPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
