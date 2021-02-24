@@ -28,6 +28,6 @@ String credictCardCompanyName(CredictCardCompany company) {
   } else if (company == CredictCardCompany.visa) {
     return 'Visa';
   } else {
-    return 'none';
+    return 'None';
   }
 }
