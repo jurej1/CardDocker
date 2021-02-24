@@ -1,11 +1,13 @@
-import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
+import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
 import 'package:card_docker/pages/sign_up/sign_up_page.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
+import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'blocs/blocs.dart';
 import 'pages/splash_page/splash_page.dart';
 
 class App extends StatelessWidget {
@@ -14,10 +16,13 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(
+          create: (_) => AuthBloc(
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
+        BlocProvider<CardsBloc>(
+          create: (context) => CardsBloc(firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context)),
+        )
       ],
       child: _AppView(),
     );
@@ -33,16 +38,17 @@ class _AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      )),
+        buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
       navigatorKey: _navigator,
       builder: (context, child) {
         return BlocListener<AuthBloc, AuthState>(
           listener: (contex, state) {
             if (state is Authenticated) {
+              BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
               _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-          
             } else if (state is Unauthenticated) {
               _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
             }
@@ -51,12 +57,13 @@ class _AppView extends StatelessWidget {
         );
       },
       initialRoute: SplashPage.routeName,
-      home: SignUpPage(),
+      // home: AddCredictCardPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),
+        AddCredictCardPage.routeName: (context) => AddCredictCardPage(),
       },
     );
   }
