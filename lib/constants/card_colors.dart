@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CardColors {
+  const CardColors();
+
   static final purple100 = Colors.purple[100];
   static final purple300 = Colors.purple[300];
   static final pink100 = Colors.pink[100];
