@@ -1,1 +1,1 @@
-export 'transactions_enum.dart';
+export 'transactions_purpose.dart';
