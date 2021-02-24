@@ -98,7 +98,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
         final credictCard = CredictCard(
           note: state.note.value,
           ownerId: (_authCubit.state as Authenticated).user.id,
-          balance: num.parse(state.balance.value),
+          balance: double.parse(state.balance.value),
           color: state.color,
           company: state.company,
           type: state.type,

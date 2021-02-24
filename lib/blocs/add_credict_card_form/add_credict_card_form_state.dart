@@ -11,12 +11,6 @@ class AddCredictCardFormState extends Equatable {
     this.color,
   });
 
-  final FormzStatus status;
-  final CredictCardCompany company;
-  final Balance balance;
-  final CredictCardType type;
-  final Note note;
-  final Color color;
   static AddCredictCardFormState initial() {
     return AddCredictCardFormState(
       balance: const Balance.pure(),
@@ -27,6 +21,13 @@ class AddCredictCardFormState extends Equatable {
       type: CredictCardType.none,
     );
   }
+
+  final FormzStatus status;
+  final CredictCardCompany company;
+  final Balance balance;
+  final CredictCardType type;
+  final Note note;
+  final Color color;
 
   @override
   List<Object> get props => [status, company, balance, type, note, color];
