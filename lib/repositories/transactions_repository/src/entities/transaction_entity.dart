@@ -14,7 +14,7 @@ class TransactionEntity extends Equatable {
   final String connectedTo; // credict card Id
   final Timestamp created;
 
-  const TransactionEntity({
+  TransactionEntity({
     this.id,
     this.ownerId,
     this.note,
@@ -22,8 +22,8 @@ class TransactionEntity extends Equatable {
     this.purpose,
     this.amount,
     this.connectedTo,
-    this.created,
-  });
+    Timestamp created,
+  }) : created = created ?? Timestamp.now();
 
   @override
   List<Object> get props {
@@ -80,7 +80,7 @@ class TransactionEntity extends Equatable {
     );
   }
 
-   Map<String, dynamic> toDocument() {
+  Map<String, dynamic> toDocument() {
     return {
       'ownerId': ownerId,
       'note': note,

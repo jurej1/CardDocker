@@ -1,0 +1,89 @@
+import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+
+import 'package:card_docker/repositories/transactions_repository/src/enums/enums.dart';
+
+class Transaction extends Equatable {
+  final String id;
+  final String ownerId;
+  final String note;
+  final String title;
+  final TransactionPurpose purpose;
+  final num amount;
+  final String connectedTo; // credict card Id
+  final Timestamp created;
+
+  const Transaction({
+    this.id,
+    this.ownerId,
+    this.note,
+    this.title,
+    this.purpose,
+    this.amount,
+    this.connectedTo,
+    this.created,
+  });
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      ownerId,
+      note,
+      title,
+      purpose,
+      amount,
+      connectedTo,
+      created,
+    ];
+  }
+
+  Transaction copyWith({
+    String id,
+    String ownerId,
+    String note,
+    String title,
+    TransactionPurpose purpose,
+    num amount,
+    String connectedTo,
+    Timestamp created,
+  }) {
+    return Transaction(
+      id: id ?? this.id,
+      ownerId: ownerId ?? this.ownerId,
+      note: note ?? this.note,
+      title: title ?? this.title,
+      purpose: purpose ?? this.purpose,
+      amount: amount ?? this.amount,
+      connectedTo: connectedTo ?? this.connectedTo,
+      created: created ?? this.created,
+    );
+  }
+
+  TransactionEntity toEntity() {
+    return TransactionEntity(
+      amount: amount,
+      connectedTo: connectedTo,
+      created: created,
+      id: id,
+      note: note,
+      ownerId: ownerId,
+      purpose: purpose,
+      title: title,
+    );
+  }
+
+  factory Transaction.fromEntity(TransactionEntity entity) {
+    return Transaction(
+      amount: entity.amount,
+      connectedTo: entity.connectedTo,
+      created: entity.created,
+      id: entity.id,
+      note: entity.note,
+      ownerId: entity.ownerId,
+      purpose: entity.purpose,
+      title: entity.title,
+    );
+  }
+}
