@@ -107,7 +107,8 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
         await _firebaseCredictCardRepository.addCredictCard(credictCard);
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
-      } on Exception {
+      } catch (error) {
+        print(error.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

@@ -15,7 +15,7 @@ String credictCardCompanyName(CredictCardCompany company) {
     return 'Citibank';
   } else if (company == CredictCardCompany.discover) {
     return 'Discover';
-  } else if (company == CredictCardCompany.mastercard) {
+  } else if (company == CredictCardCompany.masterCard) {
     return 'MasterCard';
   } else if (company == CredictCardCompany.none) {
     return 'none';

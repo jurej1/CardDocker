@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/src/enums/enums.dart';
+import 'package:flutter/foundation.dart';
 
 class CredictCardEntity extends Equatable {
   final String id;
@@ -63,10 +64,10 @@ class CredictCardEntity extends Equatable {
     return {
       'ownerId': ownerId,
       'created': created,
-      'company': company,
+      'company': describeEnum(company),
       'balance': balance,
-      'type': type,
-      'color': color,
+      'type': describeEnum(type),
+      'color': color.value,
       'note': note,
     };
   }
@@ -76,13 +77,13 @@ class CredictCardEntity extends Equatable {
 
     return CredictCardEntity(
       balance: data['balance'],
-      company: data['company'],
       created: data['created'],
       id: snap.id,
       ownerId: data['ownerId'],
-      type: data['type'],
-      color: data['color'],
+      color: Color(data['color']),
       note: data['note'],
+      type: stringToCredictCardType(data['type']),
+      company: stringToCredictCardCompany(data['company']),
     );
   }
 
