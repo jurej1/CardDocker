@@ -80,7 +80,7 @@ class CredictCardEntity extends Equatable {
       created: data['created'],
       id: snap.id,
       ownerId: data['ownerId'],
-      color: Color(data['color']),
+       color: Color(data['color']),
       note: data['note'],
       type: stringToCredictCardType(data['type']),
       company: stringToCredictCardCompany(data['company']),
