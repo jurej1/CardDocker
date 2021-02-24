@@ -25,8 +25,15 @@ class CompanySelector extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Company:'),
-              Text(credictCardCompanyName(state.company)),
+              Text('Company'),
+              Text(
+                credictCardCompanyName(state.company),
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
         );
@@ -38,14 +45,13 @@ class CompanySelector extends StatelessWidget {
     return BottomSheetGround(
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         itemCount: CredictCardCompany.values.length,
         itemBuilder: (context, index) {
           final company = CredictCardCompany.values[index];
 
           return ListTile(
             selected: company == selectedCompany,
-            contentPadding: EdgeInsets.zero,
             title: Text(credictCardCompanyName(company)),
             onTap: () => Navigator.of(context).pop(company),
           );

@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/add_credict_card_form/add_credict_card_form_bloc.dart';
+import 'package:card_docker/functions/credict_card_type_name.dart';
 import 'package:card_docker/pages/add_credict_card/widgets/bottom_sheet_ground.dart';
 import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
@@ -25,8 +26,15 @@ class TypeSelector extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Type:'),
               Text('Type'),
+              Text(
+                credictCardTypeName(state.type),
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
         );
@@ -37,11 +45,13 @@ class TypeSelector extends StatelessWidget {
   Widget _typeSelectorBottomSheet(CredictCardType currentType) {
     return BottomSheetGround(
       child: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 10),
         physics: const BouncingScrollPhysics(),
         itemCount: CredictCardType.values.length,
         itemBuilder: (context, index) {
           final type = CredictCardType.values[index];
           return ListTile(
+            title: Text(credictCardTypeName(type)),
             selected: type == currentType,
             onTap: () => Navigator.of(context).pop(type),
           );
