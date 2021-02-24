@@ -27,5 +27,7 @@ String credictCardCompanyName(CredictCardCompany company) {
     return 'U.S. Bank';
   } else if (company == CredictCardCompany.visa) {
     return 'Visa';
+  } else {
+    return 'none';
   }
 }
