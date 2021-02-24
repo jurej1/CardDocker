@@ -33,6 +33,8 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
           CompanySelector(),
           const SizedBox(height: 13),
           TypeSelector(),
+          const SizedBox(height: 13),
+          ColorSelector(),
         ],
       ),
     );
