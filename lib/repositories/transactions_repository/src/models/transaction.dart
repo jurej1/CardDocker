@@ -11,7 +11,7 @@ class Transaction extends Equatable {
   final String title;
   final TransactionPurpose purpose;
   final num amount;
-  final String connectedTo; // credict card Id
+  final String cardId; // credict card Id
   final Timestamp created;
 
   const Transaction({
@@ -21,7 +21,7 @@ class Transaction extends Equatable {
     this.title,
     this.purpose,
     this.amount,
-    this.connectedTo,
+    this.cardId,
     this.created,
   });
 
@@ -34,7 +34,7 @@ class Transaction extends Equatable {
       title,
       purpose,
       amount,
-      connectedTo,
+      cardId,
       created,
     ];
   }
@@ -46,7 +46,7 @@ class Transaction extends Equatable {
     String title,
     TransactionPurpose purpose,
     num amount,
-    String connectedTo,
+    String cardId,
     Timestamp created,
   }) {
     return Transaction(
@@ -56,7 +56,7 @@ class Transaction extends Equatable {
       title: title ?? this.title,
       purpose: purpose ?? this.purpose,
       amount: amount ?? this.amount,
-      connectedTo: connectedTo ?? this.connectedTo,
+      cardId: cardId ?? this.cardId,
       created: created ?? this.created,
     );
   }
@@ -64,7 +64,7 @@ class Transaction extends Equatable {
   TransactionEntity toEntity() {
     return TransactionEntity(
       amount: amount,
-      connectedTo: connectedTo,
+      cardId: cardId,
       created: created,
       id: id,
       note: note,
@@ -77,7 +77,7 @@ class Transaction extends Equatable {
   factory Transaction.fromEntity(TransactionEntity entity) {
     return Transaction(
       amount: entity.amount,
-      connectedTo: entity.connectedTo,
+      cardId: entity.cardId,
       created: entity.created,
       id: entity.id,
       note: entity.note,

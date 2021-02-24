@@ -11,7 +11,7 @@ class TransactionEntity extends Equatable {
   final String title;
   final TransactionPurpose purpose;
   final num amount;
-  final String connectedTo; // credict card Id
+  final String cardId; // credict card Id
   final Timestamp created;
 
   TransactionEntity({
@@ -21,7 +21,7 @@ class TransactionEntity extends Equatable {
     this.title,
     this.purpose,
     this.amount,
-    this.connectedTo,
+    this.cardId,
     Timestamp created,
   }) : created = created ?? Timestamp.now();
 
@@ -34,7 +34,7 @@ class TransactionEntity extends Equatable {
       title,
       purpose,
       amount,
-      connectedTo,
+      cardId,
       created,
     ];
   }
@@ -47,7 +47,7 @@ class TransactionEntity extends Equatable {
       'title': title,
       'purpose': describeEnum(purpose),
       'amount': amount,
-      'connectedTo': connectedTo,
+      'cardId': cardId,
       'created': created,
     };
   }
@@ -55,7 +55,7 @@ class TransactionEntity extends Equatable {
   factory TransactionEntity.fromJson(Map<String, Object> data) {
     return TransactionEntity(
       amount: data['amount'],
-      connectedTo: data['connectedTo'],
+      cardId: data['cardId'],
       created: data['created'],
       id: data['id'],
       note: data['note'],
@@ -70,7 +70,7 @@ class TransactionEntity extends Equatable {
 
     return TransactionEntity(
       amount: data['amount'],
-      connectedTo: data['connectedTo'],
+      cardId: data['cardId'],
       created: data['created'],
       id: snap.id,
       note: data['note'],
@@ -87,7 +87,7 @@ class TransactionEntity extends Equatable {
       'title': title,
       'purpose': describeEnum(purpose),
       'amount': amount,
-      'connectedTo': connectedTo,
+      'cardId': cardId,
       'created': created,
     };
   }
