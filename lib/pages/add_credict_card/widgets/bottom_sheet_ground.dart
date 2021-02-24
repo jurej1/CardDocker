@@ -12,6 +12,7 @@ class BottomSheetGround extends StatelessWidget {
       height: height,
       child: Column(
         children: [
+          const SizedBox(height: 15),
           Container(
             height: 10,
             width: size.width * 0.12,
@@ -20,7 +21,7 @@ class BottomSheetGround extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 15),
           Expanded(
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
