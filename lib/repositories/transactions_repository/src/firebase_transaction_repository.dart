@@ -33,7 +33,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
         });
         return transactions;
       }
-    }).;
+    });
   }
 
   @override
