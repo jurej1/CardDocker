@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_docker/constants/card_colors.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
@@ -16,7 +17,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
   AddCredictCardFormBloc({@required FirebaseCredictCardRepository firebaseCredictCardRepository, @required AuthBloc authBloc})
       : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         _authCubit = authBloc,
-        super(AddCredictCardFormState());
+        super(AddCredictCardFormState.initial());
 
   final FirebaseCredictCardRepository _firebaseCredictCardRepository;
   final AuthBloc _authCubit;

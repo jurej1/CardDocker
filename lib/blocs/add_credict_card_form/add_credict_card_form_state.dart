@@ -1,13 +1,14 @@
 part of 'add_credict_card_form_bloc.dart';
 
+@immutable
 class AddCredictCardFormState extends Equatable {
   const AddCredictCardFormState({
-    this.status = FormzStatus.pure,
-    this.company = CredictCardCompany.none,
-    this.balance = const Balance.pure(),
-    this.type = CredictCardType.none,
-    this.note = const Note.pure(),
-    this.color = Colors.red,
+    this.status,
+    this.company,
+    this.balance,
+    this.type,
+    this.note,
+    this.color,
   });
 
   final FormzStatus status;
@@ -16,6 +17,16 @@ class AddCredictCardFormState extends Equatable {
   final CredictCardType type;
   final Note note;
   final Color color;
+  static AddCredictCardFormState initial() {
+    return AddCredictCardFormState(
+      balance: const Balance.pure(),
+      color: CardColors.blue300,
+      company: CredictCardCompany.none,
+      note: const Note.pure(),
+      status: FormzStatus.pure,
+      type: CredictCardType.none,
+    );
+  }
 
   @override
   List<Object> get props => [status, company, balance, type, note, color];
