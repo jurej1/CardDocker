@@ -7,7 +7,7 @@ class BottomSheetGround extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final height = size.height * 0.6;
+    final height = size.height * 0.7;
     return Container(
       height: height,
       child: Column(

@@ -14,11 +14,12 @@ class BalanceInput extends StatelessWidget {
         return TextFormField(
           initialValue: state.balance.value,
           focusNode: focusNode,
+          keyboardType: TextInputType.number,
           autocorrect: false,
           onChanged: (value) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardBalanceChanged(value)),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Balnace',
+            labelText: 'Balance',
             helperText: 'The initial value. Exp \$100',
             errorText: state.balance.invalid ? 'Balance must be specified.' : null,
           ),

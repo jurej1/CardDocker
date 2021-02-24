@@ -1,5 +1,7 @@
+import 'package:card_docker/blocs/add_credict_card_form/add_credict_card_form_bloc.dart';
 import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddCredictCardView extends StatefulWidget {
   @override
@@ -21,9 +23,17 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add credict card'),
+        title: const Text('Add credict card'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.check),
+            color: Colors.white,
+            onPressed: () => BlocProvider.of<AddCredictCardFormBloc>(context).add(CrediCardFormSubmit()),
+          ),
+        ],
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(20),
         children: [
           NoteInput(focusNode: _noteFocusNode),

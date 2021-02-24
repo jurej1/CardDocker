@@ -17,5 +17,7 @@ String credictCardTypeName(CredictCardType type) {
     return 'Rewards Card';
   } else if (type == CredictCardType.students) {
     return 'Students Card';
+  } else {
+    return 'None';
   }
 }

@@ -54,6 +54,15 @@ class ColorSelector extends StatelessWidget {
               CardColors.colorName(colors[index]),
             ),
             onTap: () => Navigator.of(context).pop(colors[index]),
+            trailing: Container(
+              height: 30,
+              width: 35,
+              decoration: BoxDecoration(
+                color: colors[index],
+                border: Border.all(color: Colors.black45, width: 1),
+                borderRadius: BorderRadius.circular(8)
+              ),
+            ),
           );
         },
       ),

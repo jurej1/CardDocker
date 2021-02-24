@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 
 part 'cards_event.dart';
