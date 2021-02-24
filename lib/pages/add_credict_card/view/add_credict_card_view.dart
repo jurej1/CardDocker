@@ -1,4 +1,3 @@
-import 'package:card_docker/pages/add_credict_card/widgets/company_selector.dart';
 import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -28,8 +27,12 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
         padding: const EdgeInsets.all(20),
         children: [
           NoteInput(focusNode: _noteFocusNode),
+          const SizedBox(height: 13),
           BalanceInput(focusNode: _focusNode),
+          const SizedBox(height: 13),
           CompanySelector(),
+          const SizedBox(height: 13),
+          TypeSelector(),
         ],
       ),
     );
