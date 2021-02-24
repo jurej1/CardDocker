@@ -1,19 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as fb;
+import 'package:meta/meta.dart';
+
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
 import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 
 class FirebaseTransactionsRepository implements TransactionsRepository {
   final _transactionsRef = fb.FirebaseFirestore.instance.collection('transaction');
+  final _cardsRef = fb.FirebaseFirestore.instance.collection('credict_cards');
 
   @override
   Future<void> addTransaction(Transaction transaction) async {
-    return _transactionsRef.add(transaction.toEntity().toDocument());
+    try {
+      await _transactionsRef.add(transaction.toEntity().toDocument());
+      if (transaction.cardId != null) {
+        await _cardsRef.doc(transaction.cardId).update({
+          'balance': fb.FieldValue.increment(transaction.amount),
+        });
+      }
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
-  Future<void> deleteTransaction(Transaction transaction) {
-    return _transactionsRef.doc(transaction.id).delete();
+  Future<void> deleteTransaction(Transaction transaction) async {
+    try {
+      await _transactionsRef.doc(transaction.id).delete();
+      if (transaction.cardId != null) {
+        await _cardsRef.doc(transaction.cardId).update(
+          {
+            'balance': fb.FieldValue.increment(transaction.amount),
+          },
+        );
+      }
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
@@ -37,7 +60,19 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   }
 
   @override
-  Future<void> updateTransaction(Transaction transaction) {
-    return _transactionsRef.doc(transaction.id).update(transaction.toEntity().toDocument());
+  Future<void> updateTransaction({@required Transaction transaction, @required Transaction oldTransaction}) async {
+    try {
+      await _transactionsRef.doc(transaction.id).update(transaction.toEntity().toDocument());
+
+      if (transaction.amount != oldTransaction.amount) {
+        final diff = transaction.amount - oldTransaction.amount;
+
+        await _cardsRef.doc(transaction.cardId).update({
+          'balance': fb.FieldValue.increment(diff),
+        });
+      }
+    } catch (e) {
+      throw e;
+    }
   }
 }

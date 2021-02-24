@@ -5,7 +5,7 @@ abstract class TransactionsRepository {
 
   Future<void> deleteTransaction(Transaction transaction);
 
-  Future<void> updateTransaction(Transaction transaction);
+  Future<void> updateTransaction({Transaction transaction, Transaction oldTransaction});
 
   Stream<List<Transaction>> getTransactions(String userId);
 }
