@@ -1,5 +1,6 @@
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
+import 'package:card_docker/pages/add_transaction/add_transaction_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,9 +23,8 @@ class ActionSelector extends StatelessWidget {
           Navigator.of(context).pushNamed(AddCredictCardPage.routeName);
         } else if (actionSelected == Action.logout) {
           BlocProvider.of<AuthBloc>(context).add(LogoutRequested());
-        } else if(actionSelected == Action.addTransaction)
-        {
-          //TODO
+        } else if (actionSelected == Action.addTransaction) {
+          Navigator.of(context).pushNamed(AddTransactionPage.routeName);
         }
       },
     );
