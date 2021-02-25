@@ -11,7 +11,7 @@ class Transaction extends Equatable {
   final String title;
   final TransactionPurpose purpose;
   final num amount;
-  final String cardId; // credict card Id
+  final String cardId;
   final Timestamp created;
 
   const Transaction({
