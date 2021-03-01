@@ -6,8 +6,8 @@ import 'package:meta/meta.dart';
 
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 
-part 'transactions_bloc_event.dart';
-part 'transactions_bloc_state.dart';
+part 'transactions_event.dart';
+part 'transactions_state.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
   TransactionsBloc({@required FirebaseTransactionsRepository firebaseTransactionsRepository})
