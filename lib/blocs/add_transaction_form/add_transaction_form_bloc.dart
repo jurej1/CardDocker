@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
 
+import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/models/models.dart';
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 
@@ -12,11 +13,13 @@ part 'add_transaction_form_event.dart';
 part 'add_transaction_form_state.dart';
 
 class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactionFormState> {
-  AddTransactionFormBloc({@required FirebaseTransactionsRepository firebaseTransactionsRepository})
+  AddTransactionFormBloc({@required FirebaseTransactionsRepository firebaseTransactionsRepository, @required AuthBloc authBloc})
       : _firebaseTransactionsRepository = firebaseTransactionsRepository,
+        _authBloc = authBloc,
         super(AddTransactionFormState.initial());
 
   final FirebaseTransactionsRepository _firebaseTransactionsRepository;
+  final AuthBloc _authBloc;
 
   @override
   Stream<AddTransactionFormState> mapEventToState(
@@ -111,6 +114,19 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
       yield state.copyWith(status: FormzStatus.submissionInProgress);
 
       try {
+        final user = (_authBloc.state as Authenticated).user;
+
+        Transaction transaction = Transaction(
+          amount: num.parse(state.amount.value),
+          cardId: state.cardId.value,
+          note: state.note.value ?? null,
+          ownerId: user.id,
+          title: state.title.value,
+          purpose: state.purpose,
+        );
+
+        await _firebaseTransactionsRepository.addTransaction(transaction);
+
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } catch (error) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
