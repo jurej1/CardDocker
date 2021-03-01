@@ -2,7 +2,7 @@ part of 'add_transaction_form_bloc.dart';
 
 class AddTransactionFormState extends Equatable {
   final TransactionPurpose purpose;
-  final Amount balance;
+  final Amount amount;
   final CardId cardId;
   final Title title;
   final Note note;
@@ -10,7 +10,7 @@ class AddTransactionFormState extends Equatable {
 
   const AddTransactionFormState({
     this.purpose,
-    this.balance,
+    this.amount,
     this.cardId,
     this.title,
     this.note,
@@ -19,19 +19,20 @@ class AddTransactionFormState extends Equatable {
 
   factory AddTransactionFormState.initial() {
     return AddTransactionFormState(
-        balance: Amount.pure(),
-        cardId: CardId.pure(),
-        note: Note.pure(),
-        purpose: TransactionPurpose.none,
-        title: Title.pure(),
-        status: FormzStatus.pure);
+      amount: Amount.pure(),
+      cardId: CardId.pure(),
+      note: Note.pure(),
+      purpose: TransactionPurpose.none,
+      title: Title.pure(),
+      status: FormzStatus.pure,
+    );
   }
 
   @override
   List<Object> get props {
     return [
       purpose,
-      balance,
+      amount,
       cardId,
       title,
       note,
@@ -41,7 +42,7 @@ class AddTransactionFormState extends Equatable {
 
   AddTransactionFormState copyWith({
     TransactionPurpose purpose,
-    Amount balance,
+    Amount amount,
     CardId cardId,
     Title title,
     Note note,
@@ -49,7 +50,7 @@ class AddTransactionFormState extends Equatable {
   }) {
     return AddTransactionFormState(
       purpose: purpose ?? this.purpose,
-      balance: balance ?? this.balance,
+      amount: amount ?? this.amount,
       cardId: cardId ?? this.cardId,
       title: title ?? this.title,
       note: note ?? this.note,

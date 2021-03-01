@@ -42,20 +42,20 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
   }
 
   AddTransactionFormState _mapTransactionAmountChangedToState(TransactionAmountChanged event) {
-    final balance = Amount.dirty(event.value);
+    final amount = Amount.dirty(event.value);
 
     return state.copyWith(
-      balance: balance.valid ? balance : Amount.pure(event.value),
-      status: Formz.validate([balance, state.title, state.cardId]),
+      amount: amount.valid ? amount : Amount.pure(event.value),
+      status: Formz.validate([amount, state.title, state.cardId]),
     );
   }
 
   AddTransactionFormState _mapTransactionAmountUnfocusedToState() {
-    final balance = Amount.dirty(state.balance.value);
+    final amount = Amount.dirty(state.amount.value);
 
     return state.copyWith(
-      balance: balance,
-      status: Formz.validate([balance, state.title, state.cardId]),
+      amount: amount,
+      status: Formz.validate([amount, state.title, state.cardId]),
     );
   }
 
@@ -64,7 +64,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       cardId: cardId,
-      status: Formz.validate([state.balance, state.title, cardId]),
+      status: Formz.validate([state.amount, state.title, cardId]),
     );
   }
 
@@ -72,7 +72,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
     final title = Title.dirty(event.value);
 
     return state.copyWith(
-      status: Formz.validate([state.balance, title, state.cardId]),
+      status: Formz.validate([state.amount, title, state.cardId]),
       title: title.valid ? title : Title.pure(event.value),
     );
   }
@@ -82,7 +82,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       title: title,
-      status: Formz.validate([state.balance, title, state.cardId]),
+      status: Formz.validate([state.amount, title, state.cardId]),
     );
   }
 
@@ -91,28 +91,26 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       note: note,
-      status: Formz.validate([state.balance, state.title, state.cardId]),
+      status: Formz.validate([state.amount, state.title, state.cardId]),
     );
   }
 
   Stream<AddTransactionFormState> _mapTransactionSubmitFormToState() async* {
-    final balance = Amount.dirty(state.balance.value);
+    final amount = Amount.dirty(state.amount.value);
     final title = Title.dirty(state.title.value);
     final cardId = CardId.dirty(state.cardId.value);
 
     yield state.copyWith(
-      balance: balance,
+      amount: amount,
       cardId: cardId,
       title: title,
-      status: Formz.validate([balance, title, cardId]),
+      status: Formz.validate([amount, title, cardId]),
     );
 
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
 
       try {
-        Transaction transaction = Transaction(amount: state.balance.value);
-
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } catch (error) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
