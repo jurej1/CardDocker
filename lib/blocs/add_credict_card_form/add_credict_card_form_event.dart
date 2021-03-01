@@ -16,16 +16,16 @@ class CredictCardCompanyChanged extends AddCredictCardFormEvent {
   List<Object> get props => [props];
 }
 
-class CredictCardBalanceChanged extends AddCredictCardFormEvent {
+class CredictCardAmountChanged extends AddCredictCardFormEvent {
   final String value;
 
-  const CredictCardBalanceChanged(this.value);
+  const CredictCardAmountChanged(this.value);
 
   @override
   List<Object> get props => [value];
 }
 
-class CredictCardBalanceUnfocused extends AddCredictCardFormEvent {}
+class CredictCardAmountUnfocused extends AddCredictCardFormEvent {}
 
 class CredictCardTypeChanged extends AddCredictCardFormEvent {
   final CredictCardType type;

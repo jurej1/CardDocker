@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:card_docker/blocs/blocs.dart';
 
-class BalanceInput extends StatelessWidget {
+class AmountInput extends StatelessWidget {
   final FocusNode focusNode;
 
-  const BalanceInput({Key key, @required this.focusNode}) : super(key: key);
+  const AmountInput({Key key, @required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,12 @@ class BalanceInput extends StatelessWidget {
           focusNode: focusNode,
           keyboardType: TextInputType.number,
           autocorrect: false,
-          onChanged: (value) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardBalanceChanged(value)),
+          onChanged: (value) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardAmountChanged(value)),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Balance',
+            labelText: 'Amount',
             helperText: 'The initial value. Exp \$100',
-            errorText: state.balance.invalid ? 'Balance must be specified.' : null,
+            errorText: state.balance.invalid ? 'Amount must be specified.' : null,
           ),
         );
       },

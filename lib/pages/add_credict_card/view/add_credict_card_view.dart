@@ -38,7 +38,7 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
         children: [
           NoteInput(focusNode: _noteFocusNode),
           const SizedBox(height: 13),
-          BalanceInput(focusNode: _focusNode),
+          AmountInput(focusNode: _focusNode),
           const SizedBox(height: 13),
           CompanySelector(),
           const SizedBox(height: 13),

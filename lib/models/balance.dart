@@ -1,20 +1,20 @@
 import 'package:formz/formz.dart';
 
-enum BalanceValidationError { invalid }
+enum AmountValidationError { invalid }
 
-class Balance extends FormzInput<String, BalanceValidationError> {
-  const Balance.pure([String value = '']) : super.pure(value);
-  const Balance.dirty([String value = '']) : super.dirty(value);
+class Amount extends FormzInput<String, AmountValidationError> {
+  const Amount.pure([String value = '']) : super.pure(value);
+  const Amount.dirty([String value = '']) : super.dirty(value);
 
   @override
-  BalanceValidationError validator(String value) {
+  AmountValidationError validator(String value) {
     if (value == null || value.isEmpty) {
-      return BalanceValidationError.invalid;
+      return AmountValidationError.invalid;
     } else if (num.parse(value, (error) {
           return null;
         }) ==
         null) {
-      return BalanceValidationError.invalid;
+      return AmountValidationError.invalid;
     } else {
       return null;
     }

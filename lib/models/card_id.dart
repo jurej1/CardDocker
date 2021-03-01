@@ -8,6 +8,6 @@ class CardId extends FormzInput<String, CardIdValidationError> {
 
   @override
   CardIdValidationError validator(String value) {
-    return value.isEmpty ? CardIdValidationError.invalid : null;
+    return null;
   }
 }

@@ -13,7 +13,7 @@ class AddCredictCardFormState extends Equatable {
 
   static AddCredictCardFormState initial() {
     return AddCredictCardFormState(
-      balance: const Balance.pure(),
+      balance: const Amount.pure(),
       color: CardColors.blue300,
       company: CredictCardCompany.none,
       note: const Note.pure(),
@@ -24,7 +24,7 @@ class AddCredictCardFormState extends Equatable {
 
   final FormzStatus status;
   final CredictCardCompany company;
-  final Balance balance;
+  final Amount balance;
   final CredictCardType type;
   final Note note;
   final Color color;
@@ -39,7 +39,7 @@ class AddCredictCardFormState extends Equatable {
   AddCredictCardFormState copyWith({
     FormzStatus status,
     CredictCardCompany company,
-    Balance balance,
+    Amount balance,
     CredictCardType type,
     Note note,
     Color color,
