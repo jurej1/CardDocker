@@ -23,14 +23,14 @@ class CardIdInput extends StatelessWidget {
                   Text('cardId'),
                 ],
               ),
-              if (state.cardId.invalid) ...{
+              if (state.card.invalid) ...{
                 Text('This field is required'),
               }
             ],
           ),
           onTap: () async {
             final CredictCard card = await _bottomSheet(context);
-            if (card != null) BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionCardIdChanged(card.id));
+            if (card != null) BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionCardChanged(card));
           },
         );
       },
