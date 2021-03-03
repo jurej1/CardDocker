@@ -1,3 +1,5 @@
+import 'package:card_docker/pages/add_transaction/widgets/transaction_purpose_input.dart';
+
 enum TransactionPurpose {
   rent,
   autoInsurance,
@@ -59,5 +61,49 @@ TransactionPurpose stringToTransactionPurpose(String value) {
     return TransactionPurpose.largePurchase;
   } else {
     return TransactionPurpose.none;
+  }
+}
+
+String transactionPurposeToString(TransactionPurpose purpose) {
+  if (purpose == TransactionPurpose.alcohol) {
+    return 'Alcohol';
+  } else if (purpose == TransactionPurpose.autoInsurance) {
+    return 'Auto insurance';
+  } else if (purpose == TransactionPurpose.carPayment) {
+    return 'Car payment';
+  } else if (purpose == TransactionPurpose.clothing) {
+    return 'Clothing';
+  } else if (purpose == TransactionPurpose.electricity) {
+    return 'Electricity';
+  } else if (purpose == TransactionPurpose.food) {
+    return 'Food';
+  } else if (purpose == TransactionPurpose.gasoline) {
+    return 'Gasoline';
+  } else if (purpose == TransactionPurpose.gym) {
+    return 'Gym';
+  } else if (purpose == TransactionPurpose.healthInsurance) {
+    return 'Health Insurance';
+  } else if (purpose == TransactionPurpose.homeDecor) {
+    return 'Home Decor';
+  } else if (purpose == TransactionPurpose.internet) {
+    return 'Internet';
+  } else if (purpose == TransactionPurpose.largePurchase) {
+    return 'Large purchase';
+  } else if (purpose == TransactionPurpose.medicalCosts) {
+    return 'Medical cost';
+  } else if (purpose == TransactionPurpose.movies) {
+    return 'Movies';
+  } else if (purpose == TransactionPurpose.none) {
+    return 'None';
+  } else if (purpose == TransactionPurpose.publicTransportation) {
+    return 'Publical Transportation';
+  } else if (purpose == TransactionPurpose.rent) {
+    return 'Rent';
+  } else if (purpose == TransactionPurpose.sanitation) {
+    return 'Sanitation';
+  } else if (purpose == TransactionPurpose.water) {
+    return 'Water';
+  } else {
+    return '';
   }
 }

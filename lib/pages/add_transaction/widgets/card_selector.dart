@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CardIdInput extends StatelessWidget {
+class CardSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddTransactionFormBloc, AddTransactionFormState>(
@@ -19,8 +19,11 @@ class CardIdInput extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Card'),
-                  Text('cardId'),
+                  Text(
+                    'Card',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(state.card.value.note),
                 ],
               ),
               if (state.card.invalid) ...{

@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/add_transaction_form/add_transaction_form_bloc.dart';
+import 'package:card_docker/pages/add_transaction/widgets/card_selector.dart';
 import 'package:card_docker/pages/add_transaction/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,9 +44,9 @@ class _AddTransactionViewState extends State<AddTransactionView> {
           const SizedBox(height: 10),
           AmountInput(focusNode: _amountFocusNode),
           const SizedBox(height: 10),
-          CardInput(),
+          CardSelector(),
           const SizedBox(height: 10),
-          TransactionPurposeInput(),
+          TransactionPurposeSelector(),
         ],
       ),
     );
