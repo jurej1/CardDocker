@@ -27,13 +27,13 @@ class TransactionAmountChanged extends AddTransactionFormEvent {
 
 class TransactionAmountUnfocused extends AddTransactionFormEvent {}
 
-class TransactionCardIdChanged extends AddTransactionFormEvent {
-  final String value;
+class TransactionCardChanged extends AddTransactionFormEvent {
+  final CredictCard card;
 
-  const TransactionCardIdChanged(this.value);
+  const TransactionCardChanged(this.card);
 
   @override
-  List<Object> get props => [value];
+  List<Object> get props => [card];
 }
 
 class TransactionTitleChanged extends AddTransactionFormEvent {

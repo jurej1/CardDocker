@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
@@ -31,7 +32,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
       yield _mapTransactionAmountChangedToState(event);
     } else if (event is TransactionAmountUnfocused) {
       yield _mapTransactionAmountUnfocusedToState();
-    } else if (event is TransactionCardIdChanged) {
+    } else if (event is TransactionCardChanged) {
       yield _mapTransactionCardIdChangedToState(event);
     } else if (event is TransactionTitleChanged) {
       yield _mapTransactionTitleChangedToState(event);
@@ -49,7 +50,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       amount: amount.valid ? amount : Amount.pure(event.value),
-      status: Formz.validate([amount, state.title, state.cardId]),
+      status: Formz.validate([amount, state.title, state.card]),
     );
   }
 
@@ -58,16 +59,16 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       amount: amount,
-      status: Formz.validate([amount, state.title, state.cardId]),
+      status: Formz.validate([amount, state.title, state.card]),
     );
   }
 
-  AddTransactionFormState _mapTransactionCardIdChangedToState(TransactionCardIdChanged event) {
-    final cardId = CardId.dirty(event.value);
+  AddTransactionFormState _mapTransactionCardIdChangedToState(TransactionCardChanged event) {
+    final card = Card.dirty(event.card);
 
     return state.copyWith(
-      cardId: cardId,
-      status: Formz.validate([state.amount, state.title, cardId]),
+      card: card,
+      status: Formz.validate([state.amount, state.title, card]),
     );
   }
 
@@ -75,7 +76,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
     final title = Title.dirty(event.value);
 
     return state.copyWith(
-      status: Formz.validate([state.amount, title, state.cardId]),
+      status: Formz.validate([state.amount, title, state.card]),
       title: title.valid ? title : Title.pure(event.value),
     );
   }
@@ -85,7 +86,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       title: title,
-      status: Formz.validate([state.amount, title, state.cardId]),
+      status: Formz.validate([state.amount, title, state.card]),
     );
   }
 
@@ -94,20 +95,20 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
     return state.copyWith(
       note: note,
-      status: Formz.validate([state.amount, state.title, state.cardId]),
+      status: Formz.validate([state.amount, state.title, state.card]),
     );
   }
 
   Stream<AddTransactionFormState> _mapTransactionSubmitFormToState() async* {
     final amount = Amount.dirty(state.amount.value);
     final title = Title.dirty(state.title.value);
-    final cardId = CardId.dirty(state.cardId.value);
+    final card = Card.dirty(state.card.value);
 
     yield state.copyWith(
       amount: amount,
-      cardId: cardId,
+      card: card,
       title: title,
-      status: Formz.validate([amount, title, cardId]),
+      status: Formz.validate([amount, title, card]),
     );
 
     if (state.status.isValidated) {
@@ -118,7 +119,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
         Transaction transaction = Transaction(
           amount: num.parse(state.amount.value),
-          cardId: state.cardId.value,
+          cardId: state.card.value.id,
           note: state.note.value ?? null,
           ownerId: user.id,
           title: state.title.value,
