@@ -22,7 +22,6 @@ class AddTransactionFormState extends Equatable {
       amount: const Amount.pure(),
       card: const Card.pure(),
       note: const Note.pure(),
-      purpose: TransactionPurpose.none,
       title: const Title.pure(),
       status: FormzStatus.pure,
     );

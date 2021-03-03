@@ -20,7 +20,7 @@ class CredictCardTile extends StatelessWidget {
       builder: (context, state) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          height: state.isExpanded ? 200 : 56,
+          height: state.isExpanded ? 180 : 56,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           decoration: BoxDecoration(
             color: Colors.white,

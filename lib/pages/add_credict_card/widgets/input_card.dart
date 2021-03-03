@@ -7,8 +7,8 @@ class InputCard extends StatelessWidget {
 
   const InputCard({
     Key key,
-    this.onTap,
-    this.child,
+    @required this.onTap,
+    @required this.child,
     this.color,
   }) : super(key: key);
 
