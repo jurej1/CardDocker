@@ -14,7 +14,7 @@ class NoteInput extends StatelessWidget {
           maxLines: double.maxFinite.toInt(),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            hintText: 'Description',
+            hintText: 'Description (optional)',
             errorText: state.note.invalid ? 'Max characters 300.' : null,
           ),
           onChanged: (value) => BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionNoteChanged(value)),

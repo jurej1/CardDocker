@@ -27,6 +27,8 @@ class CredictCard extends Equatable {
     this.color,
   });
 
+  static const empty = CredictCard(note: '', ownerId: '');
+
   @override
   List<Object> get props => [id, ownerId, created, company, balance, type, note, color];
 
