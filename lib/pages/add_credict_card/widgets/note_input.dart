@@ -19,7 +19,7 @@ class NoteInput extends StatelessWidget {
           onChanged: (value) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardNoteChanged(value)),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Note',
+            labelText: 'Description',
             helperText: 'Card name or something that will help you differentiate the cards.',
             helperMaxLines: 2,
             errorText: state.note.invalid ? 'Min 4 characters.' : null,
