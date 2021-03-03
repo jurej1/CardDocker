@@ -18,11 +18,12 @@ class InputCard extends StatelessWidget {
       margin: EdgeInsets.zero,
       color: color,
       elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          if (FocusScope.of(context).hasFocus){ FocusScope.of(context).unfocus();}
+          if (FocusScope.of(context).hasFocus) {
+            FocusScope.of(context).unfocus();
+          }
           onTap();
         },
         splashColor: Theme.of(context).primaryColor.withOpacity(0.3),

@@ -8,11 +8,7 @@ class Note extends FormzInput<String, NoteValidationError> {
 
   @override
   NoteValidationError validator(String value) {
-    if (value == null) {
-      return NoteValidationError.invalid;
-    } else if (value.isEmpty) {
-      return NoteValidationError.invalid;
-    } else if (value.length < 4) {
+    if (value.length > 300) {
       return NoteValidationError.invalid;
     } else {
       return null;
