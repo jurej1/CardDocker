@@ -19,12 +19,12 @@ class AddTransactionFormState extends Equatable {
 
   factory AddTransactionFormState.initial() {
     return AddTransactionFormState(
-      amount: Amount.pure(),
-      cardId: CardId.pure(),
-      note: Note.pure(),
+      amount: const Amount.pure(),
+      cardId: const CardId.pure(),
+      note: const Note.pure(),
       purpose: TransactionPurpose.none,
-      title: Title.pure(),
-      status: FormzStatus.pure,
+      title: const Title.pure(),
+      status: const FormzStatus.pure,
     );
   }
 
