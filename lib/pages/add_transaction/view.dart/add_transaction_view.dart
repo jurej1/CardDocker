@@ -43,6 +43,7 @@ class _AddTransactionViewState extends State<AddTransactionView> {
           const SizedBox(height: 10),
           AmountInput(focusNode: _amountFocusNode),
           const SizedBox(height: 10),
+          CardIdInput(),
         ],
       ),
     );
