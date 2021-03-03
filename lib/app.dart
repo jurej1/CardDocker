@@ -1,4 +1,3 @@
-import 'package:card_docker/blocs/transactions_bloc/transactions_bloc_bloc.dart';
 import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
 import 'package:card_docker/pages/add_transaction/add_transaction_page.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
@@ -49,25 +48,31 @@ class _AppView extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        cardTheme: CardTheme(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
       navigatorKey: _navigator,
-      builder: (context, child) {
-        return BlocListener<AuthBloc, AuthState>(
-          listener: (contex, state) {
-            if (state is Authenticated) {
-              BlocProvider.of<TransactionsBloc>(context).add(LoadTransactions(state.user.id));
-              BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
-              _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-            } else if (state is Unauthenticated) {
-              _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
-            }
-          },
-          child: child,
-        );
-      },
-      initialRoute: SplashPage.routeName,
+      // builder: (context, child) {
+      //   return BlocListener<AuthBloc, AuthState>(
+      //     listener: (contex, state) {
+      //       if (state is Authenticated) {
+      //         BlocProvider.of<TransactionsBloc>(context).add(LoadTransactions(state.user.id));
+      //         BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
+      //         _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
+      //       } else if (state is Unauthenticated) {
+      //         _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
+      //       }
+      //     },
+      //     child: child,
+      //   );
+      // },
+      // initialRoute: SplashPage.routeName,
+      home: AddTransactionPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),
