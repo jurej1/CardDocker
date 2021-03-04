@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:meta/meta.dart';
 
 import 'authentication_repository.dart';
 import 'entities/entities.dart';
@@ -50,6 +49,6 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
   @override
   Future<void> updateDisplayName({required String displayName}) async {
-    return _firebaseAuth.currentUser.updateProfile(displayName: displayName);
+    return _firebaseAuth.currentUser!.updateProfile(displayName: displayName);
   }
 }

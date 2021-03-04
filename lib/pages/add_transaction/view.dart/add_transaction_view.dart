@@ -74,7 +74,7 @@ class _SubmitButton extends StatelessWidget {
     return BlocBuilder<AddTransactionFormBloc, AddTransactionFormState>(
       builder: (context, state) {
         final canSubmit = state.status.isValidated;
-        return FlatButton(
+        return TextButton(
           child: state.status.isSubmissionInProgress
               ? CircularProgressIndicator(
                   backgroundColor: Colors.white,

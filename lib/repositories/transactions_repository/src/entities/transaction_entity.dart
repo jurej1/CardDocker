@@ -66,10 +66,10 @@ class TransactionEntity extends Equatable {
   }
 
   factory TransactionEntity.fromDocument(DocumentSnapshot snap) {
-    final data = snap.data();
+    var data = snap.data();
 
     return TransactionEntity(
-      amount: data['amount'],
+      amount: data!['amount'],
       cardId: data['cardId'],
       created: data['created'],
       id: snap.id,

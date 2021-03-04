@@ -1,4 +1,3 @@
-import 'package:card_docker/constants/card_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

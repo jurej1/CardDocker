@@ -76,7 +76,7 @@ class CredictCardEntity extends Equatable {
     final data = snap.data();
 
     return CredictCardEntity(
-      balance: data['balance'],
+      balance: data!['balance'],
       created: data['created'],
       id: snap.id,
       ownerId: data['ownerId'],
