@@ -7,13 +7,8 @@ class Amount extends FormzInput<String, AmountValidationError> {
   const Amount.dirty([String value = '']) : super.dirty(value);
 
   @override
-  AmountValidationError validator(String value) {
+  AmountValidationError? validator(String value) {
     if (value == null || value.isEmpty) {
-      return AmountValidationError.invalid;
-    } else if (num.parse(value, (error) {
-          return null;
-        }) ==
-        null) {
       return AmountValidationError.invalid;
     } else {
       return null;

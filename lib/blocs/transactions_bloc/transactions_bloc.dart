@@ -10,12 +10,12 @@ part 'transactions_event.dart';
 part 'transactions_state.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
-  TransactionsBloc({@required FirebaseTransactionsRepository firebaseTransactionsRepository})
+  TransactionsBloc({required FirebaseTransactionsRepository firebaseTransactionsRepository})
       : _firebaseTransactionsRepository = firebaseTransactionsRepository,
         super(TransactionsLoading());
 
-  final FirebaseTransactionsRepository _firebaseTransactionsRepository;
-  StreamSubscription _transactionsSubscription;
+  late final FirebaseTransactionsRepository _firebaseTransactionsRepository;
+  late final StreamSubscription _transactionsSubscription;
 
   @override
   Stream<TransactionsState> mapEventToState(
@@ -34,7 +34,7 @@ class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
     if (event.transactions == null) {
       return TransactionsLoadSuccess();
     } else {
-      return TransactionsLoadSuccess(transactions: event.transactions);
+      return TransactionsLoadSuccess(transactions: event.transactions!);
     }
   }
 

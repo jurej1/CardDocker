@@ -5,37 +5,37 @@ import 'package:equatable/equatable.dart';
 import 'package:card_docker/repositories/transactions_repository/src/enums/enums.dart';
 
 class Transaction extends Equatable {
-  final String id;
+  final String? id;
   final String ownerId;
   final String? note;
   final String title;
   final TransactionPurpose purpose;
   final num amount;
   final String cardId;
-  final Timestamp created;
+  final Timestamp? created;
 
   const Transaction({
-    required this.id,
+    this.id,
     required this.ownerId,
     this.note,
     required this.title,
     required this.purpose,
     required this.amount,
     required this.cardId,
-    required this.created,
+    this.created,
   });
 
   @override
   List<Object> get props {
     return [
-      id,
+      id!,
       note!,
       ownerId,
       title,
       purpose,
       amount,
       cardId,
-      created,
+      created!,
     ];
   }
 

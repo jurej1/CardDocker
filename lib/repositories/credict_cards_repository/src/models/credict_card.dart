@@ -14,9 +14,9 @@ class CredictCard extends Equatable {
   final double balance;
   final CredictCardType type;
   final String note;
-  final Color color;
+  final Color? color;
 
-  CredictCard({
+  const CredictCard({
     this.id,
     required this.ownerId,
     this.created,
@@ -24,22 +24,19 @@ class CredictCard extends Equatable {
     required this.balance,
     required this.type,
     required this.note,
-    required this.color,
+    this.color,
   });
 
-  factory CredictCard.empty() {
-    return CredictCard(
-      ownerId: '',
-      company: CredictCardCompany.none,
-      balance: 0,
-      type: CredictCardType.none,
-      note: '',
-      color: CardColors.cyan300!,
-    );
-  }
+  static const empty = CredictCard(
+    ownerId: '',
+    company: CredictCardCompany.none,
+    balance: 0,
+    type: CredictCardType.none,
+    note: '',
+  );
 
   @override
-  List<Object> get props => [id!, ownerId, created!, company, balance, type, note, color];
+  List<Object> get props => [id!, ownerId, created!, company, balance, type, note, color!];
 
   CredictCardEntity toEntity() {
     return CredictCardEntity(
@@ -50,7 +47,7 @@ class CredictCard extends Equatable {
       ownerId: ownerId,
       type: type,
       note: note,
-      color: color,
+      color: color!,
     );
   }
 
