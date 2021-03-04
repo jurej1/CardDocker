@@ -17,11 +17,11 @@ class LoadTransactions extends TransactionsEvent {
 }
 
 class TransactionsUpdated extends TransactionsEvent {
-  final List<Transaction> transactions;
+  final List<Transaction>? transactions;
 
   const TransactionsUpdated(this.transactions);
   @override
-  List<Object> get props => [transactions];
+  List<Object> get props => [transactions!];
 }
 
 class DeleteTransaction extends TransactionsEvent {

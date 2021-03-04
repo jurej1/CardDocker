@@ -14,7 +14,7 @@ part 'add_transaction_form_event.dart';
 part 'add_transaction_form_state.dart';
 
 class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactionFormState> {
-  AddTransactionFormBloc({@required FirebaseTransactionsRepository firebaseTransactionsRepository, @required AuthBloc authBloc})
+  AddTransactionFormBloc({required FirebaseTransactionsRepository firebaseTransactionsRepository, required AuthBloc authBloc})
       : _firebaseTransactionsRepository = firebaseTransactionsRepository,
         _authBloc = authBloc,
         super(AddTransactionFormState.initial());
@@ -47,6 +47,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
   AddTransactionFormState _mapTransactionAmountChangedToState(TransactionAmountChanged event) {
     final amount = Amount.dirty(event.value);
+    print('Amount Changed' + amount.value);
 
     return state.copyWith(
       amount: amount.valid ? amount : Amount.pure(event.value),
@@ -56,7 +57,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
   AddTransactionFormState _mapTransactionAmountUnfocusedToState() {
     final amount = Amount.dirty(state.amount.value);
-
+    print('Amount Unfocused' + amount.value);
     return state.copyWith(
       amount: amount,
       status: Formz.validate([amount, state.title, state.card]),
@@ -119,11 +120,11 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
         Transaction transaction = Transaction(
           amount: num.parse(state.amount.value),
-          cardId: state.card.value.id,
-          note: state.note.value ?? null,
-          ownerId: user.id,
+          cardId: state.card.value.id!,
+          note: state.note.value,
+          ownerId: user.id!,
           title: state.title.value,
-          purpose: state.purpose,
+          purpose: state.purpose!,
         );
 
         await _firebaseTransactionsRepository.addTransaction(transaction);

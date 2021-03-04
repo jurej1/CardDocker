@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 
@@ -11,12 +10,12 @@ part 'cards_state.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
   CardsBloc({
-    @required FirebaseCredictCardRepository firebaseCredictCardRepository,
-  })  : _firebaseCredictCardRepository = firebaseCredictCardRepository,
+    required FirebaseCredictCardRepository firebaseCredictCardRepository,
+  })   : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         super(CardsLoading());
 
-  final FirebaseCredictCardRepository _firebaseCredictCardRepository;
-  StreamSubscription _cardsSubscription;
+  late final FirebaseCredictCardRepository _firebaseCredictCardRepository;
+  late final StreamSubscription _cardsSubscription;
 
   @override
   Stream<CardsState> mapEventToState(
@@ -32,7 +31,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
   }
 
   void _mapLoadCardsToState(LoadCards event) {
-    _cardsSubscription?.cancel();
+    _cardsSubscription.cancel();
     _cardsSubscription = _firebaseCredictCardRepository.cards(event.userId).listen((cards) {
       add(CardsUpdated(cards));
     });
@@ -48,7 +47,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
   @override
   Future<void> close() {
-    _cardsSubscription?.cancel();
+    _cardsSubscription.cancel();
     return super.close();
   }
 }

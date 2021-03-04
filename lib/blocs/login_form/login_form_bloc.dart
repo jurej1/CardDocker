@@ -10,12 +10,12 @@ part 'login_form_event.dart';
 part 'login_form_state.dart';
 
 class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
-  LoginFormBloc({FirebaseAuthenticationRepository firebaseAuthenticationRepository})
+  LoginFormBloc({required FirebaseAuthenticationRepository firebaseAuthenticationRepository})
       : assert(firebaseAuthenticationRepository != null),
         _firebaseAuthenticationRepository = firebaseAuthenticationRepository,
         super(LoginFormState());
 
-  final FirebaseAuthenticationRepository _firebaseAuthenticationRepository;
+  late final FirebaseAuthenticationRepository _firebaseAuthenticationRepository;
 
   @override
   Stream<LoginFormState> mapEventToState(
