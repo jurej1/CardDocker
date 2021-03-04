@@ -1,3 +1,5 @@
+import 'package:card_docker/blocs/add_credict_card_form/add_credict_card_form_bloc.dart';
+import 'package:card_docker/constants/card_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:card_docker/repositories/credict_cards_repository/src/entities/c
 import 'package:card_docker/repositories/credict_cards_repository/src/enums/enums.dart';
 
 class CredictCard extends Equatable {
-  final String id;
+  final String? id;
   final String ownerId;
   final Timestamp created;
   final CredictCardCompany company;
@@ -16,28 +18,38 @@ class CredictCard extends Equatable {
   final String note;
   final Color color;
 
-  const CredictCard({
+  CredictCard({
     this.id,
-    @required this.ownerId,
-    this.created,
-    this.company,
-    this.balance,
-    this.type,
-    @required this.note,
-    this.color,
+    required this.ownerId,
+    required this.created,
+    required this.company,
+    required this.balance,
+    required this.type,
+    required this.note,
+    required this.color,
   });
 
-  static const empty = CredictCard(note: '', ownerId: '');
+  factory CredictCard.empty() {
+    return CredictCard(
+      ownerId: '',
+      created: Timestamp.now(),
+      company: CredictCardCompany.none,
+      balance: 0,
+      type: CredictCardType.none,
+      note: '',
+      color: CardColors.cyan300!,
+    );
+  }
 
   @override
-  List<Object> get props => [id, ownerId, created, company, balance, type, note, color];
+  List<Object> get props => [id!, ownerId, created, company, balance, type, note, color];
 
   CredictCardEntity toEntity() {
     return CredictCardEntity(
       balance: balance,
       company: company,
       created: created,
-      id: id,
+      id: id!,
       ownerId: ownerId,
       type: type,
       note: note,
@@ -59,14 +71,14 @@ class CredictCard extends Equatable {
   }
 
   CredictCard copyWith({
-    String id,
-    String ownerId,
-    Timestamp created,
-    CredictCardCompany company,
-    double balance,
-    CredictCardType type,
-    String note,
-    Color color,
+    String? id,
+    String? ownerId,
+    Timestamp? created,
+    CredictCardCompany? company,
+    double? balance,
+    CredictCardType? type,
+    String? note,
+    Color? color,
   }) {
     return CredictCard(
       id: id ?? this.id,

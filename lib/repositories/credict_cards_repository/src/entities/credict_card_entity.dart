@@ -6,7 +6,7 @@ import 'package:card_docker/repositories/credict_cards_repository/src/enums/enum
 import 'package:flutter/foundation.dart';
 
 class CredictCardEntity extends Equatable {
-  final String id;
+  final String? id;
   final String ownerId;
   final Timestamp created;
   final CredictCardCompany company;
@@ -16,18 +16,18 @@ class CredictCardEntity extends Equatable {
   final String note;
 
   CredictCardEntity({
-    Timestamp created,
+    Timestamp? created,
     this.id,
-    this.ownerId,
-    this.company,
-    this.balance,
-    this.type,
-    this.color,
-    @required this.note,
+    required this.ownerId,
+    required this.company,
+    required this.balance,
+    required this.type,
+    required this.color,
+    required this.note,
   }) : created = created ?? Timestamp.now();
 
   @override
-  List<Object> get props => [id, ownerId, created, company, balance, type, color, note];
+  List<Object> get props => [id!, ownerId, created, company, balance, type, color, note];
 
   @override
   String toString() {
@@ -36,7 +36,7 @@ class CredictCardEntity extends Equatable {
 
   Map<String, Object> toJson() {
     return {
-      'id': id,
+      'id': id!,
       'ownerId': ownerId,
       'created': created,
       'company': company,
@@ -80,7 +80,7 @@ class CredictCardEntity extends Equatable {
       created: data['created'],
       id: snap.id,
       ownerId: data['ownerId'],
-       color: Color(data['color']),
+      color: Color(data['color']),
       note: data['note'],
       type: stringToCredictCardType(data['type']),
       company: stringToCredictCardCompany(data['company']),
@@ -88,14 +88,14 @@ class CredictCardEntity extends Equatable {
   }
 
   CredictCardEntity copyWith({
-    String id,
-    String ownerId,
-    Timestamp created,
-    CredictCardCompany company,
-    double balance,
-    CredictCardType type,
-    Color color,
-    String note,
+    String? id,
+    String? ownerId,
+    Timestamp? created,
+    CredictCardCompany? company,
+    double? balance,
+    CredictCardType? type,
+    Color? color,
+    String? note,
   }) {
     return CredictCardEntity(
       id: id ?? this.id,

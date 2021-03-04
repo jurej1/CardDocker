@@ -31,11 +31,11 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   @override
   Future<void> deleteCredictCard(CredictCard credictCard) {
-    return _cardsRef.doc(credictCard.id).delete();
+    return _cardsRef.doc(credictCard.id!).delete();
   }
 
   @override
   Future<void> updateCredictCard(CredictCard credictCard) {
-    return _cardsRef.doc(credictCard.id).update(credictCard.toEntity().toDocument());
+    return _cardsRef.doc(credictCard.id!).update(credictCard.toEntity().toDocument());
   }
 }
