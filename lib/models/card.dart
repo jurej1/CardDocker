@@ -8,7 +8,7 @@ class Card extends FormzInput<CredictCard, CardIdValidationError> {
   const Card.dirty([CredictCard card = CredictCard.empty]) : super.dirty(card);
 
   @override
-  CardIdValidationError validator(CredictCard value) {
+  CardIdValidationError? validator(CredictCard value) {
     if (value == CredictCard.empty) {
       return CardIdValidationError.invalid;
     } else {
