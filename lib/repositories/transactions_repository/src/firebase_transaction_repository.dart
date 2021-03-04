@@ -43,7 +43,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   Stream<List<Transaction>> getTransactions(String userId) {
     return _transactionsRef.where('ownerId', isEqualTo: userId).orderBy('created').snapshots().map((snapshot) {
       if (snapshot.docs == null || snapshot.docs.isEmpty) {
-        return null;
+        return [];
       } else {
         List<Transaction> transactions = [];
         snapshot.docs.forEach((doc) {
@@ -60,7 +60,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   }
 
   @override
-  Future<void> updateTransaction({@required Transaction transaction, @required Transaction oldTransaction}) async {
+  Future<void> updateTransaction({required Transaction transaction, required Transaction oldTransaction}) async {
     try {
       await _transactionsRef.doc(transaction.id).update(transaction.toEntity().toDocument());
 

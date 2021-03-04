@@ -1,5 +1,3 @@
-import 'package:card_docker/pages/add_transaction/widgets/transaction_purpose_input.dart';
-
 enum TransactionPurpose {
   rent,
   autoInsurance,

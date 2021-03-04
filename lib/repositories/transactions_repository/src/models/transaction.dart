@@ -7,7 +7,7 @@ import 'package:card_docker/repositories/transactions_repository/src/enums/enums
 class Transaction extends Equatable {
   final String id;
   final String ownerId;
-  final String note;
+  final String? note;
   final String title;
   final TransactionPurpose purpose;
   final num amount;
@@ -15,14 +15,14 @@ class Transaction extends Equatable {
   final Timestamp created;
 
   const Transaction({
-    this.id,
-    this.ownerId,
+    required this.id,
+    required this.ownerId,
     this.note,
-    this.title,
-    this.purpose,
-    this.amount,
-    this.cardId,
-    this.created,
+    required this.title,
+    required this.purpose,
+    required this.amount,
+    required this.cardId,
+    required this.created,
   });
 
   @override
@@ -30,7 +30,6 @@ class Transaction extends Equatable {
     return [
       id,
       ownerId,
-      note,
       title,
       purpose,
       amount,
@@ -40,14 +39,14 @@ class Transaction extends Equatable {
   }
 
   Transaction copyWith({
-    String id,
-    String ownerId,
-    String note,
-    String title,
-    TransactionPurpose purpose,
-    num amount,
-    String cardId,
-    Timestamp created,
+    String? id,
+    String? ownerId,
+    String? note,
+    String? title,
+    TransactionPurpose? purpose,
+    num? amount,
+    String? cardId,
+    Timestamp? created,
   }) {
     return Transaction(
       id: id ?? this.id,
@@ -67,7 +66,7 @@ class Transaction extends Equatable {
       cardId: cardId,
       created: created,
       id: id,
-      note: note,
+      note: note!,
       ownerId: ownerId,
       purpose: purpose,
       title: title,
