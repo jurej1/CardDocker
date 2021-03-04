@@ -1,9 +1,7 @@
-import 'package:card_docker/blocs/add_credict_card_form/add_credict_card_form_bloc.dart';
 import 'package:card_docker/constants/card_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/src/entities/credict_card_entity.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/enums/enums.dart';
@@ -11,7 +9,7 @@ import 'package:card_docker/repositories/credict_cards_repository/src/enums/enum
 class CredictCard extends Equatable {
   final String? id;
   final String ownerId;
-  final Timestamp created;
+  final Timestamp? created;
   final CredictCardCompany company;
   final double balance;
   final CredictCardType type;
@@ -21,7 +19,7 @@ class CredictCard extends Equatable {
   CredictCard({
     this.id,
     required this.ownerId,
-    required this.created,
+    this.created,
     required this.company,
     required this.balance,
     required this.type,
@@ -32,7 +30,6 @@ class CredictCard extends Equatable {
   factory CredictCard.empty() {
     return CredictCard(
       ownerId: '',
-      created: Timestamp.now(),
       company: CredictCardCompany.none,
       balance: 0,
       type: CredictCardType.none,
@@ -42,7 +39,7 @@ class CredictCard extends Equatable {
   }
 
   @override
-  List<Object> get props => [id!, ownerId, created, company, balance, type, note, color];
+  List<Object> get props => [id!, ownerId, created!, company, balance, type, note, color];
 
   CredictCardEntity toEntity() {
     return CredictCardEntity(

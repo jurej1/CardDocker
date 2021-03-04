@@ -14,7 +14,7 @@ part 'add_credict_card_form_event.dart';
 part 'add_credict_card_form_state.dart';
 
 class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCardFormState> {
-  AddCredictCardFormBloc({@required FirebaseCredictCardRepository firebaseCredictCardRepository, @required AuthBloc authBloc})
+  AddCredictCardFormBloc({required FirebaseCredictCardRepository firebaseCredictCardRepository, required AuthBloc authBloc})
       : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         _authCubit = authBloc,
         super(AddCredictCardFormState.initial());
@@ -97,7 +97,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
       try {
         final credictCard = CredictCard(
           note: state.note.value,
-          ownerId: (_authCubit.state as Authenticated).user.id,
+          ownerId: (_authCubit.state as Authenticated).user.id!,
           balance: double.parse(state.balance.value),
           color: state.color,
           company: state.company,
