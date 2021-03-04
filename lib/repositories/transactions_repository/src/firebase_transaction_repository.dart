@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
-import 'package:meta/meta.dart';
 
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
@@ -13,11 +12,9 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   Future<void> addTransaction(Transaction transaction) async {
     try {
       await _transactionsRef.add(transaction.toEntity().toDocument());
-      if (transaction.cardId != null) {
-        await _cardsRef.doc(transaction.cardId).update({
-          'balance': fb.FieldValue.increment(transaction.amount),
-        });
-      }
+      await _cardsRef.doc(transaction.cardId).update({
+        'balance': fb.FieldValue.increment(transaction.amount),
+      });
     } catch (e) {
       throw e;
     }
@@ -27,23 +24,21 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   Future<void> deleteTransaction(Transaction transaction) async {
     try {
       await _transactionsRef.doc(transaction.id).delete();
-      if (transaction.cardId != null) {
-        await _cardsRef.doc(transaction.cardId).update(
-          {
-            'balance': fb.FieldValue.increment(transaction.amount),
-          },
-        );
-      }
+      await _cardsRef.doc(transaction.cardId).update(
+        {
+          'balance': fb.FieldValue.increment(transaction.amount),
+        },
+      );
     } catch (e) {
       throw e;
     }
   }
 
   @override
-  Stream<List<Transaction>> getTransactions(String userId) {
+  Stream<List<Transaction>?> getTransactions(String userId) {
     return _transactionsRef.where('ownerId', isEqualTo: userId).orderBy('created').snapshots().map((snapshot) {
-      if (snapshot.docs == null || snapshot.docs.isEmpty) {
-        return [];
+      if (snapshot.docs.isEmpty) {
+        return null;
       } else {
         List<Transaction> transactions = [];
         snapshot.docs.forEach((doc) {

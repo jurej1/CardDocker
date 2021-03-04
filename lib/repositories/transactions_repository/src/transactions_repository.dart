@@ -7,5 +7,5 @@ abstract class TransactionsRepository {
 
   Future<void> updateTransaction({required Transaction transaction, required Transaction oldTransaction});
 
-  Stream<List<Transaction>>? getTransactions(String userId);
+  Stream<List<Transaction>?> getTransactions(String userId);
 }
