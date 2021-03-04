@@ -20,7 +20,7 @@ class CompanySelector extends StatelessWidget {
               builder: (_) => _companiesBottomSheet(context, state.company),
             );
 
-            BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardCompanyChanged(company));
+            BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardCompanyChanged(company!));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

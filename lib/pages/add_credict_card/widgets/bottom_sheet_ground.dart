@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class BottomSheetGround extends StatelessWidget {
   final Widget child;
-  final double height;
+  final double? height;
 
   const BottomSheetGround({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
     this.height,
   }) : super(key: key);
   @override

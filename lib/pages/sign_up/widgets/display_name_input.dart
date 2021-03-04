@@ -7,7 +7,7 @@ class DisplayNameInput extends StatelessWidget {
   final double iconSize = 20;
   final FocusNode focusNode;
 
-  const DisplayNameInput({Key key, @required this.focusNode}) : super(key: key);
+  const DisplayNameInput({Key? key, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

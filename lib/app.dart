@@ -41,11 +41,12 @@ class App extends StatelessWidget {
 class _AppView extends StatelessWidget {
   final _navigator = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigatorState => _navigator.currentState;
+  NavigatorState? get _navigatorState => _navigator.currentState;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
@@ -57,22 +58,22 @@ class _AppView extends StatelessWidget {
         ),
       ),
       navigatorKey: _navigator,
-      // builder: (context, child) {
-      //   return BlocListener<AuthBloc, AuthState>(
-      //     listener: (contex, state) {
-      //       if (state is Authenticated) {
-      //         BlocProvider.of<TransactionsBloc>(context).add(LoadTransactions(state.user.id));
-      //         BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id));
-      //         _navigatorState.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
-      //       } else if (state is Unauthenticated) {
-      //         _navigatorState.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
-      //       }
-      //     },
-      //     child: child,
-      //   );
-      // },
-      // initialRoute: SplashPage.routeName,
-      home: AddTransactionPage(),
+      builder: (context, child) {
+        return BlocListener<AuthBloc, AuthState>(
+          listener: (contex, state) {
+            if (state is Authenticated) {
+              BlocProvider.of<TransactionsBloc>(context).add(LoadTransactions(state.user.id!));
+              BlocProvider.of<CardsBloc>(context).add(LoadCards(state.user.id!));
+              _navigatorState?.pushNamedAndRemoveUntil(HomePage.routeName, (_) => false);
+            } else if (state is Unauthenticated) {
+              _navigatorState?.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
+            }
+          },
+          child: child!,
+        );
+      },
+      initialRoute: SplashPage.routeName,
+      // home: AddTransactionPage(),
       routes: {
         HomePage.routeName: (context) => HomePage(),
         LoginPage.routeName: (context) => LoginPage(),

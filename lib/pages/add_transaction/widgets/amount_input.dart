@@ -7,7 +7,7 @@ import 'package:card_docker/blocs/add_transaction_form/add_transaction_form_bloc
 class AmountInput extends StatelessWidget {
   final FocusNode focusNode;
 
-  const AmountInput({Key key, @required this.focusNode}) : super(key: key);
+  const AmountInput({Key? key, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class AmountInput extends StatelessWidget {
             errorText: state.amount.invalid ? 'This field is required' : null,
             border: const OutlineInputBorder(),
           ),
-          onChanged: (val) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardAmountChanged(val)),
+          onChanged: (val) => BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionAmountChanged(val)),
         );
       },
     );

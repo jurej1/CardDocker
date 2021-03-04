@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class InputCard extends StatelessWidget {
   final VoidCallback onTap;
   final Widget child;
-  final Color color;
+  final Color? color;
 
   const InputCard({
-    Key key,
-    @required this.onTap,
-    @required this.child,
+    Key? key,
+    required this.onTap,
+    required this.child,
     this.color,
   }) : super(key: key);
 

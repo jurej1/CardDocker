@@ -15,7 +15,7 @@ dependencies:
   firebase_auth: ^0.20.1
   firebase_core: ^0.7.0
   flutter_bloc: ^6.1.2
-  formz: ^0.3.2
+  formz: ^0.4.0
   google_sign_in: ^4.5.9
   intl: ^0.17.0
   regexpattern: ^1.0.0

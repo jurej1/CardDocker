@@ -23,7 +23,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   @override
   Future<void> deleteTransaction(Transaction transaction) async {
     try {
-      await _transactionsRef.doc(transaction.id).delete();
+      await _transactionsRef.doc(transaction.id!).delete();
       await _cardsRef.doc(transaction.cardId).update(
         {
           'balance': fb.FieldValue.increment(transaction.amount),
@@ -57,7 +57,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   @override
   Future<void> updateTransaction({required Transaction transaction, required Transaction oldTransaction}) async {
     try {
-      await _transactionsRef.doc(transaction.id).update(transaction.toEntity().toDocument());
+      await _transactionsRef.doc(transaction.id!).update(transaction.toEntity().toDocument());
 
       if (transaction.amount != oldTransaction.amount) {
         final diff = transaction.amount - oldTransaction.amount;

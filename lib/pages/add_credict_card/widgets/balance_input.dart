@@ -5,7 +5,7 @@ import 'package:card_docker/blocs/blocs.dart';
 class AmountInput extends StatelessWidget {
   final FocusNode focusNode;
 
-  const AmountInput({Key key, @required this.focusNode}) : super(key: key);
+  const AmountInput({Key? key, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ class CredictCardTileState extends Equatable {
   List<Object> get props => [isExpanded];
 
   CredictCardTileState copyWith({
-    bool isExpanded,
+    bool? isExpanded,
   }) {
     return CredictCardTileState(
       isExpanded: isExpanded ?? this.isExpanded,

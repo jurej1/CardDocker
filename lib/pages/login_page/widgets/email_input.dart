@@ -7,7 +7,7 @@ class EmailInput extends StatelessWidget {
   final double iconSize = 20;
   final FocusNode focusNode;
 
-  const EmailInput({Key key, @required this.focusNode}) : super(key: key);
+  const EmailInput({Key? key, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class EmailInput extends StatelessWidget {
     );
   }
 
-  Widget _suffixIcon(LoginFormState state) {
+  Widget? _suffixIcon(LoginFormState state) {
     if (state.email.pure || state.email.invalid) {
       return null;
     } else {

@@ -7,7 +7,7 @@ import 'package:card_docker/blocs/add_transaction_form/add_transaction_form_bloc
 class TitleInput extends StatelessWidget {
   final FocusNode focusNode;
 
-  const TitleInput({Key key, @required this.focusNode}) : super(key: key);
+  const TitleInput({Key? key, required this.focusNode}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddTransactionFormBloc, AddTransactionFormState>(
@@ -28,7 +28,7 @@ class TitleInput extends StatelessWidget {
     );
   }
 
-  String _errorText(model.Title title) {
+  String? _errorText(model.Title title) {
     if (title.invalid) {
       final error = title.error;
       if (error == model.TitleValidationError.must) {

@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 class CredictCardTile extends StatelessWidget {
   final CredictCard card;
 
-  const CredictCardTile({Key key, @required this.card}) : super(key: key);
+  const CredictCardTile({Key? key, required this.card}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CredictCardTile extends StatelessWidget {
 class _Tile extends StatelessWidget {
   final CredictCard card;
 
-  const _Tile({Key key, this.card}) : super(key: key);
+  const _Tile({Key? key, required this.card}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +98,7 @@ class _Tile extends StatelessWidget {
 class _AdditionalInformation extends StatelessWidget {
   final CredictCard card;
 
-  const _AdditionalInformation({Key key, @required this.card}) : super(key: key);
+  const _AdditionalInformation({Key? key, required this.card}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,19 +119,19 @@ class _AdditionalInformation extends StatelessWidget {
           const SizedBox(height: 6),
           _infoTile(title: 'CardType', info: credictCardTypeName(card.type)),
           const SizedBox(height: 6),
-          _infoTile(title: 'Created', info: DateFormat('dd.MM.yyyy').format(card.created.toDate())),
+          _infoTile(title: 'Created', info: DateFormat('dd.MM.yyyy').format(card.created!.toDate())),
           const SizedBox(height: 6),
         ],
       ),
     );
   }
 
-  Widget _infoTile({String title, String info}) {
+  Widget _infoTile({required String title, String? info}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title),
-        Text(info),
+        Text(info ?? ''),
       ],
     );
   }

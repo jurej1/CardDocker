@@ -20,7 +20,7 @@ class TransactionPurposeSelector extends StatelessWidget {
                 'Purpose',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(transactionPurposeToString(state.purpose)),
+              Text(transactionPurposeToString(state.purpose!)),
             ],
           ),
         );
@@ -29,7 +29,7 @@ class TransactionPurposeSelector extends StatelessWidget {
   }
 
   Future<void> showBottomSheet(BuildContext context) async {
-    TransactionPurpose purpose = await showModalBottomSheet<TransactionPurpose>(
+    TransactionPurpose? purpose = await showModalBottomSheet<TransactionPurpose>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,

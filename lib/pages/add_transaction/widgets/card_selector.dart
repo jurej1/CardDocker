@@ -32,7 +32,7 @@ class CardSelector extends StatelessWidget {
             ],
           ),
           onTap: () async {
-            final CredictCard card = await _bottomSheet(context);
+            final CredictCard? card = (await _bottomSheet(context))!;
             if (card != null) BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionCardChanged(card));
           },
         );
@@ -40,7 +40,7 @@ class CardSelector extends StatelessWidget {
     );
   }
 
-  Future<CredictCard> _bottomSheet(BuildContext context) async {
+  Future<CredictCard?> _bottomSheet(BuildContext context) async {
     return showModalBottomSheet<CredictCard>(
       context: context,
       isScrollControlled: true,
