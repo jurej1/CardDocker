@@ -29,6 +29,7 @@ class Transaction extends Equatable {
   List<Object> get props {
     return [
       id,
+      note!,
       ownerId,
       title,
       purpose,
@@ -78,7 +79,7 @@ class Transaction extends Equatable {
       amount: entity.amount,
       cardId: entity.cardId,
       created: entity.created,
-      id: entity.id,
+      id: entity.id!,
       note: entity.note,
       ownerId: entity.ownerId,
       purpose: entity.purpose,

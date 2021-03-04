@@ -5,9 +5,9 @@ import 'package:card_docker/repositories/transactions_repository/src/enums/enums
 import 'package:flutter/foundation.dart';
 
 class TransactionEntity extends Equatable {
-  final String id;
+  final String? id;
   final String ownerId;
-  final String note;
+  final String? note;
   final String title;
   final TransactionPurpose purpose;
   final num amount;
@@ -16,21 +16,21 @@ class TransactionEntity extends Equatable {
 
   TransactionEntity({
     this.id,
-    this.ownerId,
+    required this.ownerId,
     this.note,
-    this.title,
-    this.purpose,
-    this.amount,
-    this.cardId,
-    Timestamp created,
+    required this.title,
+    required this.purpose,
+    required this.amount,
+    required this.cardId,
+    Timestamp? created,
   }) : created = created ?? Timestamp.now();
 
   @override
   List<Object> get props {
     return [
-      id,
+      id!,
       ownerId,
-      note,
+      note!,
       title,
       purpose,
       amount,
@@ -54,14 +54,14 @@ class TransactionEntity extends Equatable {
 
   factory TransactionEntity.fromJson(Map<String, Object> data) {
     return TransactionEntity(
-      amount: data['amount'],
-      cardId: data['cardId'],
-      created: data['created'],
-      id: data['id'],
-      note: data['note'],
-      ownerId: data['ownerId'],
-      title: data['title'],
-      purpose: stringToTransactionPurpose(data['purpose']),
+      amount: data['amount'] as num,
+      cardId: data['cardId'] as String,
+      created: data['created'] as Timestamp,
+      id: data['id'] as String,
+      note: data['note'] as String,
+      ownerId: data['ownerId'] as String,
+      title: data['title'] as String,
+      purpose: stringToTransactionPurpose(data['purpose'] as String),
     );
   }
 
