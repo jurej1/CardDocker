@@ -15,15 +15,9 @@ class CardSelector extends StatelessWidget {
         return InputCard(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Card',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(state.card.value),
-                ],
+              InputCardChild(
+                title: 'Card',
+                child: state.card.value,
               ),
               if (state.card.invalid) ...{
                 Text('This field is required'),

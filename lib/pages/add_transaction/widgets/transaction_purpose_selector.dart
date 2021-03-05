@@ -13,15 +13,9 @@ class TransactionPurposeSelector extends StatelessWidget {
           onTap: () {
             showBottomSheet(context);
           },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Purpose',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(transactionPurposeToString(state.purpose)),
-            ],
+          child: InputCardChild(
+            title: 'Purpose',
+            child: transactionPurposeToString(state.purpose),
           ),
         );
       },
