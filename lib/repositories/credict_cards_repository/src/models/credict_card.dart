@@ -1,3 +1,4 @@
+import 'package:card_docker/constants/card_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class CredictCard extends Equatable {
   final double balance;
   final CredictCardType type;
   final String note;
-  final Color? color;
+  final Color color;
 
   const CredictCard({
     this.id,
@@ -23,16 +24,19 @@ class CredictCard extends Equatable {
     required this.balance,
     required this.type,
     required this.note,
-    this.color,
+    required this.color,
   });
 
-  static const empty = CredictCard(
-    ownerId: '',
-    company: CredictCardCompany.none,
-    balance: 0,
-    type: CredictCardType.none,
-    note: '',
-  );
+  factory CredictCard.empty() {
+    return CredictCard(
+      ownerId: '',
+      company: CredictCardCompany.none,
+      balance: 0,
+      type: CredictCardType.none,
+      note: '',
+      color: CardColors.blue300!,
+    );
+  }
 
   @override
   List<Object?> get props => [id, ownerId, created, company, balance, type, note, color];
@@ -46,7 +50,7 @@ class CredictCard extends Equatable {
       ownerId: ownerId!,
       type: type,
       note: note,
-      color: color!,
+      color: color,
     );
   }
 
