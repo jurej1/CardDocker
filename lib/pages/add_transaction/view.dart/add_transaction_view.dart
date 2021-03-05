@@ -37,34 +37,37 @@ class _AddTransactionViewState extends State<AddTransactionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Add transaction'),
-          actions: [
-            _SubmitButton(),
+      appBar: AppBar(
+        title: Text('Add transaction'),
+        actions: [
+          _SubmitButton(),
+        ],
+      ),
+      body: BlocListener<AddTransactionFormBloc, AddTransactionFormState>(
+        listener: (context, state) {
+          if (state.status.isSubmissionSuccess) {
+            if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+          }
+        },
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          physics: const BouncingScrollPhysics(),
+          children: [
+            TitleInput(focusNode: _titleFocusNode),
+            const SizedBox(height: 10),
+            NoteInput(),
+            const SizedBox(height: 10),
+            AmountInput(focusNode: _amountFocusNode),
+            const SizedBox(height: 10),
+            CardSelector(),
+            const SizedBox(height: 10),
+            TransactionPurposeSelector(),
+            const SizedBox(height: 10),
+            CreatedSelector(),
           ],
         ),
-        body: BlocListener<AddTransactionFormBloc, AddTransactionFormState>(
-          listener: (context, state) {
-            if (state.status.isSubmissionSuccess) {
-              if (Navigator.of(context).canPop()) Navigator.of(context).pop();
-            }
-          },
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            physics: const BouncingScrollPhysics(),
-            children: [
-              TitleInput(focusNode: _titleFocusNode),
-              const SizedBox(height: 10),
-              NoteInput(),
-              const SizedBox(height: 10),
-              AmountInput(focusNode: _amountFocusNode),
-              const SizedBox(height: 10),
-              CardSelector(),
-              const SizedBox(height: 10),
-              TransactionPurposeSelector(),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
 

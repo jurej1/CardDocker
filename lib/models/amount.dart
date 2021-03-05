@@ -8,7 +8,7 @@ class Amount extends FormzInput<String, AmountValidationError> {
 
   @override
   AmountValidationError? validator(String? value) {
-    if (value != null || value!.isEmpty) {
+    if (value!.isEmpty) {
       return AmountValidationError.invalid;
     } else {
       return null;
