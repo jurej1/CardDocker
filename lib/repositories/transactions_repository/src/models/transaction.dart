@@ -39,6 +39,14 @@ class Transaction extends Equatable {
     ];
   }
 
+  static final empty = Transaction(
+    amount: 0,
+    cardId: '',
+    ownerId: '',
+    purpose: TransactionPurpose.none,
+    title: '',
+  );
+
   Transaction copyWith({
     String? id,
     String? ownerId,

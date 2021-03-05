@@ -3,9 +3,10 @@ part of 'add_transaction_form_bloc.dart';
 class AddTransactionFormState extends Equatable {
   final TransactionPurpose? purpose;
   final Amount amount;
-  final Card card;
+  final CardId card;
   final Title title;
   final Note note;
+  final Transaction transaction;
   final FormzStatus status;
 
   const AddTransactionFormState._({
@@ -15,15 +16,28 @@ class AddTransactionFormState extends Equatable {
     required this.title,
     required this.note,
     required this.status,
+    required this.transaction,
   });
 
-  factory AddTransactionFormState.initial() {
+  factory AddTransactionFormState.add() {
     return AddTransactionFormState._(
       amount: const Amount.pure(),
-      card: const Card.pure(),
+      card: const CardId.pure(),
       note: const Note.pure(),
       title: const Title.pure(),
       status: FormzStatus.pure,
+      transaction: Transaction.empty,
+    );
+  }
+
+  factory AddTransactionFormState.edit(Transaction transaction) {
+    return AddTransactionFormState._(
+      amount: Amount.pure(transaction.amount.toString()),
+      card: CardId.pure(transaction.cardId),
+      title: Title.pure(transaction.title),
+      note: Note.pure(transaction.note),
+      status: FormzStatus.pure,
+      transaction: transaction,
     );
   }
 
@@ -42,9 +56,10 @@ class AddTransactionFormState extends Equatable {
   AddTransactionFormState copyWith({
     TransactionPurpose? purpose,
     Amount? amount,
-    Card? card,
+    CardId? card,
     Title? title,
     Note? note,
+    Transaction? transaction,
     FormzStatus? status,
   }) {
     return AddTransactionFormState._(
@@ -53,6 +68,7 @@ class AddTransactionFormState extends Equatable {
       card: card ?? this.card,
       title: title ?? this.title,
       note: note ?? this.note,
+      transaction: transaction ?? this.transaction,
       status: status ?? this.status,
     );
   }

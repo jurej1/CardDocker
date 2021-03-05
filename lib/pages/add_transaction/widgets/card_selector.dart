@@ -23,7 +23,7 @@ class CardSelector extends StatelessWidget {
                     'Card',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(state.card.value.note),
+                  Text(state.card.value),
                 ],
               ),
               if (state.card.invalid) ...{

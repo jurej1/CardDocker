@@ -16,7 +16,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
   AddTransactionFormBloc({required FirebaseTransactionsRepository firebaseTransactionsRepository, required AuthBloc authBloc})
       : _firebaseTransactionsRepository = firebaseTransactionsRepository,
         _authBloc = authBloc,
-        super(AddTransactionFormState.initial());
+        super(AddTransactionFormState.add());
 
   final FirebaseTransactionsRepository _firebaseTransactionsRepository;
   final AuthBloc _authBloc;
@@ -64,7 +64,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
   }
 
   AddTransactionFormState _mapTransactionCardIdChangedToState(TransactionCardChanged event) {
-    final card = Card.dirty(event.card);
+    final card = CardId.dirty(event.card.id!);
 
     return state.copyWith(
       card: card,
@@ -102,7 +102,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
   Stream<AddTransactionFormState> _mapTransactionSubmitFormToState() async* {
     final amount = Amount.dirty(state.amount.value);
     final title = Title.dirty(state.title.value);
-    final card = Card.dirty(state.card.value);
+    final card = CardId.dirty(state.card.value);
 
     yield state.copyWith(
       amount: amount,
@@ -119,7 +119,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
         Transaction transaction = Transaction(
           amount: num.parse(state.amount.value),
-          cardId: state.card.value.id!,
+          cardId: state.card.value,
           note: state.note.value,
           ownerId: user.id!,
           title: state.title.value,
@@ -128,7 +128,10 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
         await _firebaseTransactionsRepository.addTransaction(transaction);
 
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+        yield state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          transaction: transaction,
+        );
       } catch (error) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
