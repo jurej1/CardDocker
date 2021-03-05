@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:meta/meta.dart';
 
 import 'authentication_repository.dart';
 import 'entities/entities.dart';
@@ -11,8 +10,8 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   final GoogleSignIn _googleSignIn;
 
   FirebaseAuthenticationRepository({
-    firebase_auth.FirebaseAuth firebaseAuth,
-    GoogleSignIn googleSignIn,
+    firebase_auth.FirebaseAuth? firebaseAuth,
+    GoogleSignIn? googleSignIn,
   })  : _googleSignIn = googleSignIn ?? GoogleSignIn.standard(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
@@ -23,12 +22,12 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> logInWithEmailAndPassword({@required String email, @required String password}) async {
+  Future<firebase_auth.UserCredential> logInWithEmailAndPassword({required String email, required String password}) async {
     return _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   @override
-  Stream<User> get user {
+  Stream<User?> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       if (firebaseUser == null) {
         return null;
@@ -44,12 +43,12 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   }
 
   @override
-  Future<void> signUpWithEmailAndPassword({@required String email, @required String password}) async {
+  Future<firebase_auth.UserCredential> signUpWithEmailAndPassword({required String email, required String password}) async {
     return _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
   }
 
   @override
-  Future<void> updateDisplayName({@required String displayName}) async {
-    return _firebaseAuth.currentUser.updateProfile(displayName: displayName);
+  Future<void> updateDisplayName({required String displayName}) async {
+    return _firebaseAuth.currentUser!.updateProfile(displayName: displayName);
   }
 }

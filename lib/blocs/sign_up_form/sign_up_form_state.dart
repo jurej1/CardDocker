@@ -21,11 +21,11 @@ class SignUpFormState extends Equatable {
   }
 
   SignUpFormState copyWith({
-    DisplayName displayName,
-    Email email,
-    Password password,
-    FormzStatus status,
-    bool isPasswordVisible,
+    DisplayName? displayName,
+    Email? email,
+    Password? password,
+    FormzStatus? status,
+    bool? isPasswordVisible,
   }) {
     return SignUpFormState(
       displayName: displayName ?? this.displayName,

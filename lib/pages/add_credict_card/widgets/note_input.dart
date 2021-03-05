@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class NoteInput extends StatelessWidget {
   final FocusNode focusNode;
 
-  const NoteInput({Key key, @required this.focusNode}) : super(key: key);
+  const NoteInput({Key? key, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class NoteInput extends StatelessWidget {
           onChanged: (value) => BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardNoteChanged(value)),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            labelText: 'Note',
+            labelText: 'Description',
             helperText: 'Card name or something that will help you differentiate the cards.',
             helperMaxLines: 2,
             errorText: state.note.invalid ? 'Min 4 characters.' : null,

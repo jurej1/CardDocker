@@ -22,10 +22,10 @@ class LoginFormState extends Equatable {
   }
 
   LoginFormState copyWith({
-    Email email,
-    Password password,
-    FormzStatus status,
-    bool isPasswordVisible,
+    Email? email,
+    Password? password,
+    FormzStatus? status,
+    bool? isPasswordVisible,
   }) {
     return LoginFormState(
       email: email ?? this.email,

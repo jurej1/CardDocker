@@ -7,7 +7,7 @@ class PasswordInput extends StatelessWidget {
   final double iconSize = 20;
   final FocusNode focusNode;
 
-  const PasswordInput({Key key, @required this.focusNode}) : super(key: key);
+  const PasswordInput({Key? key, required this.focusNode}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpFormBloc, SignUpFormState>(

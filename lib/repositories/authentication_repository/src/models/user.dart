@@ -3,21 +3,20 @@ import 'package:equatable/equatable.dart';
 import '../entities/entities.dart';
 
 class User extends Equatable {
-  final String id;
-  final String displayName;
-  final String photoUrl;
-  final String email;
+  final String? id;
+  final String? displayName;
+  final String? photoUrl;
+  final String? email;
 
   const User({
-    String id,
-    String photoUrl,
+    this.id,
+    this.photoUrl,
     this.displayName,
     this.email,
-  })  : photoUrl = photoUrl,
-        id = id;
+  });
 
   @override
-  List<Object> get props => [id, displayName, photoUrl, email];
+  List<Object?> get props => [id, displayName, email, displayName];
 
   @override
   String toString() {
@@ -27,10 +26,10 @@ class User extends Equatable {
   static const empty = User(displayName: null, email: null, id: null, photoUrl: null);
 
   User copyWith({
-    String id,
-    String displayName,
-    String photoUrl,
-    String email,
+    String? id,
+    String? displayName,
+    String? photoUrl,
+    String? email,
   }) {
     return User(
       id: id ?? this.id,
@@ -42,10 +41,10 @@ class User extends Equatable {
 
   UserEntity toEntity() {
     return UserEntity(
-      displayName: displayName,
-      email: email,
-      id: id,
-      photoUrl: photoUrl,
+      displayName: displayName!,
+      email: email!,
+      id: id!,
+      photoUrl: photoUrl!,
     );
   }
 

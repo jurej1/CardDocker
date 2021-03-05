@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:card_docker/constants/card_colors.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:formz/formz.dart';
 
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/models/models.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 part 'add_credict_card_form_event.dart';
 part 'add_credict_card_form_state.dart';
 
 class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCardFormState> {
-  AddCredictCardFormBloc({@required FirebaseCredictCardRepository firebaseCredictCardRepository, @required AuthBloc authBloc})
+  AddCredictCardFormBloc({required FirebaseCredictCardRepository firebaseCredictCardRepository, required AuthBloc authBloc})
       : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         _authCubit = authBloc,
         super(AddCredictCardFormState.initial());
@@ -28,10 +28,10 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
   ) async* {
     if (event is CredictCardCompanyChanged) {
       yield state.copyWith(company: event.company);
-    } else if (event is CredictCardBalanceChanged) {
-      yield _mapCredictCardBalanceChangedToState(event);
-    } else if (event is CredictCardBalanceUnfocused) {
-      yield _mapCredictCardBalanceUnfocused();
+    } else if (event is CredictCardAmountChanged) {
+      yield _mapCredictCardAmountChangedToState(event);
+    } else if (event is CredictCardAmountUnfocused) {
+      yield _mapCredictCardAmountUnfocused();
     } else if (event is CredictCardTypeChanged) {
       yield state.copyWith(type: event.type);
     } else if (event is CredictCardNoteChanged) {
@@ -45,17 +45,17 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
     }
   }
 
-  AddCredictCardFormState _mapCredictCardBalanceChangedToState(CredictCardBalanceChanged event) {
-    final balance = Balance.dirty(event.value);
+  AddCredictCardFormState _mapCredictCardAmountChangedToState(CredictCardAmountChanged event) {
+    final balance = Amount.dirty(event.value);
 
     return state.copyWith(
-      balance: balance.valid ? balance : Balance.pure(event.value),
+      balance: balance.valid ? balance : Amount.pure(event.value),
       status: Formz.validate([balance, state.note]),
     );
   }
 
-  AddCredictCardFormState _mapCredictCardBalanceUnfocused() {
-    final balance = Balance.dirty(state.balance.value);
+  AddCredictCardFormState _mapCredictCardAmountUnfocused() {
+    final balance = Amount.dirty(state.balance.value);
 
     return state.copyWith(
       balance: balance,
@@ -83,7 +83,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
 
   Stream<AddCredictCardFormState> _mapCredictCardFormSubmitToState() async* {
     final note = Note.dirty(state.note.value);
-    final balance = Balance.dirty(state.balance.value);
+    final balance = Amount.dirty(state.balance.value);
 
     yield state.copyWith(
       note: note,
@@ -108,7 +108,6 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } catch (error) {
-        print(error.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

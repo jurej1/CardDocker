@@ -21,7 +21,7 @@ class ColorSelector extends StatelessWidget {
               builder: (_) => _colorSelectorBottomSheet(),
             );
 
-            BlocProvider.of<AddCredictCardFormBloc>(contex).add(CredictCardColorChanged(color));
+            BlocProvider.of<AddCredictCardFormBloc>(contex).add(CredictCardColorChanged(color!));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,10 +58,7 @@ class ColorSelector extends StatelessWidget {
               height: 30,
               width: 35,
               decoration: BoxDecoration(
-                color: colors[index],
-                border: Border.all(color: Colors.black45, width: 1),
-                borderRadius: BorderRadius.circular(8)
-              ),
+                  color: colors[index], border: Border.all(color: Colors.black45, width: 1), borderRadius: BorderRadius.circular(8)),
             ),
           );
         },

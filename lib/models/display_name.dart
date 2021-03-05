@@ -7,7 +7,7 @@ class DisplayName extends FormzInput<String, DisplayNameValidationError> {
   const DisplayName.dirty([String value = '']) : super.dirty(value);
 
   @override
-  DisplayNameValidationError validator(String value) {
-    return value.length < 5 ? DisplayNameValidationError.invalid : null;
+  DisplayNameValidationError? validator(String? value) {
+    return value!.length < 5 ? DisplayNameValidationError.invalid : null;
   }
 }

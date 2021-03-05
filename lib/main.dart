@@ -1,4 +1,5 @@
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+import 'package:card_docker/repositories/transactions_repository/src/firebase_transaction_repository.dart';
 import 'package:card_docker/simple_bloc_observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,9 @@ Future<void> main() async {
         ),
         RepositoryProvider(
           create: (context) => FirebaseCredictCardRepository(),
+        ),
+        RepositoryProvider(
+          create: (context) => FirebaseTransactionsRepository(),
         ),
       ],
       child: App(),

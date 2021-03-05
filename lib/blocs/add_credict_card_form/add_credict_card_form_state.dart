@@ -2,19 +2,19 @@ part of 'add_credict_card_form_bloc.dart';
 
 @immutable
 class AddCredictCardFormState extends Equatable {
-  const AddCredictCardFormState({
-    this.status,
-    this.company,
-    this.balance,
-    this.type,
-    this.note,
-    this.color,
+  AddCredictCardFormState._({
+    required this.status,
+    required this.company,
+    required this.balance,
+    required this.type,
+    required this.note,
+    required this.color,
   });
 
   static AddCredictCardFormState initial() {
-    return AddCredictCardFormState(
-      balance: const Balance.pure(),
-      color: CardColors.blue300,
+    return AddCredictCardFormState._(
+      balance: const Amount.pure(),
+      color: CardColors.blue300 as Color,
       company: CredictCardCompany.none,
       note: const Note.pure(),
       status: FormzStatus.pure,
@@ -24,7 +24,7 @@ class AddCredictCardFormState extends Equatable {
 
   final FormzStatus status;
   final CredictCardCompany company;
-  final Balance balance;
+  final Amount balance;
   final CredictCardType type;
   final Note note;
   final Color color;
@@ -37,14 +37,14 @@ class AddCredictCardFormState extends Equatable {
       'AddCredictCardFormState { status: $status, company: $company, balance: ${balance.value}, type: $type, note: $note, color: $color }';
 
   AddCredictCardFormState copyWith({
-    FormzStatus status,
-    CredictCardCompany company,
-    Balance balance,
-    CredictCardType type,
-    Note note,
-    Color color,
+    FormzStatus? status,
+    CredictCardCompany? company,
+    Amount? balance,
+    CredictCardType? type,
+    Note? note,
+    Color? color,
   }) {
-    return AddCredictCardFormState(
+    return AddCredictCardFormState._(
       status: status ?? this.status,
       company: company ?? this.company,
       balance: balance ?? this.balance,

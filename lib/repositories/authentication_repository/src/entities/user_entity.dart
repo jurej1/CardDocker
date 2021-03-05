@@ -1,23 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:meta/meta.dart';
 
 class UserEntity extends Equatable {
-  final String id;
-  final String displayName;
-  final String email;
-  final String photoUrl;
+  final String? id;
+  final String? displayName;
+  final String? email;
+  final String? photoUrl;
 
   const UserEntity({
-    @required this.id,
-    @required this.displayName,
-    @required this.email,
-    @required this.photoUrl,
+    this.id,
+    this.displayName,
+    this.email,
+    this.photoUrl,
   });
 
   @override
-  List<Object> get props => [id, displayName, email, photoUrl];
+  List<Object> get props => [id!, displayName!, email!, photoUrl!];
 
   @override
   String toString() {
@@ -26,36 +25,36 @@ class UserEntity extends Equatable {
 
   Map<String, Object> toJson() {
     return {
-      'id': id,
-      'displayName': displayName,
-      'email': email,
-      'photoUrl': photoUrl,
+      'id': id!,
+      'displayName': displayName!,
+      'email': email!,
+      'photoUrl': photoUrl!,
     };
   }
 
   static UserEntity fromJson(Map<String, Object> data) {
     return UserEntity(
-      displayName: data['displayName'],
-      email: data['email'],
-      id: data['id'],
-      photoUrl: data['photoUrl'],
+      displayName: data['displayName'] as String,
+      email: data['email'] as String,
+      id: data['id'] as String,
+      photoUrl: data['photoUrl'] as String,
     );
   }
 
   Map<String, Object> toDocument() {
     return {
-      'displayName': displayName,
-      'email': email,
-      'photoUrl': photoUrl,
+      'displayName': displayName!,
+      'email': email!,
+      'photoUrl': photoUrl!,
     };
   }
 
   static UserEntity fromDocument(DocumentSnapshot snap) {
     return UserEntity(
-      displayName: snap.data()['displayName'],
-      email: snap.data()['email'],
+      displayName: snap.data()!['displayName'],
+      email: snap.data()!['email'],
       id: snap.id,
-      photoUrl: snap.data()['photoUrl'],
+      photoUrl: snap.data()!['photoUrl'],
     );
   }
 

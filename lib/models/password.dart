@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:regexpattern/regexpattern.dart' as reg;
+import 'package:regexpattern/regexpattern.dart';
 
 enum PasswordValidationError { toShort, invalid }
 
@@ -8,7 +8,7 @@ class Password extends FormzInput<String, PasswordValidationError> {
   const Password.dirty([String value = '']) : super.dirty(value);
 
   @override
-  PasswordValidationError validator(String value) {
-    return reg.RegVal.hasMatch(value, reg.RegexPattern.passwordNormal2) ? null : PasswordValidationError.invalid;
+  PasswordValidationError? validator(String? value) {
+    return RegVal.hasMatch(value, RegexPattern.passwordNormal2) ? null : PasswordValidationError.invalid;
   }
 }

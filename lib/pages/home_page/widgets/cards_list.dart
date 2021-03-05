@@ -5,7 +5,7 @@ import 'package:card_docker/repositories/credict_cards_repository/credict_cards_
 class CardsList extends StatelessWidget {
   final List<CredictCard> cards;
 
-  const CardsList({Key key, @required this.cards}) : super(key: key);
+  const CardsList({Key? key, required this.cards}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

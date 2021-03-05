@@ -4,19 +4,22 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.16.0+1
+  bloc: ^7.0.0-nullsafety.3
+  cloud_firestore: ^1.0.0
   cupertino_icons: ^1.0.0
-  equatable: ^1.2.6
-  firebase_auth: ^0.20.1
-  firebase_core: ^0.7.0
-  flutter_bloc: ^6.1.2
-  formz: ^0.3.2
-  google_sign_in: ^4.5.9
+  equatable: ^2.0.0-nullsafety.4
+  firebase_auth: ^1.0.0
+  firebase_auth_web: ^1.0.0
+  firebase_core: ^1.0.0
+  flutter_bloc: ^7.0.0-nullsafety.3
+  formz: ^0.4.0-nullsafety.0
+  google_sign_in: ^5.0.0
+  intl: ^0.17.0
   regexpattern: ^1.0.0
 
 dev_dependencies:

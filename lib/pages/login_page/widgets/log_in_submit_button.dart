@@ -11,18 +11,19 @@ class LogInSubmitButton extends StatelessWidget {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: 43,
-          child: RaisedButton(
-            
+          child: ElevatedButton(
             onPressed: () {
               if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
               BlocProvider.of<LoginFormBloc>(context).add(LoginFormSubmit());
             },
             child: state.status.isSubmissionInProgress
                 ? CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                )
-                : Text('Log in'),
-            textColor: Colors.white,
+                    backgroundColor: Colors.white,
+                  )
+                : Text(
+                    'Log in',
+                    style: TextStyle(color: Colors.white),
+                  ),
           ),
         );
       },
