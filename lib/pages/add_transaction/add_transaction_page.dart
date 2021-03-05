@@ -1,5 +1,6 @@
 import 'package:card_docker/blocs/add_transaction_form/add_transaction_form_bloc.dart';
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
+import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/pages/add_transaction/view.dart/add_transaction_view.dart';
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,12 @@ class AddTransactionPage extends StatelessWidget {
       create: (context) => AddTransactionFormBloc(
         authBloc: BlocProvider.of<AuthBloc>(context),
         firebaseTransactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
-        initialState: transaction == null ? AddTransactionFormState.add() : AddTransactionFormState.edit(transaction!),
+        initialState: transaction == null
+            ? AddTransactionFormState.add()
+            : AddTransactionFormState.edit(
+                cards: (BlocProvider.of<CardsBloc>(context).state as CardsLoadSuccess).cards,
+                transaction: transaction!,
+              ),
       ),
       child: AddTransactionView(),
     );

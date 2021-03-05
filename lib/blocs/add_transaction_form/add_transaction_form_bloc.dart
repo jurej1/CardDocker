@@ -68,7 +68,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
   }
 
   AddTransactionFormState _mapTransactionCardIdChangedToState(TransactionCardChanged event) {
-    final card = CardId.dirty(event.card.id!);
+    final card = CardId.dirty(event.card);
 
     return state.copyWith(
       card: card,
@@ -147,7 +147,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
       repository.Transaction transaction = repository.Transaction(
         amount: num.parse(state.amount.value),
-        cardId: state.card.value,
+        cardId: state.card.value.id!,
         note: state.note.value,
         ownerId: user.id!,
         title: state.title.value,
@@ -172,7 +172,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
 
       repository.Transaction transaction = oldTransaction.copyWith(
         amount: num.parse(state.amount.value),
-        cardId: state.card.value,
+        cardId: state.card.value.id!,
         created: Timestamp.fromDate(state.created.value),
         note: state.note.value,
         purpose: state.purpose,

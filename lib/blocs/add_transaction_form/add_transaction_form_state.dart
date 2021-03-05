@@ -37,10 +37,12 @@ class AddTransactionFormState extends Equatable {
     );
   }
 
-  factory AddTransactionFormState.edit(repository.Transaction transaction) {
+  factory AddTransactionFormState.edit({required repository.Transaction transaction, required List<CredictCard> cards}) {
     return AddTransactionFormState._(
       amount: Amount.pure(transaction.amount.toString()),
-      card: CardId.pure(transaction.cardId),
+      card: CardId.pure(
+        cards.firstWhere((element) => element.id == transaction.cardId, orElse: () => CredictCard.empty),
+      ),
       title: Title.pure(transaction.title),
       note: Note.pure(transaction.note),
       status: FormzStatus.pure,

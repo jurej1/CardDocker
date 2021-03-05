@@ -17,7 +17,7 @@ class CardSelector extends StatelessWidget {
             children: [
               InputCardChild(
                 title: 'Card',
-                child: state.card.value,
+                child: state.card.value.note,
               ),
               if (state.card.invalid) ...{
                 Text('This field is required'),
