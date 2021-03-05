@@ -13,7 +13,7 @@ class CredictCardCompanyChanged extends AddCredictCardFormEvent {
   const CredictCardCompanyChanged(this.company);
 
   @override
-  List<Object> get props => [props];
+  List<Object> get props => [company];
 }
 
 class CredictCardAmountChanged extends AddCredictCardFormEvent {

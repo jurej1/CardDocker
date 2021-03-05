@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:card_docker/constants/card_colors.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:formz/formz.dart';
 
 import 'package:card_docker/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_docker/models/models.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
 
 part 'add_credict_card_form_event.dart';
 part 'add_credict_card_form_state.dart';
@@ -97,7 +97,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
       try {
         final credictCard = CredictCard(
           note: state.note.value,
-          ownerId: (_authCubit.state as Authenticated).user.id!,
+          ownerId: (_authCubit.state as Authenticated).user.id,
           balance: double.parse(state.balance.value),
           color: state.color,
           company: state.company,
@@ -108,7 +108,7 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } catch (error) {
-        print(error.toString());
+        print('Errorrr  ' + error.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }
