@@ -4,7 +4,6 @@ import 'package:card_docker/pages/add_transaction/bloc/credict_card_tile_bloc.da
 import 'package:card_docker/pages/add_transaction/widgets/credict_card_tile.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/models/models.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +31,7 @@ class CardSelector extends StatelessWidget {
             ],
           ),
           onTap: () async {
-            final CredictCard? card = (await _bottomSheet(context))!;
+            final CredictCard? card = (await _bottomSheet(context));
             if (card != null) BlocProvider.of<AddTransactionFormBloc>(context).add(TransactionCardChanged(card));
           },
         );
@@ -47,48 +46,48 @@ class CardSelector extends StatelessWidget {
       backgroundColor: Colors.transparent,
       builder: (_) {
         return BottomSheetGround(
-          // child: BlocBuilder<CardsBloc, CardsState>(
-          //   builder: (context, state) {
-          //     if (state is CardsLoading) {
-          //       return Center(
-          //         child: CircularProgressIndicator(),
-          //       );
-          //     }
-          //     return _cardsList((state as CardsLoadSuccess).cards);
-          //   },
-          // ),
-          child: _cardsList([
-            CredictCard(
-              note: 'MY card',
-              ownerId: '68460480ds49fs',
-              balance: 50,
-              color: Colors.red,
-              company: CredictCardCompany.americanExspress,
-              created: Timestamp.now(),
-              id: 'USFHOIGJDSKV',
-              type: CredictCardType.business,
-            ),
-            CredictCard(
-              note: 'MY card2',
-              ownerId: 'sgpodfsdg875dfg8f4x',
-              balance: 150,
-              color: Colors.blue,
-              company: CredictCardCompany.bankOfAmerica,
-              created: Timestamp.now(),
-              id: 'PAJPFODDF',
-              type: CredictCardType.debit,
-            ),
-            CredictCard(
-              note: 'MY bakn card',
-              ownerId: 'PAPOKPFD*AFA*',
-              balance: 10000,
-              color: Colors.green,
-              company: CredictCardCompany.citibank,
-              created: Timestamp.now(),
-              id: 'USFHOIGJDSKV',
-              type: CredictCardType.business,
-            ),
-          ]),
+          child: BlocBuilder<CardsBloc, CardsState>(
+            builder: (context, state) {
+              if (state is CardsLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return _cardsList((state as CardsLoadSuccess).cards);
+            },
+          ),
+          // child: _cardsList([
+          //   CredictCard(
+          //     note: 'MY card',
+          //     ownerId: '68460480ds49fs',
+          //     balance: 50,
+          //     color: Colors.red,
+          //     company: CredictCardCompany.americanExspress,
+          //     created: Timestamp.now(),
+          //     id: 'USFHOIGJDSKV',
+          //     type: CredictCardType.business,
+          //   ),
+          //   CredictCard(
+          //     note: 'MY card2',
+          //     ownerId: 'sgpodfsdg875dfg8f4x',
+          //     balance: 150,
+          //     color: Colors.blue,
+          //     company: CredictCardCompany.bankOfAmerica,
+          //     created: Timestamp.now(),
+          //     id: 'PAJPFODDF',
+          //     type: CredictCardType.debit,
+          //   ),
+          //   CredictCard(
+          //     note: 'MY bakn card',
+          //     ownerId: 'PAPOKPFD*AFA*',
+          //     balance: 10000,
+          //     color: Colors.green,
+          //     company: CredictCardCompany.citibank,
+          //     created: Timestamp.now(),
+          //     id: 'USFHOIGJDSKV',
+          //     type: CredictCardType.business,
+          //   ),
+          // ]
         );
       },
     );
