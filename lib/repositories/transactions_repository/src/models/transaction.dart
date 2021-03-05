@@ -26,16 +26,16 @@ class Transaction extends Equatable {
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
-      id!,
-      note!,
+      id,
+      note,
       ownerId,
       title,
       purpose,
       amount,
       cardId,
-      created!,
+      created,
     ];
   }
 

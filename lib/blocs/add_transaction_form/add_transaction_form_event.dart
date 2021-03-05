@@ -8,7 +8,7 @@ abstract class AddTransactionFormEvent extends Equatable {
 }
 
 class TransactionPurposeChanged extends AddTransactionFormEvent {
-  final TransactionPurpose purpose;
+  final repository.TransactionPurpose purpose;
 
   const TransactionPurposeChanged(this.purpose);
 
@@ -51,6 +51,15 @@ class TransactionNoteChanged extends AddTransactionFormEvent {
   final String value;
 
   const TransactionNoteChanged(this.value);
+
+  @override
+  List<Object> get props => [value];
+}
+
+class TransactionCreatedChanged extends AddTransactionFormEvent {
+  final DateTime value;
+
+  const TransactionCreatedChanged(this.value);
 
   @override
   List<Object> get props => [value];

@@ -3,16 +3,15 @@ import 'package:formz/formz.dart';
 
 enum CreatedValidationError { invalid }
 
-class Created extends FormzInput<Timestamp, CreatedValidationError> {
-  Created.pure([Timestamp? value]) : super.pure(value ?? Timestamp.now());
-  Created.dirty([Timestamp? value]) : super.pure(value ?? Timestamp.now());
+class Created extends FormzInput<DateTime, CreatedValidationError> {
+  Created.pure([DateTime? value]) : super.pure(value ?? DateTime.now());
+  Created.dirty([DateTime? value]) : super.pure(value ?? DateTime.now());
 
   @override
-  CreatedValidationError? validator(Timestamp? value) {
-    final insertedValue = value!.toDate();
+  CreatedValidationError? validator(DateTime? value) {
     final currentDate = Timestamp.now().toDate();
 
-    if (insertedValue.isAfter(currentDate)) {
+    if (value!.isAfter(currentDate)) {
       return CreatedValidationError.invalid;
     } else {
       return null;

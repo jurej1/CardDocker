@@ -1,23 +1,28 @@
 part of 'add_transaction_form_bloc.dart';
 
+enum Mode { add, edit }
+
 class AddTransactionFormState extends Equatable {
-  final TransactionPurpose? purpose;
+  final repository.TransactionPurpose? purpose;
   final Amount amount;
   final CardId card;
   final Title title;
   final Note note;
-  final Transaction transaction;
+  final repository.Transaction transaction;
+  final Created created;
   final FormzStatus status;
+  final Mode mode;
 
-  const AddTransactionFormState._({
-    this.purpose,
-    required this.amount,
-    required this.card,
-    required this.title,
-    required this.note,
-    required this.status,
-    required this.transaction,
-  });
+  const AddTransactionFormState._(
+      {this.purpose,
+      required this.created,
+      required this.amount,
+      required this.card,
+      required this.title,
+      required this.note,
+      required this.status,
+      required this.transaction,
+      required this.mode});
 
   factory AddTransactionFormState.add() {
     return AddTransactionFormState._(
@@ -26,11 +31,13 @@ class AddTransactionFormState extends Equatable {
       note: const Note.pure(),
       title: const Title.pure(),
       status: FormzStatus.pure,
-      transaction: Transaction.empty,
+      transaction: repository.Transaction.empty,
+      created: Created.pure(),
+      mode: Mode.add,
     );
   }
 
-  factory AddTransactionFormState.edit(Transaction transaction) {
+  factory AddTransactionFormState.edit(repository.Transaction transaction) {
     return AddTransactionFormState._(
       amount: Amount.pure(transaction.amount.toString()),
       card: CardId.pure(transaction.cardId),
@@ -38,6 +45,9 @@ class AddTransactionFormState extends Equatable {
       note: Note.pure(transaction.note),
       status: FormzStatus.pure,
       transaction: transaction,
+      created: Created.pure(transaction.created!.toDate()),
+      purpose: transaction.purpose,
+      mode: Mode.edit,
     );
   }
 
@@ -49,18 +59,23 @@ class AddTransactionFormState extends Equatable {
       card,
       title,
       note,
+      transaction,
+      created,
       status,
+      mode,
     ];
   }
 
   AddTransactionFormState copyWith({
-    TransactionPurpose? purpose,
+    repository.TransactionPurpose? purpose,
     Amount? amount,
     CardId? card,
     Title? title,
     Note? note,
-    Transaction? transaction,
+    repository.Transaction? transaction,
+    Created? created,
     FormzStatus? status,
+    Mode? mode,
   }) {
     return AddTransactionFormState._(
       purpose: purpose ?? this.purpose,
@@ -69,7 +84,9 @@ class AddTransactionFormState extends Equatable {
       title: title ?? this.title,
       note: note ?? this.note,
       transaction: transaction ?? this.transaction,
+      created: created ?? this.created,
       status: status ?? this.status,
+      mode: mode ?? this.mode,
     );
   }
 }
