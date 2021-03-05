@@ -11,13 +11,21 @@ class SignUpSubmitButton extends StatelessWidget {
         return Container(
           width: MediaQuery.of(context).size.width,
           height: 43,
-          child:  RaisedButton(
+          child: ElevatedButton(
             onPressed: () {
               if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
               BlocProvider.of<SignUpFormBloc>(context).add(SignUpFormSubmit());
             },
-            child:  state.status.isSubmissionInProgress ? Center(child: CircularProgressIndicator(),): Text('Sign in'),
-            textColor: Colors.white,
+            child: state.status.isSubmissionInProgress
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Text(
+                    'Sign in',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
           ),
         );
       },

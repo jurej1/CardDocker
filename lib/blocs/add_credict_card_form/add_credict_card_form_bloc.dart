@@ -108,7 +108,6 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } catch (error) {
-        print('Errorrr  ' + error.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

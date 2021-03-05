@@ -7,8 +7,8 @@ class Note extends FormzInput<String, NoteValidationError> {
   const Note.dirty([String value = '']) : super.dirty(value);
 
   @override
-  NoteValidationError? validator(String value) {
-    if (value.length > 300) {
+  NoteValidationError? validator(String? value) {
+    if (value!.length > 300) {
       return NoteValidationError.invalid;
     } else {
       return null;
