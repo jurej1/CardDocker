@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:card_docker/repositories/authentication_repository/src/models/user.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
+import 'package:card_docker/repositories/authentication_repository/src/models/user.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -14,8 +14,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : _authenticationRepository = firebaseAuthenticationRepository,
         super(Unknown());
 
-  late final FirebaseAuthenticationRepository _authenticationRepository;
-  late final StreamSubscription _authSubscription;
+  final FirebaseAuthenticationRepository _authenticationRepository;
+  late StreamSubscription _authSubscription;
 
   @override
   Stream<AuthState> mapEventToState(
@@ -31,7 +31,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _mapAppStartedToState() {
-    _authSubscription.cancel();
     _authSubscription = _authenticationRepository.user.listen(
       (user) => add(AuthStatusUpdated(user!)),
     );
