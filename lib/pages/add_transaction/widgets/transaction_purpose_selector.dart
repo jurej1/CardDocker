@@ -20,7 +20,7 @@ class TransactionPurposeSelector extends StatelessWidget {
                 'Purpose',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(transactionPurposeToString(state.purpose!)),
+              Text(transactionPurposeToString(state.purpose)),
             ],
           ),
         );

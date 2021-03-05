@@ -62,7 +62,7 @@ TransactionPurpose stringToTransactionPurpose(String value) {
   }
 }
 
-String transactionPurposeToString(TransactionPurpose purpose) {
+String transactionPurposeToString(TransactionPurpose? purpose) {
   if (purpose == TransactionPurpose.alcohol) {
     return 'Alcohol';
   } else if (purpose == TransactionPurpose.autoInsurance) {
