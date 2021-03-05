@@ -31,7 +31,6 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
   }
 
   void _mapLoadCardsToState(LoadCards event) {
-    _cardsSubscription.cancel();
     _cardsSubscription = _firebaseCredictCardRepository.cards(event.userId).listen((cards) {
       add(CardsUpdated(cards));
     });
