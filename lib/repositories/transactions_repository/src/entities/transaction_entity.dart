@@ -26,11 +26,11 @@ class TransactionEntity extends Equatable {
   }) : created = created ?? Timestamp.now();
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
-      id!,
+      id,
       ownerId,
-      note!,
+      note,
       title,
       purpose,
       amount,

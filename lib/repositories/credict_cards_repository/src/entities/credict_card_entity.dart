@@ -27,7 +27,7 @@ class CredictCardEntity extends Equatable {
   }) : created = created ?? Timestamp.now();
 
   @override
-  List<Object> get props => [id!, ownerId, created, company, balance, type, color, note];
+  List<Object?> get props => [id, ownerId, created, company, balance, type, color, note];
 
   @override
   String toString() {

@@ -7,7 +7,7 @@ import 'package:card_docker/repositories/credict_cards_repository/src/enums/enum
 
 class CredictCard extends Equatable {
   final String? id;
-  final String ownerId;
+  final String? ownerId;
   final Timestamp? created;
   final CredictCardCompany company;
   final double balance;
@@ -35,15 +35,15 @@ class CredictCard extends Equatable {
   );
 
   @override
-  List<Object> get props => [id!, ownerId, created!, company, balance, type, note, color!];
+  List<Object?> get props => [id, ownerId, created, company, balance, type, note, color];
 
   CredictCardEntity toEntity() {
     return CredictCardEntity(
       balance: balance,
       company: company,
       created: created,
-      id: id!,
-      ownerId: ownerId,
+      id: id,
+      ownerId: ownerId!,
       type: type,
       note: note,
       color: color!,
