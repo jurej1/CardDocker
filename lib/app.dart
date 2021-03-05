@@ -69,7 +69,7 @@ class _AppView extends StatelessWidget {
               _navigatorState?.pushNamedAndRemoveUntil(LoginPage.routeName, (_) => false);
             }
           },
-          child: child!,
+          child: child,
         );
       },
       initialRoute: SplashPage.routeName,
