@@ -12,7 +12,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required FirebaseAuthenticationRepository firebaseAuthenticationRepository})
       : _authenticationRepository = firebaseAuthenticationRepository,
-        super(Unknown());
+        super(Loading());
 
   final FirebaseAuthenticationRepository _authenticationRepository;
   late StreamSubscription _authSubscription;
