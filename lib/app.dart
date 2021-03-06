@@ -1,3 +1,4 @@
+import 'package:card_docker/blocs/carousel_bloc/carousel_bloc.dart';
 import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
 import 'package:card_docker/pages/add_transaction/add_transaction_page.dart';
 import 'package:card_docker/pages/home_page/home_page.dart';
@@ -31,7 +32,7 @@ class App extends StatelessWidget {
           create: (context) => TransactionsBloc(
             firebaseTransactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
           ),
-        )
+        ),
       ],
       child: _AppView(),
     );
@@ -79,7 +80,18 @@ class _AppView extends StatelessWidget {
       initialRoute: SplashPage.routeName,
       // home: AddTransactionPage(),
       routes: {
-        HomePage.routeName: (context) => HomePage(),
+        HomePage.routeName: (context) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<CarouselBloc>(
+                create: (context) => CarouselBloc(
+                  cardsBloc: BlocProvider.of<CardsBloc>(context),
+                ),
+              ),
+            ],
+            child: HomePage(),
+          );
+        },
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),

@@ -16,22 +16,10 @@ class HomePage extends StatelessWidget {
           ActionSelector(),
         ],
       ),
-      body: BlocBuilder<CardsBloc, CardsState>(
-        builder: (context, state) {
-          if (state is CardsLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is CardsLoadFailure) {
-            return Center(
-              child: Text('Something went wrong'),
-            );
-          } else if (state is CardsLoadSuccess) {
-            return CardsList(cards: state.cards);
-          }
-
-          return Container();
-        },
+      body: ListView(
+        children: [
+          CardsCarousel(),
+        ],
       ),
     );
   }
