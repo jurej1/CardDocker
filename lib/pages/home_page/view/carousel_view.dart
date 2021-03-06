@@ -42,6 +42,9 @@ class _CarouselList extends StatelessWidget {
         child: Column(
           children: [
             CardsCarousel(cards: state.cards!),
+            Divider(
+              color: Colors.black45,
+            ),
             Expanded(
               child: CardTransactionsList(transactions: state.currentCardTransactions!),
             ),

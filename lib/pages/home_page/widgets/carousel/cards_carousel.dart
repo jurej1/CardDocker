@@ -12,7 +12,6 @@ class CardsCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
-      color: Colors.green,
       child: _CardsLoadedCarousel(cards: cards),
     );
   }
