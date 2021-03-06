@@ -48,7 +48,7 @@ class _CardsLoadedCarousel extends StatelessWidget {
           return Container(
             color: Colors.red,
             child: Center(
-              child: Text(index.toString()),
+              child: Text(cards[index].note),
             ),
           );
         },

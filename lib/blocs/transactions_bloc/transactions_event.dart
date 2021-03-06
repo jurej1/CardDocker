@@ -4,7 +4,7 @@ abstract class TransactionsEvent extends Equatable {
   const TransactionsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LoadTransactions extends TransactionsEvent {
@@ -21,7 +21,7 @@ class TransactionsUpdated extends TransactionsEvent {
 
   const TransactionsUpdated(this.transactions);
   @override
-  List<Object> get props => [transactions!];
+  List<Object?> get props => [transactions];
 }
 
 class DeleteTransaction extends TransactionsEvent {

@@ -78,7 +78,6 @@ class _AppView extends StatelessWidget {
         );
       },
       initialRoute: SplashPage.routeName,
-      // home: AddTransactionPage(),
       routes: {
         HomePage.routeName: (context) {
           return MultiBlocProvider(
@@ -88,6 +87,12 @@ class _AppView extends StatelessWidget {
                   cardsBloc: BlocProvider.of<CardsBloc>(context),
                 ),
               ),
+              BlocProvider(
+                create: (context) => FilteredTransactionsBloc(
+                  carouselBloc: BlocProvider.of<CarouselBloc>(context),
+                  transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+                ),
+              )
             ],
             child: HomePage(),
           );
