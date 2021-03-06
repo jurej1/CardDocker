@@ -1,7 +1,5 @@
 part of 'add_transaction_form_bloc.dart';
 
-enum Mode { add, edit }
-
 class AddTransactionFormState extends Equatable {
   final repository.TransactionPurpose? purpose;
   final Amount amount;
@@ -13,21 +11,22 @@ class AddTransactionFormState extends Equatable {
   final FormzStatus status;
   final Mode mode;
 
-  const AddTransactionFormState._(
-      {this.purpose,
-      required this.created,
-      required this.amount,
-      required this.card,
-      required this.title,
-      required this.note,
-      required this.status,
-      required this.transaction,
-      required this.mode});
+  const AddTransactionFormState._({
+    this.purpose,
+    required this.created,
+    required this.amount,
+    required this.card,
+    required this.title,
+    required this.note,
+    required this.status,
+    required this.transaction,
+    required this.mode,
+  });
 
   factory AddTransactionFormState.add() {
     return AddTransactionFormState._(
       amount: const Amount.pure(),
-      card: const CardId.pure(),
+      card: CardId.pure(),
       note: const Note.pure(),
       title: const Title.pure(),
       status: FormzStatus.pure,
@@ -41,7 +40,7 @@ class AddTransactionFormState extends Equatable {
     return AddTransactionFormState._(
       amount: Amount.pure(transaction.amount.toString()),
       card: CardId.pure(
-        cards.firstWhere((element) => element.id == transaction.cardId, orElse: () => CredictCard.empty),
+        cards.firstWhere((element) => element.id == transaction.cardId, orElse: () => CredictCard.empty()),
       ),
       title: Title.pure(transaction.title),
       note: Note.pure(transaction.note),

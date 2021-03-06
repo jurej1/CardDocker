@@ -4,13 +4,13 @@ import 'package:formz/formz.dart';
 enum CardIdValidationError { invalid }
 
 class CardId extends FormzInput<CredictCard, CardIdValidationError> {
-  const CardId.pure([CredictCard? card]) : super.pure(card ?? CredictCard.empty);
-  const CardId.dirty([CredictCard? card]) : super.dirty(card ?? CredictCard.empty);
+  CardId.pure([CredictCard? card]) : super.pure(card ?? CredictCard.empty());
+  CardId.dirty([CredictCard? card]) : super.dirty(card ?? CredictCard.empty());
 
   @override
   CardIdValidationError? validator(CredictCard? value) {
-    if (value != null && value.id != null) {
-      if (value.id!.isNotEmpty) {
+    if (value == null && value!.id == null) {
+      if (value.id!.isEmpty) {
         return CardIdValidationError.invalid;
       }
     } else {

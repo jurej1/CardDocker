@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:card_docker/constants/card_colors.dart';
+import 'package:card_docker/enums/enums.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +15,13 @@ part 'add_credict_card_form_event.dart';
 part 'add_credict_card_form_state.dart';
 
 class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCardFormState> {
-  AddCredictCardFormBloc({required FirebaseCredictCardRepository firebaseCredictCardRepository, required AuthBloc authBloc})
-      : _firebaseCredictCardRepository = firebaseCredictCardRepository,
+  AddCredictCardFormBloc({
+    required FirebaseCredictCardRepository firebaseCredictCardRepository,
+    required AuthBloc authBloc,
+    required AddCredictCardFormState intialState,
+  })   : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         _authCubit = authBloc,
-        super(AddCredictCardFormState.initial());
+        super(intialState);
 
   final FirebaseCredictCardRepository _firebaseCredictCardRepository;
   final AuthBloc _authCubit;
@@ -95,21 +99,57 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
       yield state.copyWith(status: FormzStatus.submissionInProgress);
 
       try {
-        final credictCard = CredictCard(
-          note: state.note.value,
-          ownerId: (_authCubit.state as Authenticated).user.id,
-          balance: double.parse(state.balance.value),
-          color: state.color,
-          company: state.company,
-          type: state.type,
-        );
-
-        await _firebaseCredictCardRepository.addCredictCard(credictCard);
-
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+        if (state.mode == Mode.add) {
+          yield await _addCard();
+        } else if (state.mode == Mode.edit) {
+          yield await _editCard();
+        }
       } catch (error) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
+    }
+  }
+
+  Future<AddCredictCardFormState> _addCard() async {
+    try {
+      final credictCard = CredictCard(
+        note: state.note.value,
+        ownerId: (_authCubit.state as Authenticated).user.id,
+        balance: double.parse(state.balance.value),
+        color: state.color,
+        company: state.company,
+        type: state.type,
+      );
+
+      await _firebaseCredictCardRepository.addCredictCard(credictCard);
+
+      return state.copyWith(
+        status: FormzStatus.submissionSuccess,
+        credictCard: credictCard,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<AddCredictCardFormState> _editCard() async {
+    try {
+      final currentCard = state.credictCard;
+      final updatedCredictCard = currentCard!.copyWith(
+        balance: double.parse(state.balance.value),
+        color: state.color,
+        company: state.company,
+        note: state.note.value,
+        type: state.type,
+      );
+
+      await _firebaseCredictCardRepository.updateCredictCard(updatedCredictCard);
+      return state.copyWith(
+        status: FormzStatus.submissionSuccess,
+        credictCard: updatedCredictCard,
+      );
+    } catch (e) {
+      throw e;
     }
   }
 }

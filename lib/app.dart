@@ -53,6 +53,10 @@ class _AppView extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
         cardTheme: CardTheme(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
