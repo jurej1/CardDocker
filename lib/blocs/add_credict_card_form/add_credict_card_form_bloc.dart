@@ -98,7 +98,13 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
 
-      try {} catch (error) {
+      try {
+        if (state.mode == Mode.add) {
+          yield await _addCard();
+        } else if (state.mode == Mode.edit) {
+          yield await _editCard();
+        }
+      } catch (error) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }
@@ -120,6 +126,27 @@ class AddCredictCardFormBloc extends Bloc<AddCredictCardFormEvent, AddCredictCar
       return state.copyWith(
         status: FormzStatus.submissionSuccess,
         credictCard: credictCard,
+      );
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<AddCredictCardFormState> _editCard() async {
+    try {
+      final currentCard = state.credictCard;
+      final updatedCredictCard = currentCard!.copyWith(
+        balance: double.parse(state.balance.value),
+        color: state.color,
+        company: state.company,
+        note: state.note.value,
+        type: state.type,
+      );
+
+      await _firebaseCredictCardRepository.updateCredictCard(updatedCredictCard);
+      return state.copyWith(
+        status: FormzStatus.submissionSuccess,
+        credictCard: updatedCredictCard,
       );
     } catch (e) {
       throw e;

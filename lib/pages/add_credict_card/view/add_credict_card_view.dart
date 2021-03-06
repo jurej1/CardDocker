@@ -27,11 +27,7 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
       appBar: AppBar(
         title: const Text('Add credict card'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            color: Colors.white,
-            onPressed: () => BlocProvider.of<AddCredictCardFormBloc>(context).add(CrediCardFormSubmit()),
-          ),
+          _SubmitButton(),
         ],
       ),
       body: BlocListener<AddCredictCardFormBloc, AddCredictCardFormState>(
@@ -79,6 +75,32 @@ class _AddCredictCardViewState extends State<AddCredictCardView> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AddCredictCardFormBloc, AddCredictCardFormState>(
+      builder: (context, state) {
+        final isLoading = state.status.isSubmissionInProgress;
+        final canSubmit = state.status.isValidated;
+
+        return TextButton(
+          onPressed: canSubmit
+              ? isLoading
+                  ? null
+                  : () => BlocProvider.of<AddCredictCardFormBloc>(context).add(CrediCardFormSubmit())
+              : null,
+          child: isLoading
+              ? CircularProgressIndicator()
+              : Text(
+                  'SUBMIT',
+                  style: TextStyle(color: canSubmit ? Colors.white : Colors.grey),
+                ),
+        );
+      },
     );
   }
 }
