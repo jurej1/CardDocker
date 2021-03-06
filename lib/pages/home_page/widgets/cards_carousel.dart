@@ -17,7 +17,7 @@ class CardsCarousel extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is CarouselLoadSuccess) {
-            return _CardsLoadedCarousel(cards: state.cards);
+            return _CardsLoadedCarousel(cards: state.cards!);
           } else if (state is CarouselLoadFail) {
             return _CardsFailure();
           }
@@ -56,9 +56,7 @@ class _CardsLoadedCarousel extends StatelessWidget {
           enlargeCenterPage: true,
           aspectRatio: 16 / 7,
           enableInfiniteScroll: false,
-          onPageChanged: (index, carouselOptions) {
-            BlocProvider.of<CarouselBloc>(context).add(CarouselSelectedCardUpdated(cards[index]));
-          },
+          onPageChanged: (index, carouselOptions) => BlocProvider.of<CarouselBloc>(context).add(CarouselSelectedCardUpdated(index)),
         ),
       );
     }

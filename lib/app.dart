@@ -85,14 +85,9 @@ class _AppView extends StatelessWidget {
               BlocProvider<CarouselBloc>(
                 create: (context) => CarouselBloc(
                   cardsBloc: BlocProvider.of<CardsBloc>(context),
-                ),
-              ),
-              BlocProvider(
-                create: (context) => FilteredTransactionsBloc(
-                  carouselBloc: BlocProvider.of<CarouselBloc>(context),
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
                 ),
-              )
+              ),
             ],
             child: HomePage(),
           );

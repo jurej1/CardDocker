@@ -4,25 +4,29 @@ abstract class CarouselEvent extends Equatable {
   const CarouselEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class CarouselCardsUpdated extends CarouselEvent {
+class _CarouselUpdated extends CarouselEvent {
   final List<CredictCard> cards;
+  final List<Transaction> transactions;
 
-  const CarouselCardsUpdated(this.cards);
+  const _CarouselUpdated({
+    required this.transactions,
+    required this.cards,
+  });
 
   @override
-  List<Object> get props => [cards];
+  List<Object?> get props => [cards];
 }
 
 class CarouselSelectedCardUpdated extends CarouselEvent {
-  final CredictCard card;
+  final int index;
 
-  const CarouselSelectedCardUpdated(this.card);
+  const CarouselSelectedCardUpdated(this.index);
 
   @override
-  List<Object> get props => [card];
+  List<Object> get props => [index];
 }
 
-class _CarouselCardsError extends CarouselEvent {}
+class _CarouselError extends CarouselEvent {}

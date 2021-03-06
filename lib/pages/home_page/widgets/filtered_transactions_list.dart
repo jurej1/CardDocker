@@ -6,13 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FilteredTransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FilteredTransactionsBloc, FilteredTransactionsState>(
+    return BlocBuilder<CarouselBloc, CarouselState>(
       builder: (context, state) {
-        if (state is FilteredTransactionsLoading) {
+        if (state is CarouselLoading) {
           return Text('Loading');
-        } else if (state is FilteredTransactionsSuccess) {
-          return _TransactionsList(transactions: state.transactions);
-        } else if (state is FilteredTransactionsFail) {
+        } else if (state is CarouselLoadSuccess) {
+          return _TransactionsList(transactions: state.currentCardTransactions!);
+        } else if (state is CarouselLoadFail) {
           return Text('Failed');
         } else {
           return Container();
