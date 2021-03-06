@@ -34,6 +34,8 @@ class _CarouselList extends StatelessWidget {
     final height = size.height;
     final width = size.width;
     return SingleChildScrollView(
+      padding: EdgeInsets.zero,
+      physics: BouncingScrollPhysics(),
       child: Container(
         height: height,
         width: width,
