@@ -9,8 +9,8 @@ class CardId extends FormzInput<CredictCard, CardIdValidationError> {
 
   @override
   CardIdValidationError? validator(CredictCard? value) {
-    if (value != null && value.id != null) {
-      if (value.id!.isNotEmpty) {
+    if (value == null && value!.id == null) {
+      if (value.id!.isEmpty) {
         return CardIdValidationError.invalid;
       }
     } else {

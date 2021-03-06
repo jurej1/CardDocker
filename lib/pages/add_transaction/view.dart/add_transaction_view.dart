@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/add_transaction_form/add_transaction_form_bloc.dart';
+import 'package:card_docker/enums/mode.dart';
 import 'package:card_docker/pages/add_transaction/widgets/card_selector.dart';
 import 'package:card_docker/pages/add_transaction/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,25 @@ class _AddTransactionViewState extends State<AddTransactionView> {
         listener: (context, state) {
           if (state.status.isSubmissionSuccess) {
             if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+
+            if (state.mode == Mode.add) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Transaction added'),
+                ),
+              );
+            } else if (state.mode == Mode.edit) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Transaction edited'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }
+          } else if (state.status.isSubmissionFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Submission failed. Please try one more time.')),
+            );
           }
         },
         child: ListView(
