@@ -8,10 +8,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AddCredictCardPage extends StatelessWidget {
   static const routeName = 'add_credict_card_page';
 
+  final CredictCard? credictCard;
+
+  const AddCredictCardPage({Key? key, this.credictCard}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AddCredictCardFormBloc>(
       create: (context) => AddCredictCardFormBloc(
+        intialState: credictCard == null ? AddCredictCardFormState.add() : AddCredictCardFormState.edit(credictCard!),
         authBloc: BlocProvider.of<AuthBloc>(context),
         firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
       ),
