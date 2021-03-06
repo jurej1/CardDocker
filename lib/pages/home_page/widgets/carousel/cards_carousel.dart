@@ -5,25 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardsCarousel extends StatelessWidget {
+  final List<CredictCard> cards;
+
+  const CardsCarousel({Key? key, required this.cards}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       color: Colors.green,
-      child: BlocBuilder<CarouselBloc, CarouselState>(
-        builder: (context, state) {
-          if (state is CarouselLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is CarouselLoadSuccess) {
-            return _CardsLoadedCarousel(cards: state.cards!);
-          } else if (state is CarouselLoadFail) {
-            return _CardsFailure();
-          }
-          return Container();
-        },
-      ),
+      child: _CardsLoadedCarousel(cards: cards),
     );
   }
 }
@@ -60,16 +50,5 @@ class _CardsLoadedCarousel extends StatelessWidget {
         ),
       );
     }
-  }
-}
-
-class _CardsFailure extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Sorry but there was an error',
-      ),
-    );
   }
 }
