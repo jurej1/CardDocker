@@ -23,6 +23,7 @@ class _TransactionsList extends StatelessWidget {
     } else {
       return ListView.builder(
         itemCount: transactions.length,
+        physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           return ListTile(
             leading: Text(transactions[index].amount.toString()),
