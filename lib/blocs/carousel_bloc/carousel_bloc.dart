@@ -89,7 +89,7 @@ class CarouselBloc extends Bloc<CarouselEvent, CarouselState> {
       add(
         _CarouselUpdated(
           transactions: transactionsState.transactions,
-          cards: (_cardsBloc as CardsLoadSuccess).cards,
+          cards: (_cardsBloc.state as CardsLoadSuccess).cards,
         ),
       );
     } else if (transactionsState is TransactionsFailure) {
