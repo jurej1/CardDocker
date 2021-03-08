@@ -1,5 +1,6 @@
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 import 'package:flutter/material.dart';
+import './transaction_tile.dart';
 
 class CardTransactionsList extends StatelessWidget {
   final List<Transaction> transactions;
@@ -17,17 +18,22 @@ class _TransactionsList extends StatelessWidget {
 
   const _TransactionsList({Key? key, required this.transactions}) : super(key: key);
   @override
-  Widget build(BuildContext buildContext) {
+  Widget build(BuildContext context) {
     if (transactions.isEmpty) {
-      return Text('No transactions');
+      return Container(
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+        child: Center(child: Text('No transactions. Click in the upper right corner to start adding transactions.')),
+      );
     } else {
       return ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         itemCount: transactions.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Text(transactions[index].amount.toString()),
-          );
-        },
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) => TransactionTile(
+          transaction: transactions[index],
+        ),
       );
     }
   }

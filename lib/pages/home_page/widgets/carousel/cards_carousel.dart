@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/carousel_bloc/carousel_bloc.dart';
+import 'package:card_docker/pages/home_page/widgets/carousel/carousel_card.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -33,15 +34,9 @@ class _CardsLoadedCarousel extends StatelessWidget {
     } else {
       return CarouselSlider.builder(
         itemCount: cards.length,
-        itemBuilder: (context, index, _) {
-          return Container(
-            color: Colors.red,
-            child: Center(
-              child: Text(cards[index].note),
-            ),
-          );
-        },
+        itemBuilder: (context, index, _) => CarouselCard(card: cards[index]),
         options: CarouselOptions(
+          scrollPhysics: const BouncingScrollPhysics(),
           enlargeCenterPage: true,
           aspectRatio: 16 / 7,
           enableInfiniteScroll: false,

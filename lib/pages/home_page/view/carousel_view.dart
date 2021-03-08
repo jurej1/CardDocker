@@ -33,23 +33,22 @@ class _CarouselList extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final height = size.height;
     final width = size.width;
-    return SingleChildScrollView(
-      padding: EdgeInsets.zero,
-      physics: BouncingScrollPhysics(),
-      child: Container(
-        height: height,
-        width: width,
-        child: Column(
-          children: [
-            CardsCarousel(cards: state.cards!),
-            Divider(
-              color: Colors.black45,
-            ),
-            Expanded(
-              child: CardTransactionsList(transactions: state.currentCardTransactions!),
-            ),
-          ],
-        ),
+
+    return Container(
+      height: height,
+      width: width,
+      child: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          CardsCarousel(cards: state.cards!),
+          Divider(
+            color: Colors.black45,
+          ),
+          TransactionsTitle(),
+          CardTransactionsList(
+            transactions: state.currentCardTransactions!,
+          ),
+        ],
       ),
     );
   }

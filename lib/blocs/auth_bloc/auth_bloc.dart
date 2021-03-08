@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _mapAppStartedToState() {
     _authSubscription = _authenticationRepository.user.listen(
-      (user) => add(AuthStatusUpdated(user!)),
+      (user) => add(AuthStatusUpdated(user)),
     );
   }
 
