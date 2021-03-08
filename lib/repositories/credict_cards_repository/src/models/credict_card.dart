@@ -9,7 +9,7 @@ import 'package:card_docker/repositories/credict_cards_repository/src/enums/enum
 class CredictCard extends Equatable {
   final String? id;
   final String? ownerId;
-  final Timestamp? created;
+  final DateTime? created;
   final CredictCardCompany company;
   final double balance;
   final CredictCardType type;
@@ -45,7 +45,7 @@ class CredictCard extends Equatable {
     return CredictCardEntity(
       balance: balance,
       company: company,
-      created: created,
+      created: created != null ? Timestamp.fromDate(created!) : null,
       id: id,
       ownerId: ownerId!,
       type: type,
@@ -59,7 +59,7 @@ class CredictCard extends Equatable {
       type: entity.type,
       balance: entity.balance,
       company: entity.company,
-      created: entity.created,
+      created: entity.created.toDate(),
       id: entity.id,
       ownerId: entity.ownerId,
       color: entity.color,
@@ -70,7 +70,7 @@ class CredictCard extends Equatable {
   CredictCard copyWith({
     String? id,
     String? ownerId,
-    Timestamp? created,
+    DateTime? created,
     CredictCardCompany? company,
     double? balance,
     CredictCardType? type,

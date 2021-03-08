@@ -153,7 +153,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
         ownerId: user.id!,
         title: state.title.value,
         purpose: state.purpose!,
-        created: Timestamp.fromDate(state.created.value),
+        created: state.created.value,
       );
 
       await _firebaseTransactionsRepository.addTransaction(transaction);
@@ -174,7 +174,7 @@ class AddTransactionFormBloc extends Bloc<AddTransactionFormEvent, AddTransactio
       repository.Transaction transaction = oldTransaction.copyWith(
         amount: num.parse(state.amount.value),
         cardId: state.card.value.id!,
-        created: Timestamp.fromDate(state.created.value),
+        created: state.created.value,
         note: state.note.value,
         purpose: state.purpose,
         title: state.title.value,

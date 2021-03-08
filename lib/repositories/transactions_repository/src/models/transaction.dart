@@ -12,7 +12,7 @@ class Transaction extends Equatable {
   final TransactionPurpose purpose;
   final num amount;
   final String cardId;
-  final Timestamp? created;
+  final DateTime? created;
 
   const Transaction({
     this.id,
@@ -55,7 +55,7 @@ class Transaction extends Equatable {
     TransactionPurpose? purpose,
     num? amount,
     String? cardId,
-    Timestamp? created,
+    DateTime? created,
   }) {
     return Transaction(
       id: id ?? this.id,
@@ -73,7 +73,7 @@ class Transaction extends Equatable {
     return TransactionEntity(
       amount: amount,
       cardId: cardId,
-      created: created,
+      created: created != null ? Timestamp.fromDate(created!) : null,
       id: id,
       note: note!,
       ownerId: ownerId,
@@ -86,7 +86,7 @@ class Transaction extends Equatable {
     return Transaction(
       amount: entity.amount,
       cardId: entity.cardId,
-      created: entity.created,
+      created: entity.created.toDate(),
       id: entity.id!,
       note: entity.note,
       ownerId: entity.ownerId,
