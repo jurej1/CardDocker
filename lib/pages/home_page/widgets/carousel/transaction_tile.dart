@@ -89,6 +89,8 @@ class _TrailingData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           '$_sign \$${amount.toStringAsFixed(0)}',
