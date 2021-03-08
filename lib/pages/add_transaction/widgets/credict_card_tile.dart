@@ -119,7 +119,7 @@ class _AdditionalInformation extends StatelessWidget {
           const SizedBox(height: 6),
           _infoTile(title: 'CardType', info: credictCardTypeName(card.type)),
           const SizedBox(height: 6),
-          _infoTile(title: 'Created', info: DateFormat('dd.MM.yyyy').format(card.created!.toDate())),
+          _infoTile(title: 'Created', info: DateFormat('dd.MM.yyyy').format(card.created!)),
           const SizedBox(height: 6),
         ],
       ),

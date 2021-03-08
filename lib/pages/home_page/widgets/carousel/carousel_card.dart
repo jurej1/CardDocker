@@ -107,8 +107,8 @@ class _DateOutput extends StatelessWidget {
 
   _DateOutput({
     Key? key,
-    required Timestamp created,
-  })   : _created = created.toDate(),
+    required DateTime created,
+  })   : _created = created,
         super(key: key) {
     List.generate(4, (index) {
       return _bullet;
