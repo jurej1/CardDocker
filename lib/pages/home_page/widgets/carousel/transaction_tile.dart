@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:card_docker/repositories/transactions_repository/src/enums/enums.dart';
@@ -80,8 +79,8 @@ class _TrailingData extends StatelessWidget {
   final String _sign;
   final bool _isPositive;
 
-  _TrailingData({Key? key, required Timestamp created, required this.amount})
-      : _created = created.toDate(),
+  _TrailingData({Key? key, required DateTime created, required this.amount})
+      : _created = created,
         _sign = amount.isNegative ? '-' : '+',
         _isPositive = !amount.isNegative,
         super(key: key);

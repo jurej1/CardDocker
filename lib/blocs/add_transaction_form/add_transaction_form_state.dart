@@ -46,7 +46,7 @@ class AddTransactionFormState extends Equatable {
       note: Note.pure(transaction.note),
       status: FormzStatus.pure,
       transaction: transaction,
-      created: Created.pure(transaction.created!.toDate()),
+      created: Created.pure(transaction.created!),
       purpose: transaction.purpose,
       mode: Mode.edit,
     );
