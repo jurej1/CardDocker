@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:card_docker/functions/credict_card_company_name.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

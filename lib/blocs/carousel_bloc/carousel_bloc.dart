@@ -5,7 +5,6 @@ import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/models/models.dart';
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/animation.dart';
 
 part 'carousel_event.dart';
 part 'carousel_state.dart';
