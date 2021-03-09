@@ -4,6 +4,8 @@ import 'package:card_docker/repositories/transactions_repository/src/enums/enums
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart' as model;
 import 'package:intl/intl.dart';
 
+import 'transaction_detail_dialog.dart';
+
 class TransactionTile extends StatelessWidget {
   final model.Transaction _transaction;
 
@@ -16,6 +18,9 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        showTransactionDetailDialog(context: context, transaction: _transaction);
+      },
       contentPadding: EdgeInsets.zero,
       leading: _LeadingIcon(
         amount: _transaction.amount,

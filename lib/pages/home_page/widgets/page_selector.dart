@@ -14,8 +14,8 @@ class PageSelector extends StatelessWidget {
         return BottomNavigationBar(
           currentIndex: pages.indexOf(state),
           onTap: (index) => BlocProvider.of<HomePageCubit>(context).updatePage(index),
-          showUnselectedLabels: true,
-          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.grey,
