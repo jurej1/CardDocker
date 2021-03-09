@@ -16,11 +16,14 @@ class PageSelector extends StatelessWidget {
           onTap: (index) => BlocProvider.of<HomePageCubit>(context).updatePage(index),
           showUnselectedLabels: true,
           showSelectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.grey,
           items: pages.map(
             (e) {
               return BottomNavigationBarItem(
                 icon: Icon(_icon(e)),
-                label: e.toString(),
+                label: _label(e),
               );
             },
           ).toList(),
@@ -38,6 +41,18 @@ class PageSelector extends StatelessWidget {
       return Icons.graphic_eq;
     } else {
       return Icons.money;
+    }
+  }
+
+  String _label(HomePageType type) {
+    if (type == HomePageType.carousel) {
+      return 'Home';
+    } else if (type == HomePageType.profile) {
+      return 'Profile';
+    } else if (type == HomePageType.stats) {
+      return 'Stats';
+    } else {
+      return 'Transactions';
     }
   }
 }
