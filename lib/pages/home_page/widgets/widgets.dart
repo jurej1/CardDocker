@@ -4,3 +4,4 @@ export 'carousel/card_transactions_list.dart';
 export 'carousel/carousel_card.dart';
 export 'carousel/transactions_title.dart';
 export 'carousel/transaction_tile.dart';
+export 'page_selector.dart';
