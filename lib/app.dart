@@ -23,6 +23,9 @@ class App extends StatelessWidget {
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
+        BlocProvider<HomePageCubit>(
+          create: (context) => HomePageCubit(),
+        ),
         BlocProvider<CardsBloc>(
           create: (context) => CardsBloc(
             firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),

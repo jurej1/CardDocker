@@ -6,3 +6,4 @@ export 'add_credict_card_form/add_credict_card_form_bloc.dart';
 export 'transactions_bloc/transactions_bloc.dart';
 export 'add_transaction_form/add_transaction_form_bloc.dart';
 export 'carousel_bloc/carousel_bloc.dart';
+export 'home_page_type_cubit/home_page_cubit.dart';
