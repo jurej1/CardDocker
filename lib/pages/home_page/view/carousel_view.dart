@@ -6,20 +6,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CarouselView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CarouselBloc, CarouselState>(
-      builder: (context, state) {
-        if (state is CarouselLoadSuccess) {
-          return _CarouselList(state: state);
-        } else if (state is CarouselLoadFail) {
-          return Center(
-            child: Text('Somethnig went wrong'),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+        centerTitle: true,
+        actions: [
+          ActionSelector(),
+        ],
+      ),
+      body: BlocBuilder<CarouselBloc, CarouselState>(
+        builder: (context, state) {
+          if (state is CarouselLoadSuccess) {
+            return _CarouselList(state: state);
+          } else if (state is CarouselLoadFail) {
+            return Center(
+              child: Text('Somethnig went wrong'),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }
