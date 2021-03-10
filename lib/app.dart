@@ -91,6 +91,12 @@ class _AppView extends StatelessWidget {
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
                 ),
               ),
+              BlocProvider<TransactionsStatsBloc>(
+                create: (context) => TransactionsStatsBloc(
+                  transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+                  transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
+                ),
+              ),
             ],
             child: HomePage(),
           );
