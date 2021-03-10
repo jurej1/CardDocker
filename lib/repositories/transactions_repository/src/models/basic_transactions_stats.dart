@@ -18,19 +18,51 @@ class BasicTransactionsStats extends Equatable {
 
   final Transaction? lastTransactionAdded;
 
-  BasicTransactionsStats({
-    this.biggestTransaction = 0,
-    this.smallestTranasction = 0,
-    this.numOfTransactions = 0,
-    this.numTotalPositiveTransactions = 0,
-    this.numTotalNegativeTransactions = 0,
-    this.totalCashFlow = 0,
-    this.totalPositiveCashFlow = 0,
-    this.totalNegativeCashFlow = 0,
-    this.numTransactionsThisMonth = 0,
-    this.numTransactionsThisWeek = 0,
+  const BasicTransactionsStats({
+    required this.biggestTransaction,
+    required this.smallestTranasction,
+    required this.numOfTransactions,
+    required this.numTotalPositiveTransactions,
+    required this.numTotalNegativeTransactions,
+    required this.totalCashFlow,
+    required this.totalPositiveCashFlow,
+    required this.totalNegativeCashFlow,
+    required this.numTransactionsThisMonth,
+    required this.numTransactionsThisWeek,
     this.lastTransactionAdded,
   });
+
+  static const _empty = BasicTransactionsStats(
+    biggestTransaction: 0,
+    smallestTranasction: 0,
+    numOfTransactions: 0,
+    numTotalPositiveTransactions: 0,
+    numTotalNegativeTransactions: 0,
+    totalCashFlow: 0,
+    totalPositiveCashFlow: 0,
+    totalNegativeCashFlow: 0,
+    numTransactionsThisMonth: 0,
+    numTransactionsThisWeek: 0,
+  );
+
+  bool get isEmpty {
+    var stats = BasicTransactionsStats(
+      biggestTransaction: biggestTransaction,
+      smallestTranasction: smallestTranasction,
+      numOfTransactions: numOfTransactions,
+      numTotalPositiveTransactions: numTotalPositiveTransactions,
+      numTotalNegativeTransactions: numTotalNegativeTransactions,
+      totalCashFlow: totalCashFlow,
+      totalPositiveCashFlow: totalPositiveCashFlow,
+      totalNegativeCashFlow: totalNegativeCashFlow,
+      numTransactionsThisMonth: numTransactionsThisMonth,
+      numTransactionsThisWeek: numTransactionsThisWeek,
+    );
+
+    return stats == _empty;
+  }
+
+  bool get isNotEmpty => !isEmpty;
 
   @override
   List<Object?> get props {
