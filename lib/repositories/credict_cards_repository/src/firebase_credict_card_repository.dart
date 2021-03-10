@@ -66,9 +66,16 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
       }
     });
 
+    final double totalBalance = cards.fold(20, (previousValue, element) {
+      return previousValue + element.balance;
+    });
+
+    final double average = totalBalance / cards.length;
+
     return CredictCardsStats(
       numOfCards: cards.length,
       purposeStats: cardsTypes,
+      averageBalance: average,
     );
   }
 }
