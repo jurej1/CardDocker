@@ -1,3 +1,4 @@
+import 'package:card_docker/repositories/transactions_repository/src/models/basic_transactions_stats.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
@@ -69,5 +70,63 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     } catch (e) {
       throw e;
     }
+  }
+
+  @override
+  BasicTransactionsStats getBasicTransactionsStats(List<Transaction> transactions) {
+    var stats = BasicTransactionsStats();
+
+    List<num> amountList = transactions.map((e) => e.amount).toList();
+    double biggestTransaction = amountList.reduce((current, next) => current > next ? current : next).toDouble();
+    double smallestTransaction = amountList.reduce((current, next) => current > next ? next : current).toDouble();
+
+    int numOfPositiveTransactions = transactions.where((element) => !element.amount.isNegative).toList().length;
+    int numNegativeTransacions = transactions.length - numOfPositiveTransactions;
+
+    double totalCashFlow = transactions.fold(0, (cashFlow, element) {
+      double amount = element.amount.toDouble();
+      if (amount.isNegative) {
+        amount *= -1;
+      }
+      return cashFlow += amount;
+    });
+    double totalPositiveCashFlow = transactions.fold(0, (cashFlow, element) {
+      if (!element.amount.isNegative) {
+        return cashFlow += element.amount.toDouble();
+      }
+      return cashFlow;
+    });
+    double totalNegativeCashFlow = (totalCashFlow - totalPositiveCashFlow) * -1;
+
+    DateTime minMonthDate = DateTime.now().subtract(const Duration(days: 30));
+    int numTransactionsThisMonth = 0;
+    DateTime minWeekDate = DateTime.now().subtract(const Duration(days: 7));
+    int numTransactionsThisWeeek = 0;
+
+    transactions.forEach((element) {
+      if (element.created != null) {
+        if (element.created!.isAfter(minMonthDate)) {
+          numTransactionsThisMonth += 1;
+        }
+
+        if (element.created!.isAfter(minWeekDate)) {
+          numTransactionsThisWeeek += 1;
+        }
+      }
+    });
+
+    return stats.copyWith(
+      biggestTransaction: biggestTransaction,
+      smallestTranasction: smallestTransaction,
+      lastTransactionAdded: transactions.first,
+      numOfTransactions: transactions.length,
+      numTotalNegativeTransactions: numNegativeTransacions,
+      numTotalPositiveTransactions: numOfPositiveTransactions,
+      totalNegativeCashFlow: totalNegativeCashFlow,
+      totalPositiveCashFlow: totalPositiveCashFlow,
+      numTransactionsThisMonth: numTransactionsThisMonth,
+      numTransactionsThisWeek: numTransactionsThisWeeek,
+      totalCashFlow: totalCashFlow,
+    );
   }
 }
