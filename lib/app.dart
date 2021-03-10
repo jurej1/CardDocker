@@ -97,6 +97,18 @@ class _AppView extends StatelessWidget {
                   transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
                 ),
               ),
+              BlocProvider<CardsStatsBloc>(
+                create: (context) => CardsStatsBloc(
+                  firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+                  cardsBloc: BlocProvider.of<CardsBloc>(context),
+                ),
+              ),
+              BlocProvider<StatsViewBloc>(
+                create: (context) => StatsViewBloc(
+                  transactionsStatsBloc: BlocProvider.of<TransactionsStatsBloc>(context),
+                  cardsStatsBloc: BlocProvider.of<CardsStatsBloc>(context),
+                ),
+              )
             ],
             child: HomePage(),
           );
