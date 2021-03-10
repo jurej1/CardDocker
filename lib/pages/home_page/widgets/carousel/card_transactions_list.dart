@@ -1,6 +1,6 @@
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 import 'package:flutter/material.dart';
-import './transaction_tile.dart';
+import '../transactions/transaction_tile.dart';
 
 class CardTransactionsList extends StatelessWidget {
   final List<Transaction> transactions;

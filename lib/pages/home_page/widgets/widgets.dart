@@ -3,5 +3,7 @@ export 'carousel/cards_carousel.dart';
 export 'carousel/card_transactions_list.dart';
 export 'carousel/carousel_card.dart';
 export 'carousel/transactions_title.dart';
-export 'carousel/transaction_tile.dart';
+export 'transactions/transaction_tile.dart';
 export 'page_selector.dart';
+export 'transactions/transactions_list.dart';
+export 'transactions/transaction_detail_dialog.dart';
