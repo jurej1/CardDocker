@@ -74,7 +74,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
   @override
   BasicTransactionsStats getBasicTransactionsStats(List<Transaction> transactions) {
-    var stats = BasicTransactionsStats();
+    var stats = BasicTransactionsStats.empty;
 
     List<num> amountList = transactions.map((e) => e.amount).toList();
     double biggestTransaction = amountList.reduce((current, next) => current > next ? current : next).toDouble();

@@ -32,7 +32,7 @@ class BasicTransactionsStats extends Equatable {
     this.lastTransactionAdded,
   });
 
-  static const _empty = BasicTransactionsStats(
+  static const empty = BasicTransactionsStats(
     biggestTransaction: 0,
     smallestTranasction: 0,
     numOfTransactions: 0,
@@ -59,7 +59,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisWeek: numTransactionsThisWeek,
     );
 
-    return stats == _empty;
+    return stats == empty;
   }
 
   bool get isNotEmpty => !isEmpty;
