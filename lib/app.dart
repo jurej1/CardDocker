@@ -52,6 +52,7 @@ class _AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(centerTitle: true),
         buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -86,6 +87,7 @@ class _AppView extends StatelessWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider<CarouselBloc>(
+                lazy: false,
                 create: (context) => CarouselBloc(
                   cardsBloc: BlocProvider.of<CardsBloc>(context),
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
@@ -104,11 +106,12 @@ class _AppView extends StatelessWidget {
                 ),
               ),
               BlocProvider<StatsViewBloc>(
+                lazy: false,
                 create: (context) => StatsViewBloc(
                   transactionsStatsBloc: BlocProvider.of<TransactionsStatsBloc>(context),
                   cardsStatsBloc: BlocProvider.of<CardsStatsBloc>(context),
                 ),
-              )
+              ),
             ],
             child: HomePage(),
           );

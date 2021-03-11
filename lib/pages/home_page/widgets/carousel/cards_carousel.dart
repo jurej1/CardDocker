@@ -3,6 +3,7 @@ import 'package:card_docker/pages/home_page/widgets/carousel/carousel_card.dart'
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardsCarousel extends StatelessWidget {
@@ -36,6 +37,8 @@ class _CardsLoadedCarousel extends StatelessWidget {
         itemCount: cards.length,
         itemBuilder: (context, index, _) => CarouselCard(card: cards[index]),
         options: CarouselOptions(
+          scrollDirection: Axis.horizontal, //Experiment with vertical
+          viewportFraction: 0.85,
           scrollPhysics: const BouncingScrollPhysics(),
           enlargeCenterPage: true,
           aspectRatio: 16 / 7,

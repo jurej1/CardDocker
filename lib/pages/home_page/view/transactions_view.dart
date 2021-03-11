@@ -19,7 +19,6 @@ class TransactionsView extends StatelessWidget {
         } else if (state is TransactionsLoadSuccess) {
           return Scaffold(
             appBar: AppBar(
-              centerTitle: true,
               title: Text('Transactions'),
               actions: [
                 ActionSelector(),
