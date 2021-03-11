@@ -15,6 +15,7 @@ class BasicTransactionsStats extends Equatable {
 
   final int numTransactionsThisMonth;
   final int numTransactionsThisWeek;
+  final int numTransactionsToday;
 
   final Transaction? lastTransactionAdded;
 
@@ -29,6 +30,7 @@ class BasicTransactionsStats extends Equatable {
     required this.totalNegativeCashFlow,
     required this.numTransactionsThisMonth,
     required this.numTransactionsThisWeek,
+    required this.numTransactionsToday,
     this.lastTransactionAdded,
   });
 
@@ -43,6 +45,7 @@ class BasicTransactionsStats extends Equatable {
     totalNegativeCashFlow: 0,
     numTransactionsThisMonth: 0,
     numTransactionsThisWeek: 0,
+    numTransactionsToday: 0,
   );
 
   bool get isEmpty {
@@ -57,6 +60,7 @@ class BasicTransactionsStats extends Equatable {
       totalNegativeCashFlow: totalNegativeCashFlow,
       numTransactionsThisMonth: numTransactionsThisMonth,
       numTransactionsThisWeek: numTransactionsThisWeek,
+      numTransactionsToday: numTransactionsToday,
     );
 
     return stats == empty;
@@ -78,6 +82,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisMonth,
       numTransactionsThisWeek,
       lastTransactionAdded,
+      numTransactionsToday
     ];
   }
 
@@ -93,6 +98,7 @@ class BasicTransactionsStats extends Equatable {
     int? numTransactionsThisMonth,
     int? numTransactionsThisWeek,
     Transaction? lastTransactionAdded,
+    int? numTransactionsToday,
   }) {
     return BasicTransactionsStats(
       biggestTransaction: biggestTransaction ?? this.biggestTransaction,
@@ -106,6 +112,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisMonth: numTransactionsThisMonth ?? this.numTransactionsThisMonth,
       numTransactionsThisWeek: numTransactionsThisWeek ?? this.numTransactionsThisWeek,
       lastTransactionAdded: lastTransactionAdded ?? this.lastTransactionAdded,
+      numTransactionsToday: numTransactionsToday ?? this.numTransactionsToday,
     );
   }
 }

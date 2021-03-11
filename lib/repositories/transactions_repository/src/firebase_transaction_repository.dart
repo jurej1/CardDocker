@@ -98,10 +98,13 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     });
     double totalNegativeCashFlow = (totalCashFlow - totalPositiveCashFlow) * -1;
 
-    DateTime minMonthDate = DateTime.now().subtract(const Duration(days: 30));
+    final DateTime currentDate = DateTime.now();
+    DateTime minMonthDate = currentDate.subtract(const Duration(days: 30));
     int numTransactionsThisMonth = 0;
-    DateTime minWeekDate = DateTime.now().subtract(const Duration(days: 7));
+    DateTime minWeekDate = currentDate.subtract(const Duration(days: 7));
     int numTransactionsThisWeeek = 0;
+    DateTime minDayDate = currentDate.subtract(const Duration(hours: 24));
+    int numTransactionsToday = 0;
 
     transactions.forEach((element) {
       if (element.created != null) {
@@ -111,6 +114,9 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
         if (element.created!.isAfter(minWeekDate)) {
           numTransactionsThisWeeek += 1;
+        }
+        if (element.created!.isAfter(minDayDate)) {
+          numTransactionsToday += 1;
         }
       }
     });
@@ -127,6 +133,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       numTransactionsThisMonth: numTransactionsThisMonth,
       numTransactionsThisWeek: numTransactionsThisWeeek,
       totalCashFlow: totalCashFlow,
+      numTransactionsToday: numTransactionsToday,
     );
   }
 }
