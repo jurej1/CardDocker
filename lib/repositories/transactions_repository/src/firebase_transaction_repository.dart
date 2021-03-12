@@ -5,6 +5,8 @@ import 'package:card_docker/repositories/transactions_repository/src/entities/en
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
 import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
 
+import 'models/transaction_purpose_stat.dart';
+
 class FirebaseTransactionsRepository implements TransactionsRepository {
   final _transactionsRef = fb.FirebaseFirestore.instance.collection('transaction');
   final _cardsRef = fb.FirebaseFirestore.instance.collection('credict_cards');
@@ -111,13 +113,37 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
         if (element.created!.isAfter(minMonthDate)) {
           numTransactionsThisMonth += 1;
         }
-
         if (element.created!.isAfter(minWeekDate)) {
           numTransactionsThisWeeek += 1;
         }
         if (element.created!.isAfter(minDayDate)) {
           numTransactionsToday += 1;
         }
+      }
+    });
+
+    List<TransactionPurposeStat> transactionPurposeRaw = transactions.map((e) {
+      return TransactionPurposeStat(purpose: e.purpose, count: 0);
+    }).toList();
+
+    List<TransactionPurposeStat> purposeStats = [];
+
+    transactionPurposeRaw.forEach((stat) {
+      if (!purposeStats.contains(stat)) {
+        int amount = transactionPurposeRaw.fold(0, (previousValue, element) {
+          if (element.purpose == stat.purpose) {
+            return previousValue + 1;
+          } else {
+            return previousValue;
+          }
+        });
+
+        purposeStats.add(
+          TransactionPurposeStat(
+            purpose: stat.purpose,
+            count: amount,
+          ),
+        );
       }
     });
 
@@ -134,6 +160,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       numTransactionsThisWeek: numTransactionsThisWeeek,
       totalCashFlow: totalCashFlow,
       numTransactionsToday: numTransactionsToday,
+      purposeStat: purposeStats,
     );
   }
 }
