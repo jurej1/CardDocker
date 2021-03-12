@@ -12,3 +12,4 @@ export 'stats/cards_stats_card.dart';
 export 'stats/transactions_stats_card.dart';
 export 'stats/stat_card_base.dart';
 export 'stats/transactions_stats_card.dart';
+export 'stats/transactions_chart.dart';

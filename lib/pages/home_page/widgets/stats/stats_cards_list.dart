@@ -14,9 +14,7 @@ class StatsCardsList extends StatelessWidget {
         child: Column(
           children: [
             TransactionsStatsCard(),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             CardsStatsCard(),
           ],
         ),

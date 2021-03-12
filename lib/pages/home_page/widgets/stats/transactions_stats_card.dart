@@ -1,3 +1,7 @@
+import 'package:card_docker/pages/home_page/widgets/stats/stat_card_base.dart';
+import 'package:card_docker/pages/home_page/widgets/widgets.dart';
+import 'package:card_docker/repositories/transactions_repository/src/enums/enums.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,8 +15,16 @@ class TransactionsStatsCard extends StatelessWidget {
     return BlocBuilder<StatsViewBloc, StatsViewState>(
       builder: (context, state) {
         if (state is StatsViewLoadSuccess) {
-          return TransactionsStatsGrid(
-            stats: state.transactionsStats,
+          return StatCardBase(
+            child: ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                TransactionsStatsGrid(stats: state.transactionsStats),
+                const SizedBox(height: 30),
+                TransactionsChart(purposStats: state.transactionsStats.purposeStats),
+              ],
+            ),
           );
         } else {
           return Container();

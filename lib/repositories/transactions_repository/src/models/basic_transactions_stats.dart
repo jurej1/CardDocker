@@ -1,6 +1,8 @@
 import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:equatable/equatable.dart';
 
+import 'transaction_purpose_stat.dart';
+
 class BasicTransactionsStats extends Equatable {
   final double biggestTransaction;
   final double smallestTranasction;
@@ -19,6 +21,8 @@ class BasicTransactionsStats extends Equatable {
 
   final Transaction? lastTransactionAdded;
 
+  final List<TransactionPurposeStat> purposeStats;
+
   const BasicTransactionsStats({
     required this.biggestTransaction,
     required this.smallestTranasction,
@@ -32,6 +36,7 @@ class BasicTransactionsStats extends Equatable {
     required this.numTransactionsThisWeek,
     required this.numTransactionsToday,
     this.lastTransactionAdded,
+    required this.purposeStats,
   });
 
   static const empty = BasicTransactionsStats(
@@ -46,6 +51,7 @@ class BasicTransactionsStats extends Equatable {
     numTransactionsThisMonth: 0,
     numTransactionsThisWeek: 0,
     numTransactionsToday: 0,
+    purposeStats: const [],
   );
 
   bool get isEmpty {
@@ -61,6 +67,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisMonth: numTransactionsThisMonth,
       numTransactionsThisWeek: numTransactionsThisWeek,
       numTransactionsToday: numTransactionsToday,
+      purposeStats: purposeStats,
     );
 
     return stats == empty;
@@ -82,7 +89,8 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisMonth,
       numTransactionsThisWeek,
       lastTransactionAdded,
-      numTransactionsToday
+      numTransactionsToday,
+      purposeStats,
     ];
   }
 
@@ -99,6 +107,7 @@ class BasicTransactionsStats extends Equatable {
     int? numTransactionsThisWeek,
     Transaction? lastTransactionAdded,
     int? numTransactionsToday,
+    List<TransactionPurposeStat>? purposeStat,
   }) {
     return BasicTransactionsStats(
       biggestTransaction: biggestTransaction ?? this.biggestTransaction,
@@ -113,6 +122,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisWeek: numTransactionsThisWeek ?? this.numTransactionsThisWeek,
       lastTransactionAdded: lastTransactionAdded ?? this.lastTransactionAdded,
       numTransactionsToday: numTransactionsToday ?? this.numTransactionsToday,
+      purposeStats: purposeStat ?? this.purposeStats,
     );
   }
 }
