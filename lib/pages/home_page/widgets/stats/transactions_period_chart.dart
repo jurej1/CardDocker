@@ -25,7 +25,10 @@ class TransactionPeriodChart extends StatelessWidget {
                   );
                 }).toList(),
                 axisTitleData: FlAxisTitleData(
-                  bottomTitle: AxisTitle(titleText: 'Week', showTitle: true),
+                  bottomTitle: AxisTitle(
+                    titleText: 'Week',
+                    showTitle: true,
+                  ),
                   leftTitle: AxisTitle(
                     titleText: 'Quantity',
                     showTitle: true,
