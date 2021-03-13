@@ -36,6 +36,18 @@ class App extends StatelessWidget {
             firebaseTransactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
           ),
         ),
+        BlocProvider<TransactionsStatsBloc>(
+          create: (context) => TransactionsStatsBloc(
+            transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+            transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
+          ),
+        ),
+        BlocProvider<CardsStatsBloc>(
+          create: (context) => CardsStatsBloc(
+            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+            cardsBloc: BlocProvider.of<CardsBloc>(context),
+          ),
+        ),
       ],
       child: _AppView(),
     );
@@ -91,18 +103,6 @@ class _AppView extends StatelessWidget {
                 create: (context) => CarouselBloc(
                   cardsBloc: BlocProvider.of<CardsBloc>(context),
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
-                ),
-              ),
-              BlocProvider<TransactionsStatsBloc>(
-                create: (context) => TransactionsStatsBloc(
-                  transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
-                  transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
-                ),
-              ),
-              BlocProvider<CardsStatsBloc>(
-                create: (context) => CardsStatsBloc(
-                  firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
-                  cardsBloc: BlocProvider.of<CardsBloc>(context),
                 ),
               ),
               BlocProvider<StatsViewBloc>(

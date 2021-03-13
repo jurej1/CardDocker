@@ -39,6 +39,7 @@ class _TransactionsStatsCard extends StatelessWidget {
                 TransactionsStatsGrid(stats: state.transactionsStats),
                 const SizedBox(height: 20),
                 TransactionsChart(purposeStats: state.transactionsStats.purposeStats),
+                const SizedBox(height: 20),
               ],
             ),
           );
