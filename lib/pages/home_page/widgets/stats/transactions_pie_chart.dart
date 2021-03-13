@@ -5,10 +5,10 @@ import 'dart:math' as math;
 
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction_purpose_stat.dart';
 
-class TransactionsChart extends StatelessWidget {
+class TransactionsPieChart extends StatelessWidget {
   final List<TransactionPurposeStat> purposeStats;
   late final List<TransactionPurposeStat> topFive;
-  TransactionsChart({
+  TransactionsPieChart({
     Key? key,
     required this.purposeStats,
   }) : super(key: key) {

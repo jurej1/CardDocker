@@ -9,6 +9,6 @@ export 'transactions/transactions_list.dart';
 export 'transactions/transaction_detail_dialog.dart';
 export 'stats/stats_cards_list.dart';
 export 'stats/stat_card_base.dart';
-export 'stats/transactions_chart.dart';
+export 'stats/transactions_pie_chart.dart';
 export 'stats/transactions_stats_grid.dart';
 export 'stats/transactions_period_chart.dart';
