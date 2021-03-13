@@ -1,5 +1,6 @@
 import 'package:card_docker/blocs/stats_view_bloc/stats_view_bloc.dart';
 import 'package:card_docker/pages/home_page/widgets/widgets.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,6 +41,7 @@ class _TransactionsStatsCard extends StatelessWidget {
                 const SizedBox(height: 20),
                 TransactionsChart(purposeStats: state.transactionsStats.purposeStats),
                 const SizedBox(height: 20),
+                TransactionPeriodChart(),
               ],
             ),
           );

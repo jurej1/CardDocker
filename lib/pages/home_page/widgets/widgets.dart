@@ -11,3 +11,4 @@ export 'stats/stats_cards_list.dart';
 export 'stats/stat_card_base.dart';
 export 'stats/transactions_chart.dart';
 export 'stats/transactions_stats_grid.dart';
+export 'stats/transactions_period_chart.dart';

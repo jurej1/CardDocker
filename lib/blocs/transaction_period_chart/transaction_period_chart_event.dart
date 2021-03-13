@@ -8,7 +8,7 @@ abstract class TransactionsPeriodChartEvent extends Equatable {
 }
 
 class _StatsUpdated extends TransactionsPeriodChartEvent {
-  final List<PeriodTransactions> periodTransactions;
+  final List<WeekTransactionData> periodTransactions;
 
   const _StatsUpdated(this.periodTransactions);
   @override

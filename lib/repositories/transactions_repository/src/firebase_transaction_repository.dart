@@ -1,4 +1,3 @@
-import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/basic_transactions_stats.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
@@ -6,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
 import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
+import 'package:jiffy/jiffy.dart' as jiffy;
 
 import 'models/transaction_purpose_stat.dart';
 
@@ -97,34 +97,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     int numTransactionsThisWeeek = numOfTransactionsOverTime['week']!;
     int numTransactionsToday = numOfTransactionsOverTime['day']!;
 
-    int loweerBounce = 7;
-    int upperBounce = 0;
-    final currentDate = DateTime.now();
-    List<PeriodTransactions> byWeek = [];
-
-    for (int i = 0; i < 7; i++) {
-      int quantity = transactions.fold(0, (previousValue, element) {
-        final created = element.created!;
-        final lowerDate = currentDate.subtract(Duration(days: loweerBounce));
-        final upperDate = currentDate.subtract(Duration(days: upperBounce));
-
-        bool isFit = created.isAfter(lowerDate) && created.isBefore(upperDate);
-
-        if (isFit) return previousValue + 1;
-
-        return previousValue;
-      });
-
-      byWeek.add(
-        PeriodTransactions(
-          period: currentDate.subtract(Duration(days: loweerBounce)),
-          count: quantity,
-        ),
-      );
-
-      upperBounce = loweerBounce;
-      loweerBounce += 7;
-    }
+    List<WeekTransactionData> byWeek = _transactionsByWeek(transactions);
 
     return stats.copyWith(
       biggestTransaction: biggestTransaction,
@@ -221,5 +194,69 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     numOfTransactions['day'] = numTransactionsToday;
 
     return numOfTransactions;
+  }
+
+  // List<PeriodTransactions> _transactionsByWeek(List<Transaction> transactions) {
+  //   final int length = 7;
+  //   int loweerBounce = 7;
+  //   int upperBounce = 0;
+  //   final currentDate = DateTime.now();
+  //   List<PeriodTransactions> byWeek = [];
+
+  //   for (int i = 0; i < length; i++) {
+  //     int quantity = transactions.fold(0, (previousValue, element) {
+  //       final created = element.created!;
+  //       final lowerDate = currentDate.subtract(Duration(days: loweerBounce));
+  //       final upperDate = currentDate.subtract(Duration(days: upperBounce));
+
+  //       bool isFit = created.isAfter(lowerDate) && created.isBefore(upperDate);
+
+  //       if (isFit) {
+  //         return previousValue + 1;
+  //       } else {
+  //         return previousValue;
+  //       }
+  //     });
+
+  //     byWeek.add(
+  //       PeriodTransactions(
+  //         period: currentDate.subtract(Duration(days: loweerBounce)),
+  //         count: quantity,
+  //       ),
+  //     );
+
+  //     upperBounce = loweerBounce;
+  //     loweerBounce += 7;
+  //   }
+
+  //   return byWeek;
+  // }
+  List<WeekTransactionData> _transactionsByWeek(List<Transaction> transactions) {
+    final int length = 7;
+    int substract = 0;
+    final currentDate = DateTime.now();
+    List<WeekTransactionData> byWeek = [];
+
+    for (int i = 0; i < length; i++) {
+      final int currentWeek = jiffy.Jiffy(currentDate).week - substract;
+      int quantity = transactions.fold(0, (previousValue, element) {
+        final int elementWeek = jiffy.Jiffy(element.created!).week;
+
+        if (currentWeek == elementWeek) {
+          return previousValue + 1;
+        }
+
+        return previousValue;
+      });
+
+      byWeek.add(
+        WeekTransactionData(
+          count: quantity,
+          weekNumber: currentWeek,
+        ),
+      );
+    }
+
+    return byWeek;
   }
 }

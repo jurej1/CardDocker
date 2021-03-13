@@ -23,6 +23,7 @@ dependencies:
   formz: ^0.4.0-nullsafety.0
   google_sign_in: ^5.0.0
   intl: ^0.17.0
+  jiffy: ^4.0.0
   regexpattern: ^1.0.0
 
 dev_dependencies:

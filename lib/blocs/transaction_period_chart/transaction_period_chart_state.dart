@@ -12,7 +12,7 @@ class TransactionChartLoading extends TransactionsPeriodChartState {}
 enum View { day, week, month }
 
 class TransactionChartLoadSuccess extends TransactionsPeriodChartState {
-  final List<PeriodTransactions> transactions;
+  final List<WeekTransactionData> transactions;
   final View view;
 
   const TransactionChartLoadSuccess({

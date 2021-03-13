@@ -34,12 +34,8 @@ class TransactionsPeriodChartBloc extends Bloc<TransactionsPeriodChartEvent, Tra
     } else if (event is TransactionsChartChangeView) {
       if (_statsViewBloc.state is StatsViewLoadSuccess) {
         final stats = (_statsViewBloc.state as StatsViewLoadSuccess).transactionsStats;
-        if (event.view == View.day) {
-        } else if (event.view == View.week) {
-          yield TransactionChartLoadSuccess(transactions: stats.transactionsByWeek, view: event.view);
-        } else {
-          //month
-        }
+
+        yield TransactionChartLoadSuccess(transactions: stats.transactionsByWeek, view: event.view);
       }
     }
   }
