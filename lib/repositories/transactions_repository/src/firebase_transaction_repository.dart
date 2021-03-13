@@ -273,17 +273,23 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
   List<PeriodTransactionData> _transactionsByDay(List<Transaction> transactions) {
     final currentDate = DateTime.now();
-    int substract = 0;
+    int substract = 1;
     final int length = 7;
     List<PeriodTransactionData> byMonth = [];
 
     for (int i = 0; i < length; i++) {
       int amount = transactions.fold(0, (previousValue, element) {
-        final searchDate = currentDate.subtract(
-          Duration(days: substract),
-        );
+        final searchDate = jiffy.Jiffy(currentDate)..subtract(days: substract);
+        final day = searchDate.day;
+        final month = searchDate.month;
+        final year = searchDate.year;
 
-        if (element.created!.isAfter(searchDate)) {
+        final elementDay = jiffy.Jiffy(element.created!);
+        final eDay = elementDay.day;
+        final eMonth = elementDay.month;
+        final eYear = elementDay.year;
+
+        if (day == eDay && month == eMonth && year == eYear) {
           return previousValue + 1;
         }
 

@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/blocs.dart';
+import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,9 @@ class TransactionPeriodChart extends StatelessWidget {
                     children: View.values.map((e) {
                       return Expanded(
                         child: TextButton(
-                          onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
+                          onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(
+                            TransactionBarChartChangeView(e),
+                          ),
                           child: Text(
                             describeEnum(e),
                           ),
@@ -43,7 +46,7 @@ class TransactionPeriodChart extends StatelessWidget {
                       barGroups: state.transactions.reversed.map(
                         (e) {
                           return BarChartGroupData(
-                            x: 1,
+                            x: _XValue(state.view, e),
                             barRods: [
                               BarChartRodData(
                                 y: e.count.toDouble(),
@@ -64,16 +67,16 @@ class TransactionPeriodChart extends StatelessWidget {
                           interval: 5,
                           showTitles: true,
                         ),
-                        bottomTitles: SideTitles(
-                          getTitles: (value) {
-                            if (value < 5) {
-                              return 'helo';
-                            } else {
-                              return 'dope';
-                            }
-                          },
-                          showTitles: true,
-                        ),
+                        // bottomTitles: SideTitles(
+                        //   getTitles: (value) {
+                        //     if (value < 5) {
+                        //       return 'helo';
+                        //     } else {
+                        //       return 'dope';
+                        //     }
+                        //   },
+                        //   showTitles: true,
+                        // ),
                       ),
                       gridData: FlGridData(
                         checkToShowHorizontalLine: (value) => value % 2.5 == 0,
@@ -90,5 +93,15 @@ class TransactionPeriodChart extends StatelessWidget {
         }
       },
     );
+  }
+
+  int _XValue(View selectedView, PeriodTransactionData e) {
+    if (selectedView == View.day) {
+      return e.weekDayNumber();
+    } else if (selectedView == View.month) {
+      return e.monthNumber();
+    } else {
+      return e.weekNumber();
+    }
   }
 }
