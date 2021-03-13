@@ -125,6 +125,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       upperBounce = loweerBounce;
       loweerBounce += 7;
     }
+
     return stats.copyWith(
       biggestTransaction: biggestTransaction,
       smallestTranasction: smallestTransaction,
