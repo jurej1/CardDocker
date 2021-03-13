@@ -28,6 +28,7 @@ class CarouselView extends StatelessWidget {
           }
         },
       ),
+      bottomNavigationBar: const PageSelector(),
     );
   }
 }

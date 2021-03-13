@@ -10,4 +10,4 @@ export 'home_page_type_cubit/home_page_cubit.dart';
 export 'transactions_stats/transactions_stats_bloc.dart';
 export 'cards_stats/cards_stats_bloc.dart';
 export 'stats_view_bloc/stats_view_bloc.dart';
-export 'transaction_period_chart/transaction_period_chart_bloc.dart';
+export 'transaction_data_bar_chart/transaction_data_bar_chart_bloc.dart';

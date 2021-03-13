@@ -6,17 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TransactionPeriodChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransactionsPeriodChartBloc, TransactionsPeriodChartState>(
+    return BlocBuilder<TransactionDataBarChartBloc, TransactionDataBarChartState>(
       builder: (context, state) {
-        if (state is TransactionChartLoadSuccess) {
+        if (state is TransactionDataBarChartLoadSuccess) {
           return Container(
             height: 150,
             child: BarChart(
               BarChartData(
                 borderData: FlBorderData(show: false),
-                barGroups: state.transactions.map((e) {
+                barGroups: state.transactions.reversed.map((e) {
                   return BarChartGroupData(
-                    x: e.count,
+                    x: e.weekNumber(),
                     barRods: [
                       BarChartRodData(
                         y: e.count.toDouble(),
@@ -24,6 +24,13 @@ class TransactionPeriodChart extends StatelessWidget {
                     ],
                   );
                 }).toList(),
+                axisTitleData: FlAxisTitleData(
+                  bottomTitle: AxisTitle(titleText: 'Week', showTitle: true),
+                  leftTitle: AxisTitle(
+                    titleText: 'Quantity',
+                    showTitle: true,
+                  ),
+                ),
               ),
             ),
           );

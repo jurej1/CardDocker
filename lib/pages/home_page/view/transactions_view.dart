@@ -25,6 +25,7 @@ class TransactionsView extends StatelessWidget {
               ],
             ),
             body: TransactionsList(transactions: state.transactions),
+            bottomNavigationBar: const PageSelector(),
           );
         } else {
           return Container();

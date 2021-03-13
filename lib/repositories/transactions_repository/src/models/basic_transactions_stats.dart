@@ -23,7 +23,7 @@ class BasicTransactionsStats extends Equatable {
 
   final List<TransactionPurposeStat> purposeStats;
 
-  final List<WeekTransactionData> transactionsByWeek;
+  final List<PeriodTransactionData> transactionsByWeek;
 
   const BasicTransactionsStats({
     required this.biggestTransaction,
@@ -114,7 +114,7 @@ class BasicTransactionsStats extends Equatable {
     Transaction? lastTransactionAdded,
     int? numTransactionsToday,
     List<TransactionPurposeStat>? purposeStat,
-    List<WeekTransactionData>? transactionsByWeek,
+    List<PeriodTransactionData>? transactionsByWeek,
   }) {
     return BasicTransactionsStats(
       biggestTransaction: biggestTransaction ?? this.biggestTransaction,

@@ -112,12 +112,12 @@ class _AppView extends StatelessWidget {
                   cardsStatsBloc: BlocProvider.of<CardsStatsBloc>(context),
                 ),
               ),
-              BlocProvider<TransactionsPeriodChartBloc>(
+              BlocProvider<TransactionDataBarChartBloc>(
                 lazy: false,
-                create: (context) => TransactionsPeriodChartBloc(
+                create: (context) => TransactionDataBarChartBloc(
                   statsViewBloc: BlocProvider.of<StatsViewBloc>(context),
                 ),
-              ),
+              )
             ],
             child: HomePage(),
           );

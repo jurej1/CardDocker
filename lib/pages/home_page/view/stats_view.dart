@@ -18,6 +18,7 @@ class StatsView extends StatelessWidget {
               title: Text('Stats'),
             ),
             body: StatsCardsList(),
+            bottomNavigationBar: const PageSelector(),
           );
         } else if (state is StatsViewFailure) {
           return Center(
