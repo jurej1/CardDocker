@@ -23,6 +23,8 @@ class BasicTransactionsStats extends Equatable {
 
   final List<TransactionPurposeStat> purposeStats;
 
+  final List<PeriodTransactions> transactionsByWeek;
+
   const BasicTransactionsStats({
     required this.biggestTransaction,
     required this.smallestTranasction,
@@ -37,6 +39,7 @@ class BasicTransactionsStats extends Equatable {
     required this.numTransactionsToday,
     this.lastTransactionAdded,
     required this.purposeStats,
+    required this.transactionsByWeek,
   });
 
   static const empty = BasicTransactionsStats(
@@ -52,6 +55,7 @@ class BasicTransactionsStats extends Equatable {
     numTransactionsThisWeek: 0,
     numTransactionsToday: 0,
     purposeStats: const [],
+    transactionsByWeek: const [],
   );
 
   bool get isEmpty {
@@ -68,6 +72,7 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsThisWeek: numTransactionsThisWeek,
       numTransactionsToday: numTransactionsToday,
       purposeStats: purposeStats,
+      transactionsByWeek: transactionsByWeek,
     );
 
     return stats == empty;
@@ -91,6 +96,7 @@ class BasicTransactionsStats extends Equatable {
       lastTransactionAdded,
       numTransactionsToday,
       purposeStats,
+      transactionsByWeek,
     ];
   }
 
@@ -108,6 +114,7 @@ class BasicTransactionsStats extends Equatable {
     Transaction? lastTransactionAdded,
     int? numTransactionsToday,
     List<TransactionPurposeStat>? purposeStat,
+    List<PeriodTransactions>? transactionsByWeek,
   }) {
     return BasicTransactionsStats(
       biggestTransaction: biggestTransaction ?? this.biggestTransaction,
@@ -123,6 +130,7 @@ class BasicTransactionsStats extends Equatable {
       lastTransactionAdded: lastTransactionAdded ?? this.lastTransactionAdded,
       numTransactionsToday: numTransactionsToday ?? this.numTransactionsToday,
       purposeStats: purposeStat ?? this.purposeStats,
+      transactionsByWeek: transactionsByWeek ?? this.transactionsByWeek,
     );
   }
 }

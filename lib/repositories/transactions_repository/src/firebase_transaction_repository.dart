@@ -1,4 +1,6 @@
+import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/basic_transactions_stats.dart';
+import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
@@ -95,6 +97,34 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     int numTransactionsThisWeeek = numOfTransactionsOverTime['week']!;
     int numTransactionsToday = numOfTransactionsOverTime['day']!;
 
+    int loweerBounce = 7;
+    int upperBounce = 0;
+    final currentDate = DateTime.now();
+    List<PeriodTransactions> byWeek = [];
+
+    for (int i = 0; i < 7; i++) {
+      int quantity = transactions.fold(0, (previousValue, element) {
+        final created = element.created!;
+        final lowerDate = currentDate.subtract(Duration(days: loweerBounce));
+        final upperDate = currentDate.subtract(Duration(days: upperBounce));
+
+        bool isFit = created.isAfter(lowerDate) && created.isBefore(upperDate);
+
+        if (isFit) return previousValue + 1;
+
+        return previousValue;
+      });
+
+      byWeek.add(
+        PeriodTransactions(
+          period: currentDate.subtract(Duration(days: loweerBounce)),
+          count: quantity,
+        ),
+      );
+
+      upperBounce = loweerBounce;
+      loweerBounce += 7;
+    }
     return stats.copyWith(
       biggestTransaction: biggestTransaction,
       smallestTranasction: smallestTransaction,
@@ -109,6 +139,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       totalCashFlow: totalCashFlow,
       numTransactionsToday: numTransactionsToday,
       purposeStat: purposeStats,
+      transactionsByWeek: byWeek,
     );
   }
 
