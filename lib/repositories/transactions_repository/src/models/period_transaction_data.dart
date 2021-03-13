@@ -14,4 +14,6 @@ class PeriodTransactionData extends Equatable {
   List<Object?> get props => [count, startDate];
 
   int weekNumber() => jiffy.Jiffy(startDate).week;
+  int weekDayNumber() => startDate.weekday;
+  int monthNumber() => startDate.month;
 }

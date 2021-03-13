@@ -24,6 +24,8 @@ class BasicTransactionsStats extends Equatable {
   final List<TransactionPurposeStat> purposeStats;
 
   final List<PeriodTransactionData> transactionsByWeek;
+  final List<PeriodTransactionData> transactionsByMonth;
+  final List<PeriodTransactionData> transactionsByDay;
 
   const BasicTransactionsStats({
     required this.biggestTransaction,
@@ -40,6 +42,8 @@ class BasicTransactionsStats extends Equatable {
     this.lastTransactionAdded,
     required this.purposeStats,
     required this.transactionsByWeek,
+    required this.transactionsByMonth,
+    required this.transactionsByDay,
   });
 
   static const empty = BasicTransactionsStats(
@@ -56,6 +60,8 @@ class BasicTransactionsStats extends Equatable {
     numTransactionsToday: 0,
     purposeStats: const [],
     transactionsByWeek: const [],
+    transactionsByMonth: const [],
+    transactionsByDay: const [],
   );
 
   bool get isEmpty {
@@ -73,6 +79,8 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsToday: numTransactionsToday,
       purposeStats: purposeStats,
       transactionsByWeek: transactionsByWeek,
+      transactionsByDay: transactionsByDay,
+      transactionsByMonth: transactionsByMonth,
     );
 
     return stats == empty;
@@ -97,6 +105,8 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsToday,
       purposeStats,
       transactionsByWeek,
+      transactionsByDay,
+      transactionsByMonth,
     ];
   }
 
@@ -115,6 +125,8 @@ class BasicTransactionsStats extends Equatable {
     int? numTransactionsToday,
     List<TransactionPurposeStat>? purposeStat,
     List<PeriodTransactionData>? transactionsByWeek,
+    List<PeriodTransactionData>? transactionsByDay,
+    List<PeriodTransactionData>? transactionsByMonth,
   }) {
     return BasicTransactionsStats(
       biggestTransaction: biggestTransaction ?? this.biggestTransaction,
@@ -131,6 +143,8 @@ class BasicTransactionsStats extends Equatable {
       numTransactionsToday: numTransactionsToday ?? this.numTransactionsToday,
       purposeStats: purposeStat ?? this.purposeStats,
       transactionsByWeek: transactionsByWeek ?? this.transactionsByWeek,
+      transactionsByDay: transactionsByDay ?? this.transactionsByDay,
+      transactionsByMonth: transactionsByMonth ?? this.transactionsByMonth,
     );
   }
 }

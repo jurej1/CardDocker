@@ -98,6 +98,8 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     int numTransactionsToday = numOfTransactionsOverTime['day']!;
 
     List<PeriodTransactionData> byWeek = _transactionsByWeek(transactions);
+    List<PeriodTransactionData> byMonth = _transactionsByMonth(transactions);
+    List<PeriodTransactionData> byDay = _transactionsByDay(transactions);
 
     return stats.copyWith(
       biggestTransaction: biggestTransaction,
@@ -114,6 +116,8 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       numTransactionsToday: numTransactionsToday,
       purposeStat: purposeStats,
       transactionsByWeek: byWeek,
+      transactionsByMonth: byMonth,
+      transactionsByDay: byDay,
     );
   }
 
@@ -228,5 +232,76 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     }
 
     return byWeek;
+  }
+
+  List<PeriodTransactionData> _transactionsByMonth(List<Transaction> transactions) {
+    final currentDate = DateTime.now();
+    int substract = 0;
+    final int length = 12;
+    List<PeriodTransactionData> byMonth = [];
+
+    for (int i = 0; i < length; i++) {
+      int amount = transactions.fold(0, (previousValue, element) {
+        final searchDate = jiffy.Jiffy(currentDate)..subtract(months: substract);
+        final searchMonth = searchDate.month;
+        final searchYear = searchDate.year;
+
+        final elementMonth = jiffy.Jiffy(element.created!).month;
+        final elementYear = jiffy.Jiffy(element.created!).year;
+
+        if (searchMonth == elementMonth && elementYear == searchYear) {
+          return previousValue + 1;
+        }
+
+        return previousValue;
+      });
+
+      byMonth.add(
+        PeriodTransactionData(
+          count: amount,
+          startDate: currentDate.subtract(
+            Duration(days: substract * 30),
+          ),
+        ),
+      );
+
+      substract += 1;
+    }
+
+    return byMonth;
+  }
+
+  List<PeriodTransactionData> _transactionsByDay(List<Transaction> transactions) {
+    final currentDate = DateTime.now();
+    int substract = 0;
+    final int length = 7;
+    List<PeriodTransactionData> byMonth = [];
+
+    for (int i = 0; i < length; i++) {
+      int amount = transactions.fold(0, (previousValue, element) {
+        final searchDate = currentDate.subtract(
+          Duration(days: substract),
+        );
+
+        if (element.created!.isAfter(searchDate)) {
+          return previousValue + 1;
+        }
+
+        return previousValue;
+      });
+
+      byMonth.add(
+        PeriodTransactionData(
+          count: amount,
+          startDate: currentDate.subtract(
+            Duration(days: substract),
+          ),
+        ),
+      );
+
+      substract += 1;
+    }
+
+    return byMonth;
   }
 }
