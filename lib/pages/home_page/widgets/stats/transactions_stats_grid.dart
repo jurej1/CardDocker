@@ -26,7 +26,7 @@ class TransactionsStatsGrid extends StatelessWidget {
         ),
         _TextColumn(
           title: 'Smallest',
-          content: stats.smallestTranasction.toStringAsFixed(0),
+          content: "\$${stats.smallestTranasction.toStringAsFixed(0)}",
         ),
         _TextColumn(
           title: 'Total transactions',

@@ -21,8 +21,8 @@ class TransactionsStatsCard extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 TransactionsStatsGrid(stats: state.transactionsStats),
-                const SizedBox(height: 30),
-                TransactionsChart(purposStats: state.transactionsStats.purposeStats),
+                const SizedBox(height: 20),
+                TransactionsChart(purposeStats: state.transactionsStats.purposeStats),
               ],
             ),
           );

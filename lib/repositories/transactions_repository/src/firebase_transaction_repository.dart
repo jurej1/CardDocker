@@ -129,15 +129,19 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     List<TransactionPurposeStat> purposeStats = [];
 
     transactionPurposeRaw.forEach((stat) {
-      if (!purposeStats.contains(stat)) {
-        int amount = transactionPurposeRaw.fold(0, (previousValue, element) {
-          if (element.purpose == stat.purpose) {
-            return previousValue + 1;
-          } else {
-            return previousValue;
-          }
-        });
+      int amount = transactionPurposeRaw.fold(0, (previousValue, element) {
+        if (element.purpose == stat.purpose) {
+          return previousValue + 1;
+        } else {
+          return previousValue;
+        }
+      });
 
+      final bool containsData = purposeStats.any((element) {
+        return element.purpose == stat.purpose;
+      });
+
+      if (!containsData) {
         purposeStats.add(
           TransactionPurposeStat(
             purpose: stat.purpose,
