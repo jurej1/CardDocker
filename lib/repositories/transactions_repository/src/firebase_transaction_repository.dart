@@ -81,24 +81,86 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     List<num> amountList = transactions.map((e) => e.amount).toList();
     double biggestTransaction = amountList.reduce((current, next) => current > next ? current : next).toDouble();
     double smallestTransaction = amountList.reduce((current, next) => current > next ? next : current).toDouble();
-
     int numOfPositiveTransactions = transactions.where((element) => !element.amount.isNegative).toList().length;
     int numNegativeTransacions = transactions.length - numOfPositiveTransactions;
 
-    double totalCashFlow = transactions.fold(0, (cashFlow, element) {
+    double totalCashFlow = _totalCashFlow(transactions);
+    double totalPositiveCashFlow = _totalPositiveCashFlow(transactions);
+    double totalNegativeCashFlow = (totalCashFlow - totalPositiveCashFlow) * -1;
+
+    List<TransactionPurposeStat> purposeStats = _transactionPurposeStats(transactions);
+
+    Map<String, int> numOfTransactionsOverTime = _transactionsQuantityOverTime(transactions);
+    int numTransactionsThisMonth = numOfTransactionsOverTime['month']!;
+    int numTransactionsThisWeeek = numOfTransactionsOverTime['week']!;
+    int numTransactionsToday = numOfTransactionsOverTime['day']!;
+
+    return stats.copyWith(
+      biggestTransaction: biggestTransaction,
+      smallestTranasction: smallestTransaction,
+      lastTransactionAdded: transactions.first,
+      numOfTransactions: transactions.length,
+      numTotalNegativeTransactions: numNegativeTransacions,
+      numTotalPositiveTransactions: numOfPositiveTransactions,
+      totalNegativeCashFlow: totalNegativeCashFlow,
+      totalPositiveCashFlow: totalPositiveCashFlow,
+      numTransactionsThisMonth: numTransactionsThisMonth,
+      numTransactionsThisWeek: numTransactionsThisWeeek,
+      totalCashFlow: totalCashFlow,
+      numTransactionsToday: numTransactionsToday,
+      purposeStat: purposeStats,
+    );
+  }
+
+  double _totalCashFlow(List<Transaction> transactions) {
+    return transactions.fold(0, (cashFlow, element) {
       double amount = element.amount.toDouble();
       if (amount.isNegative) {
         amount *= -1;
       }
       return cashFlow += amount;
     });
-    double totalPositiveCashFlow = transactions.fold(0, (cashFlow, element) {
+  }
+
+  double _totalPositiveCashFlow(List<Transaction> transactions) {
+    return transactions.fold(0, (cashFlow, element) {
       if (!element.amount.isNegative) {
         return cashFlow += element.amount.toDouble();
       }
       return cashFlow;
     });
-    double totalNegativeCashFlow = (totalCashFlow - totalPositiveCashFlow) * -1;
+  }
+
+  List<TransactionPurposeStat> _transactionPurposeStats(List<Transaction> transactions) {
+    List<TransactionPurposeStat> purposeStats = [];
+
+    transactions.forEach((stat) {
+      final bool containsData = purposeStats.any((element) {
+        return element.purpose == stat.purpose;
+      });
+
+      if (!containsData) {
+        int amount = transactions.fold(0, (previousValue, element) {
+          if (element.purpose == stat.purpose) {
+            return previousValue + 1;
+          } else {
+            return previousValue;
+          }
+        });
+        purposeStats.add(
+          TransactionPurposeStat(
+            purpose: stat.purpose,
+            count: amount,
+          ),
+        );
+      }
+    });
+
+    return purposeStats;
+  }
+
+  Map<String, int> _transactionsQuantityOverTime(List<Transaction> transactions) {
+    Map<String, int> numOfTransactions = {'month': 0, 'week': 0, 'day': 0};
 
     final DateTime currentDate = DateTime.now();
     DateTime minMonthDate = currentDate.subtract(const Duration(days: 30));
@@ -122,49 +184,10 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       }
     });
 
-    List<TransactionPurposeStat> transactionPurposeRaw = transactions.map((e) {
-      return TransactionPurposeStat(purpose: e.purpose, count: 0);
-    }).toList();
+    numOfTransactions['month'] = numTransactionsThisMonth;
+    numOfTransactions['week'] = numTransactionsThisWeeek;
+    numOfTransactions['day'] = numTransactionsToday;
 
-    List<TransactionPurposeStat> purposeStats = [];
-
-    transactionPurposeRaw.forEach((stat) {
-      int amount = transactionPurposeRaw.fold(0, (previousValue, element) {
-        if (element.purpose == stat.purpose) {
-          return previousValue + 1;
-        } else {
-          return previousValue;
-        }
-      });
-
-      final bool containsData = purposeStats.any((element) {
-        return element.purpose == stat.purpose;
-      });
-
-      if (!containsData) {
-        purposeStats.add(
-          TransactionPurposeStat(
-            purpose: stat.purpose,
-            count: amount,
-          ),
-        );
-      }
-    });
-
-    return stats.copyWith(
-      biggestTransaction: biggestTransaction,
-      smallestTranasction: smallestTransaction,
-      lastTransactionAdded: transactions.first,
-      numOfTransactions: transactions.length,
-      numTotalNegativeTransactions: numNegativeTransacions,
-      numTotalPositiveTransactions: numOfPositiveTransactions,
-      totalNegativeCashFlow: totalNegativeCashFlow,
-      totalPositiveCashFlow: totalPositiveCashFlow,
-      numTransactionsThisMonth: numTransactionsThisMonth,
-      numTransactionsThisWeek: numTransactionsThisWeeek,
-      totalCashFlow: totalCashFlow,
-      numTransactionsToday: numTransactionsToday,
-      purposeStat: purposeStats,
-    );
+    return numOfTransactions;
   }
 }

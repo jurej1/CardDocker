@@ -62,6 +62,7 @@ class _Chart extends StatelessWidget {
             return PieChartSectionData(
               color: color,
               value: value,
+              radius: 30,
               title: value.toStringAsFixed(0),
               showTitle: true,
               titleStyle: TextStyle(
