@@ -4,6 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class TransactionPeriodChart extends StatelessWidget {
   @override
@@ -12,6 +13,11 @@ class TransactionPeriodChart extends StatelessWidget {
       builder: (context, state) {
         if (state is TransactionDataBarChartLoadSuccess) {
           return Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.blue.withOpacity(0.3),
+            ),
             width: MediaQuery.of(context).size.width,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -20,13 +26,38 @@ class TransactionPeriodChart extends StatelessWidget {
                   selectedView: state.view,
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Container(
-                  height: 180,
-                  alignment: Alignment.centerLeft,
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
                   child: BarChart(
                     BarChartData(
+                      alignment: BarChartAlignment.spaceAround,
+                      barTouchData: BarTouchData(
+                        enabled: true,
+                        touchTooltipData: BarTouchTooltipData(
+                          tooltipBgColor: Colors.transparent,
+                          tooltipPadding: const EdgeInsets.all(0),
+                          tooltipBottomMargin: 3,
+                          getTooltipItem: (
+                            BarChartGroupData group,
+                            int groupIndex,
+                            BarChartRodData rod,
+                            int rodIndex,
+                          ) {
+                            final isNotNull = rod.y.round() != 0;
+
+                            return BarTooltipItem(
+                              isNotNull ? rod.y.round().toString() : '',
+                              TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                       borderData: FlBorderData(show: false),
                       maxY: state.getMaxY,
                       barGroups: state.transactions.map(
@@ -38,23 +69,17 @@ class TransactionPeriodChart extends StatelessWidget {
                                 y: e.count.toDouble(),
                               ),
                             ],
+                            showingTooltipIndicators: [0],
                           );
                         },
                       ).toList(),
                       titlesData: FlTitlesData(
-                        show: true,
-                        leftTitles: SideTitles(
-                          interval: 5,
-                          showTitles: true,
-                        ),
+                        leftTitles: SideTitles(),
                         bottomTitles: SideTitles(
                           getTitles: (value) => _getTile(view: state.view, value: value),
                           showTitles: true,
                           rotateAngle: 35,
                         ),
-                      ),
-                      gridData: FlGridData(
-                        horizontalInterval: _horizonalInterval(state.view),
                       ),
                     ),
                   ),
@@ -91,55 +116,11 @@ class TransactionPeriodChart extends StatelessWidget {
 
   String _getTile({required View view, required double value}) {
     final val = value.toInt();
-
+    final currentDate = DateTime.now();
     if (view == View.day) {
-      switch (val) {
-        case 1:
-          return 'Mon';
-        case 2:
-          return 'Tue';
-        case 3:
-          return 'Wed';
-        case 4:
-          return 'Thu';
-        case 5:
-          return 'Fri';
-        case 6:
-          return 'Sat';
-        case 7:
-          return 'Sun';
-        default:
-          return '';
-      }
+      return DateFormat('EEE').format(DateTime(currentDate.year, currentDate.month, val));
     } else if (view == View.month) {
-      switch (val) {
-        case 1:
-          return 'Jan';
-        case 2:
-          return 'Feb';
-        case 3:
-          return 'Mar';
-        case 4:
-          return 'Apr';
-        case 5:
-          return 'May';
-        case 6:
-          return 'Jun';
-        case 7:
-          return 'Jul';
-        case 8:
-          return 'Aug';
-        case 9:
-          return 'Sep';
-        case 10:
-          return 'Oct';
-        case 11:
-          return 'Nov';
-        case 12:
-          return 'Dec';
-        default:
-          return '';
-      }
+      return DateFormat('MMM').format(DateTime(currentDate.year, val));
     } else if (view == View.week) {
       return '$val';
     } else {
@@ -165,25 +146,28 @@ class _ViewSelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 7),
               child: Transform.translate(
                 offset: isSelected ? Offset(0, -4) : Offset.zero,
-                child: TextButton(
-                  style: ButtonStyle(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    animationDuration: const Duration(milliseconds: 350),
-                    elevation: MaterialStateProperty.all<double>(isSelected ? 5 : 2.5),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                child: Transform.scale(
+                  scale: 0.85,
+                  child: TextButton(
+                    style: ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      animationDuration: const Duration(milliseconds: 350),
+                      elevation: MaterialStateProperty.all<double>(isSelected ? 5 : 2.5),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        isSelected ? Colors.blue : Colors.white,
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
-                      isSelected ? Colors.blue : Colors.white,
-                    ),
-                  ),
-                  onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
-                  child: Text(
-                    describeEnum(e),
-                    style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.blue,
+                    onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
+                    child: Text(
+                      describeEnum(e),
+                      style: TextStyle(
+                        color: isSelected ? Colors.white : Colors.blue,
+                      ),
                     ),
                   ),
                 ),
