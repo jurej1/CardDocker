@@ -41,7 +41,7 @@ class TransactionsStatsGrid extends StatelessWidget {
           content: stats.numTotalNegativeTransactions.toString(),
         ),
         _TextColumn(
-          title: 'Last Month',
+          title: 'Last 30 Days',
           content: stats.numTransactionsThisMonth.toString(),
         ),
         _TextColumn(

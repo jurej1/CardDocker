@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
 import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
+import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart' as jiffy;
 
 import 'models/transaction_purpose_stat.dart';
@@ -176,7 +177,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
     int numTransactionsThisMonth = 0;
     DateTime minWeekDate = currentDate.subtract(const Duration(days: 7));
     int numTransactionsThisWeeek = 0;
-    DateTime minDayDate = currentDate.subtract(const Duration(hours: 24));
+    DateTime minDayDate = DateTime(currentDate.year, currentDate.month, currentDate.day, 0, 0);
     int numTransactionsToday = 0;
 
     transactions.forEach((element) {
@@ -202,16 +203,23 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
   List<PeriodTransactionData> _transactionsByWeek(List<Transaction> transactions) {
     final int length = 7;
-    int substract = 0;
     final currentDate = DateTime.now();
+
+    int subscractSunday = currentDate.weekday == DateTime.sunday ? 1 : 0;
+    int substract = subscractSunday;
     List<PeriodTransactionData> byWeek = [];
 
     for (int i = 0; i < length; i++) {
       final int currentWeek = jiffy.Jiffy(currentDate).week - substract;
+      print('JIffy Current week $currentWeek');
+      final int currentYear = jiffy.Jiffy(currentDate).year;
       int quantity = transactions.fold(0, (previousValue, element) {
         final int elementWeek = jiffy.Jiffy(element.created!).week;
+        print('Element Current week $currentWeek');
 
-        if (currentWeek == elementWeek) {
+        final int elementYear = jiffy.Jiffy(element.created!).year;
+
+        if (currentWeek == elementWeek && elementYear == currentYear) {
           return previousValue + 1;
         }
 
@@ -273,7 +281,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
   List<PeriodTransactionData> _transactionsByDay(List<Transaction> transactions) {
     final currentDate = DateTime.now();
-    int substract = 1;
+    int substract = 0;
     final int length = 7;
     List<PeriodTransactionData> byMonth = [];
 
