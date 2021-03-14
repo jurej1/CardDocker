@@ -20,6 +20,8 @@ class TransactionDataBarChartLoadSuccess extends TransactionDataBarChartState {
     required this.view,
   });
 
+  double get getMaxY => transactions.reduce((value, element) => value.count > element.count ? value : element).count.toDouble() + 1;
+
   @override
   List<Object> get props => [transactions];
 }

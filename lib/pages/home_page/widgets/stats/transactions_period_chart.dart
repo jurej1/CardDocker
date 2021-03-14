@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -18,37 +16,23 @@ class TransactionPeriodChart extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  color: Colors.redAccent.withOpacity(0.4),
-                  child: Row(
-                    children: View.values.map((e) {
-                      return Expanded(
-                        child: TextButton(
-                          onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(
-                            TransactionBarChartChangeView(e),
-                          ),
-                          child: Text(
-                            describeEnum(e),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                _ViewSelector(
+                  selectedView: state.view,
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 Container(
-                  color: Colors.green.withOpacity(0.4),
                   height: 150,
                   alignment: Alignment.centerLeft,
                   child: BarChart(
                     BarChartData(
                       borderData: FlBorderData(show: false),
-                      barGroups: state.transactions.reversed.map(
+                      maxY: state.getMaxY,
+                      barGroups: state.transactions.map(
                         (e) {
                           return BarChartGroupData(
-                            x: _XValue(state.view, e),
+                            x: _xValue(state.view, e),
                             barRods: [
                               BarChartRodData(
                                 y: e.count.toDouble(),
@@ -60,7 +44,7 @@ class TransactionPeriodChart extends StatelessWidget {
                       axisTitleData: FlAxisTitleData(
                         bottomTitle: AxisTitle(
                           showTitle: true,
-                          titleText: 'Week',
+                          titleText: _bottomAxisTitle(state.view),
                         ),
                       ),
                       titlesData: FlTitlesData(
@@ -72,12 +56,11 @@ class TransactionPeriodChart extends StatelessWidget {
                         bottomTitles: SideTitles(
                           getTitles: (value) => _getTile(view: state.view, value: value),
                           showTitles: true,
-                          rotateAngle: pi / 4,
+                          rotateAngle: 35,
                         ),
                       ),
                       gridData: FlGridData(
-                        checkToShowHorizontalLine: (value) => value % 2.5 == 0,
-                        horizontalInterval: 2.5,
+                        horizontalInterval: _horizonalInterval(state.view),
                       ),
                     ),
                   ),
@@ -92,13 +75,33 @@ class TransactionPeriodChart extends StatelessWidget {
     );
   }
 
-  int _XValue(View selectedView, PeriodTransactionData e) {
+  double _horizonalInterval(View view) {
+    if (view == View.day) {
+      return 2;
+    } else if (view == View.month) {
+      return 10;
+    } else {
+      return 5;
+    }
+  }
+
+  int _xValue(View selectedView, PeriodTransactionData e) {
     if (selectedView == View.day) {
       return e.weekDayNumber();
     } else if (selectedView == View.month) {
       return e.monthNumber();
     } else {
       return e.weekNumber();
+    }
+  }
+
+  String _bottomAxisTitle(View view) {
+    if (view == View.day) {
+      return 'Day';
+    } else if (view == View.month) {
+      return 'Month';
+    } else {
+      return 'Year';
     }
   }
 
@@ -159,5 +162,48 @@ class TransactionPeriodChart extends StatelessWidget {
     } else {
       return '';
     }
+  }
+}
+
+class _ViewSelector extends StatelessWidget {
+  final View selectedView;
+
+  const _ViewSelector({Key? key, required this.selectedView}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: View.values.map((e) {
+        final bool isSelected = selectedView == e;
+
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 7),
+            child: TextButton(
+              style: ButtonStyle(
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                animationDuration: const Duration(milliseconds: 350),
+                elevation: MaterialStateProperty.all<double>(isSelected ? 10 : 2.5),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all(
+                  isSelected ? Colors.blue : Colors.white,
+                ),
+              ),
+              onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
+              child: Text(
+                describeEnum(e),
+                style: TextStyle(
+                  color: isSelected ? Colors.white : Colors.blue,
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
   }
 }

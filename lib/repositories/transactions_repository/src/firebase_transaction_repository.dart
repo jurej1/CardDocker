@@ -93,14 +93,14 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
     List<TransactionPurposeStat> purposeStats = _transactionPurposeStats(transactions);
 
+    List<PeriodTransactionData> byWeek = _transactionsByWeek(transactions);
+    List<PeriodTransactionData> byMonth = _transactionsByMonth(transactions);
+    List<PeriodTransactionData> byDay = _transactionsByDay(transactions);
+
     Map<String, int> numOfTransactionsOverTime = _transactionsQuantityOverTime(transactions);
     int numTransactionsThisMonth = numOfTransactionsOverTime['month']!;
     int numTransactionsThisWeeek = numOfTransactionsOverTime['week']!;
     int numTransactionsToday = numOfTransactionsOverTime['day']!;
-
-    List<PeriodTransactionData> byWeek = _transactionsByWeek(transactions);
-    List<PeriodTransactionData> byMonth = _transactionsByMonth(transactions);
-    List<PeriodTransactionData> byDay = _transactionsByDay(transactions);
 
     return stats.copyWith(
       biggestTransaction: biggestTransaction,
@@ -202,24 +202,28 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
   }
 
   List<PeriodTransactionData> _transactionsByWeek(List<Transaction> transactions) {
-    final int length = 7;
+    final int weeksLength = 7;
+
     final currentDate = DateTime.now();
 
-    int subscractSunday = currentDate.weekday == DateTime.sunday ? 1 : 0;
-    int substract = subscractSunday;
+    bool isSunday = currentDate.weekday == DateTime.sunday;
+    int substract = (isSunday ? 1 : 0);
+
+    final int currentYear = jiffy.Jiffy(currentDate).year;
+    final int currentWeek = jiffy.Jiffy(currentDate).week;
+
     List<PeriodTransactionData> byWeek = [];
 
-    for (int i = 0; i < length; i++) {
-      final int currentWeek = jiffy.Jiffy(currentDate).week - substract;
-      print('JIffy Current week $currentWeek');
-      final int currentYear = jiffy.Jiffy(currentDate).year;
-      int quantity = transactions.fold(0, (previousValue, element) {
-        final int elementWeek = jiffy.Jiffy(element.created!).week;
-        print('Element Current week $currentWeek');
+    for (int i = 0; i < weeksLength; i++) {
+      final int searchWeek = currentWeek - substract;
 
-        final int elementYear = jiffy.Jiffy(element.created!).year;
+      int amount = transactions.fold(0, (previousValue, element) {
+        bool isElementOnSunday = element.created!.weekday == DateTime.sunday;
+        final elementJiffy = jiffy.Jiffy(element.created!);
+        final elementCreatedWeek = elementJiffy.week - (isElementOnSunday ? 1 : 0);
+        final elementYear = elementJiffy.year;
 
-        if (currentWeek == elementWeek && elementYear == currentYear) {
+        if (elementCreatedWeek == searchWeek && currentYear == elementYear) {
           return previousValue + 1;
         }
 
@@ -228,18 +232,17 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
       byWeek.add(
         PeriodTransactionData(
-          count: quantity,
+          count: amount,
           startDate: currentDate.subtract(
-            Duration(
-              days: (substract * 7),
-            ),
+            Duration(days: substract * 7),
           ),
         ),
       );
+
       substract += 1;
     }
 
-    return byWeek;
+    return byWeek.reversed.toList();
   }
 
   List<PeriodTransactionData> _transactionsByMonth(List<Transaction> transactions) {
@@ -276,14 +279,14 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       substract += 1;
     }
 
-    return byMonth;
+    return byMonth.reversed.toList();
   }
 
   List<PeriodTransactionData> _transactionsByDay(List<Transaction> transactions) {
     final currentDate = DateTime.now();
     int substract = 0;
     final int length = 7;
-    List<PeriodTransactionData> byMonth = [];
+    List<PeriodTransactionData> byDay = [];
 
     for (int i = 0; i < length; i++) {
       int amount = transactions.fold(0, (previousValue, element) {
@@ -304,7 +307,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
         return previousValue;
       });
 
-      byMonth.add(
+      byDay.add(
         PeriodTransactionData(
           count: amount,
           startDate: currentDate.subtract(
@@ -316,6 +319,6 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       substract += 1;
     }
 
-    return byMonth;
+    return byDay.reversed.toList();
   }
 }
