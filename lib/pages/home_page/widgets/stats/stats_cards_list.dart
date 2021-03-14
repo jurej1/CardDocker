@@ -43,6 +43,8 @@ class _TransactionsStatsCard extends StatelessWidget {
                 TransactionsPieChart(purposeStats: state.transactionsStats.purposeStats),
                 const SizedBox(height: 20),
                 TransactionPeriodChart(),
+                const SizedBox(height: 20),
+                LastTransactionAdded(transaction: state.transactionsStats.lastTransactionAdded),
               ],
             ),
           );

@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart' as fb;
 import 'package:card_docker/repositories/transactions_repository/src/entities/entities.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/transaction.dart';
 import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
-import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart' as jiffy;
 
 import 'models/transaction_purpose_stat.dart';
