@@ -21,7 +21,6 @@ class TransactionsPieChart extends StatelessWidget {
     return Container(
       height: 130,
       width: MediaQuery.of(context).size.width,
-      // color: Colors.red.withOpacity(0.3),
       child: Row(
         children: [
           Expanded(
@@ -46,7 +45,6 @@ class _Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.green.withOpacity(0.3),
       height: 130,
       width: 150,
       child: PieChart(
@@ -85,17 +83,28 @@ class _Board extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.blue.withOpacity(0.3),
+      height: 130,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.blue.withOpacity(0.3),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(_title()),
+          Text(
+            _title(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            ),
+          ),
           const SizedBox(
-            height: 8,
+            height: 5,
           ),
           ListView.builder(
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Text(
