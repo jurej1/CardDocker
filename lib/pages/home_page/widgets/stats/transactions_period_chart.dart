@@ -19,11 +19,11 @@ class TransactionPeriodChart extends StatelessWidget {
                 _ViewSelector(
                   selectedView: state.view,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
-                  height: 150,
+                  height: 180,
                   alignment: Alignment.centerLeft,
                   child: BarChart(
                     BarChartData(
@@ -41,12 +41,6 @@ class TransactionPeriodChart extends StatelessWidget {
                           );
                         },
                       ).toList(),
-                      axisTitleData: FlAxisTitleData(
-                        bottomTitle: AxisTitle(
-                          showTitle: true,
-                          titleText: _bottomAxisTitle(state.view),
-                        ),
-                      ),
                       titlesData: FlTitlesData(
                         show: true,
                         leftTitles: SideTitles(
@@ -95,16 +89,6 @@ class TransactionPeriodChart extends StatelessWidget {
     }
   }
 
-  String _bottomAxisTitle(View view) {
-    if (view == View.day) {
-      return 'Day';
-    } else if (view == View.month) {
-      return 'Month';
-    } else {
-      return 'Year';
-    }
-  }
-
   String _getTile({required View view, required double value}) {
     final val = value.toInt();
 
@@ -114,7 +98,6 @@ class TransactionPeriodChart extends StatelessWidget {
           return 'Mon';
         case 2:
           return 'Tue';
-
         case 3:
           return 'Wed';
         case 4:
@@ -158,7 +141,7 @@ class TransactionPeriodChart extends StatelessWidget {
           return '';
       }
     } else if (view == View.week) {
-      return 'WK $val';
+      return '$val';
     } else {
       return '';
     }
