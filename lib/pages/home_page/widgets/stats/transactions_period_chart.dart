@@ -173,37 +173,42 @@ class _ViewSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: View.values.map((e) {
-        final bool isSelected = selectedView == e;
+      children: View.values.map(
+        (e) {
+          final bool isSelected = selectedView == e;
 
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7),
-            child: TextButton(
-              style: ButtonStyle(
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                animationDuration: const Duration(milliseconds: 350),
-                elevation: MaterialStateProperty.all<double>(isSelected ? 10 : 2.5),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              child: Transform.translate(
+                offset: isSelected ? Offset(0, -4) : Offset.zero,
+                child: TextButton(
+                  style: ButtonStyle(
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    animationDuration: const Duration(milliseconds: 350),
+                    elevation: MaterialStateProperty.all<double>(isSelected ? 5 : 2.5),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      isSelected ? Colors.blue : Colors.white,
+                    ),
                   ),
-                ),
-                backgroundColor: MaterialStateProperty.all(
-                  isSelected ? Colors.blue : Colors.white,
-                ),
-              ),
-              onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
-              child: Text(
-                describeEnum(e),
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.blue,
+                  onPressed: () => BlocProvider.of<TransactionDataBarChartBloc>(context).add(TransactionBarChartChangeView(e)),
+                  child: Text(
+                    describeEnum(e),
+                    style: TextStyle(
+                      color: isSelected ? Colors.white : Colors.blue,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        },
+      ).toList(),
     );
   }
 }

@@ -7,7 +7,6 @@ class StatsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const PageSelector(),
       body: BlocBuilder<StatsViewBloc, StatsViewState>(
         builder: (context, state) {
           if (state is StatsViewLoading) {
@@ -25,6 +24,7 @@ class StatsView extends StatelessWidget {
           }
         },
       ),
+      bottomNavigationBar: const PageSelector(),
     );
   }
 }

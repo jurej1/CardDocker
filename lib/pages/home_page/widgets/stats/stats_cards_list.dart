@@ -1,6 +1,5 @@
 import 'package:card_docker/blocs/stats_view_bloc/stats_view_bloc.dart';
 import 'package:card_docker/pages/home_page/widgets/widgets.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,10 +11,11 @@ class StatsCardsList extends StatelessWidget {
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
+            const SizedBox(height: 15),
             _TransactionsStatsCard(),
             const SizedBox(height: 15),
             _CardsStatsCard(),
