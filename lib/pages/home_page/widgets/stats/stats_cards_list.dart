@@ -15,7 +15,7 @@ class StatsCardsList extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: kToolbarHeight * 0.6),
             _TransactionsStatsCard(),
             const SizedBox(height: 15),
             _CardsStatsCard(),
@@ -34,6 +34,7 @@ class _TransactionsStatsCard extends StatelessWidget {
         if (state is StatsViewLoadSuccess) {
           return StatCardBase(
             child: ListView(
+              padding: EdgeInsets.zero,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
