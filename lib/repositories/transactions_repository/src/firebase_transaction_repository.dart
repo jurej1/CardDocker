@@ -266,6 +266,8 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
         return previousValue;
       });
 
+      print('Month amount: $amount');
+
       byMonth.add(
         PeriodTransactionData(
           count: amount,
@@ -278,6 +280,7 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
       substract += 1;
     }
 
+    print('by month length ${byMonth.length}');
     return byMonth.reversed.toList();
   }
 

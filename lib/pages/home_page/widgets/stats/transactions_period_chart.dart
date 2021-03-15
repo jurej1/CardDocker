@@ -1,10 +1,13 @@
-import 'package:card_docker/blocs/blocs.dart';
-import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import 'package:card_docker/blocs/blocs.dart';
+import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 
 class TransactionPeriodChart extends StatelessWidget {
   @override
@@ -28,62 +31,11 @@ class TransactionPeriodChart extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: BarChart(
-                    BarChartData(
-                      alignment: BarChartAlignment.spaceAround,
-                      barTouchData: BarTouchData(
-                        enabled: true,
-                        touchTooltipData: BarTouchTooltipData(
-                          tooltipBgColor: Colors.transparent,
-                          tooltipPadding: const EdgeInsets.all(0),
-                          tooltipBottomMargin: 3,
-                          getTooltipItem: (
-                            BarChartGroupData group,
-                            int groupIndex,
-                            BarChartRodData rod,
-                            int rodIndex,
-                          ) {
-                            final isNotNull = rod.y.round() != 0;
-
-                            return BarTooltipItem(
-                              isNotNull ? rod.y.round().toString() : '',
-                              TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      borderData: FlBorderData(show: false),
-                      maxY: state.getMaxY,
-                      barGroups: state.transactions.map(
-                        (e) {
-                          return BarChartGroupData(
-                            x: _xValue(state.view, e),
-                            barRods: [
-                              BarChartRodData(
-                                y: e.count.toDouble(),
-                              ),
-                            ],
-                            showingTooltipIndicators: [0],
-                          );
-                        },
-                      ).toList(),
-                      titlesData: FlTitlesData(
-                        leftTitles: SideTitles(),
-                        bottomTitles: SideTitles(
-                          getTitles: (value) => _getTile(view: state.view, value: value),
-                          showTitles: true,
-                          rotateAngle: 35,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                _Chart(
+                  transactions: state.transactions,
+                  maxY: state.getMaxY,
+                  view: state.view,
+                )
               ],
             ),
           );
@@ -92,40 +44,6 @@ class TransactionPeriodChart extends StatelessWidget {
         }
       },
     );
-  }
-
-  double _horizonalInterval(View view) {
-    if (view == View.day) {
-      return 2;
-    } else if (view == View.month) {
-      return 10;
-    } else {
-      return 5;
-    }
-  }
-
-  int _xValue(View selectedView, PeriodTransactionData e) {
-    if (selectedView == View.day) {
-      return e.weekDayNumber();
-    } else if (selectedView == View.month) {
-      return e.monthNumber();
-    } else {
-      return e.weekNumber();
-    }
-  }
-
-  String _getTile({required View view, required double value}) {
-    final val = value.toInt();
-    final currentDate = DateTime.now();
-    if (view == View.day) {
-      return DateFormat('EEE').format(DateTime(currentDate.year, currentDate.month, val));
-    } else if (view == View.month) {
-      return DateFormat('MMM').format(DateTime(currentDate.year, val));
-    } else if (view == View.week) {
-      return '$val';
-    } else {
-      return '';
-    }
   }
 }
 
@@ -177,5 +95,104 @@ class _ViewSelector extends StatelessWidget {
         },
       ).toList(),
     );
+  }
+}
+
+class _Chart extends StatelessWidget {
+  final List<PeriodTransactionData> transactions;
+  final double maxY;
+  final View view;
+
+  const _Chart({
+    Key? key,
+    required this.transactions,
+    required this.maxY,
+    required this.view,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      constraints: BoxConstraints(maxHeight: 170, minHeight: 150),
+      child: BarChart(
+        BarChartData(
+          alignment: BarChartAlignment.spaceAround,
+          barTouchData: BarTouchData(
+            enabled: true,
+            touchTooltipData: BarTouchTooltipData(
+              tooltipBgColor: Colors.transparent,
+              tooltipPadding: const EdgeInsets.all(0),
+              tooltipBottomMargin: 3,
+              getTooltipItem: (
+                BarChartGroupData group,
+                int groupIndex,
+                BarChartRodData rod,
+                int rodIndex,
+              ) {
+                final isNotNull = rod.y.round() != 0;
+
+                return BarTooltipItem(
+                  isNotNull ? rod.y.round().toString() : '',
+                  TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              },
+            ),
+          ),
+          borderData: FlBorderData(show: false),
+          maxY: maxY,
+          barGroups: transactions.map(
+            (e) {
+              return BarChartGroupData(
+                x: _xValue(view, e),
+                barRods: [
+                  BarChartRodData(
+                    y: e.count.toDouble(),
+                  ),
+                ],
+                showingTooltipIndicators: [0],
+              );
+            },
+          ).toList(),
+          titlesData: FlTitlesData(
+            leftTitles: SideTitles(),
+            bottomTitles: SideTitles(
+              getTitles: (value) => _getTile(
+                view: view,
+                value: value,
+              ),
+              showTitles: true,
+              rotateAngle: 35,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  int _xValue(View selectedView, PeriodTransactionData e) {
+    if (selectedView == View.day) {
+      return e.weekDayNumber();
+    } else if (selectedView == View.month) {
+      return e.monthNumber();
+    } else {
+      return e.weekNumber();
+    }
+  }
+
+  String _getTile({required View view, required double value}) {
+    final val = value.toInt();
+    final currentDate = DateTime.now();
+    if (view == View.day) {
+      return DateFormat('EEE').format(DateTime(currentDate.year, currentDate.month, val));
+    } else if (view == View.month) {
+      return DateFormat('MMM').format(DateTime(currentDate.year, val));
+    } else if (view == View.week) {
+      return '$val';
+    } else {
+      return '';
+    }
   }
 }

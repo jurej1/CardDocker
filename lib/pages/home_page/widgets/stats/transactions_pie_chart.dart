@@ -105,7 +105,7 @@ class _Board extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemBuilder: (context, index) {
               return Text(
                 "${stats[index].count}x - ${transactionPurposeToString(stats[index].purpose)}",
