@@ -43,39 +43,51 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   @override
   CredictCardsStats getCredictCardStats(List<CredictCard> cards) {
-    List<CardTypeStat> cardsTypes = [];
-
-    cards.forEach((element) {
-      final cardType = cardsTypes.indexWhere((stat) => stat.type == element.type);
-
-      if (cardType < 0) {
-        cardsTypes.add(
-          CardTypeStat(type: element.type, numOfCards: 1),
-        );
-      } else {
-        cardsTypes = cardsTypes.map((e) {
-          if (e.type == element.type) {
-            return CardTypeStat(
-              type: e.type,
-              numOfCards: (e.numOfCards + 1),
-            );
-          } else {
-            return e;
-          }
-        }).toList();
-      }
-    });
-
-    final double totalBalance = cards.fold(20, (previousValue, element) {
+    final credictCardStats = CredictCardsStats.empty;
+    final double totalBalance = cards.fold(0.0, (previousValue, element) {
       return previousValue + element.balance;
     });
-
     final double average = totalBalance / cards.length;
 
-    return CredictCardsStats(
+    return credictCardStats.copyWith(
       numOfCards: cards.length,
-      purposeStats: cardsTypes,
+      purposeStats: _getCardTypes(cards),
       averageBalance: average,
+      biggestBalance: _biggestBalance(cards),
+      smallestBalance: _smallestBalance(cards),
     );
+  }
+
+  double _biggestBalance(List<CredictCard> cards) {
+    return cards.reduce((a, b) => a.balance > b.balance ? a : b).balance;
+  }
+
+  double _smallestBalance(List<CredictCard> cards) {
+    return cards.reduce((a, b) => a.balance < b.balance ? a : b).balance;
+  }
+
+  List<CardTypeStat> _getCardTypes(List<CredictCard> cards) {
+    final List<CredictCardType> cardsTransformed = cards.map((e) => e.type).toList();
+    final List<CredictCardType> originalTypes = CredictCardType.values;
+    List<CardTypeStat> cardsTypes = [];
+    final List<CredictCardType> filteredOriginalValues = originalTypes..removeWhere((element) => !cardsTransformed.contains(element));
+
+    for (int i = 0; i < filteredOriginalValues.length; i++) {
+      int amount = cardsTransformed.fold(0, (previousValue, element) {
+        if (element == filteredOriginalValues[i]) {
+          return previousValue + 1;
+        }
+        return previousValue;
+      });
+
+      cardsTypes.add(
+        CardTypeStat(
+          type: filteredOriginalValues[i],
+          numOfCards: amount,
+        ),
+      );
+    }
+
+    return cardsTypes..sort((a, b) => b.numOfCards.compareTo(a.numOfCards));
   }
 }
