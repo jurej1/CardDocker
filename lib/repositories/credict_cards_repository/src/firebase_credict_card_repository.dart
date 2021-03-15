@@ -68,24 +68,26 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   List<CardTypeStat> _getCardTypes(List<CredictCard> cards) {
     final List<CredictCardType> cardsTransformed = cards.map((e) => e.type).toList();
+
     final List<CredictCardType> originalTypes = CredictCardType.values;
     List<CardTypeStat> cardsTypes = [];
-    final List<CredictCardType> filteredOriginalValues = originalTypes..removeWhere((element) => !cardsTransformed.contains(element));
 
-    for (int i = 0; i < filteredOriginalValues.length; i++) {
+    for (int i = 0; i < originalTypes.length; i++) {
       int amount = cardsTransformed.fold(0, (previousValue, element) {
-        if (element == filteredOriginalValues[i]) {
+        if (element == originalTypes[i]) {
           return previousValue + 1;
         }
         return previousValue;
       });
 
-      cardsTypes.add(
-        CardTypeStat(
-          type: filteredOriginalValues[i],
-          numOfCards: amount,
-        ),
-      );
+      if (amount > 0) {
+        cardsTypes.add(
+          CardTypeStat(
+            type: originalTypes[i],
+            numOfCards: amount,
+          ),
+        );
+      }
     }
 
     return cardsTypes..sort((a, b) => b.numOfCards.compareTo(a.numOfCards));
