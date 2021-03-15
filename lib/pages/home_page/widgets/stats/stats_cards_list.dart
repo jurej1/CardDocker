@@ -36,7 +36,7 @@ class _TransactionsStatsCard extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               children: [
                 TransactionsStatsGrid(stats: state.transactionsStats),
                 const SizedBox(height: 20),
@@ -66,7 +66,7 @@ class _CardsStatsCard extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               children: [
                 CardsStatsGrid(stats: state.credictCardsStats),
                 const SizedBox(height: 20),
@@ -77,7 +77,7 @@ class _CardsStatsCard extends StatelessWidget {
                 const SizedBox(height: 20),
                 CardsStatsList(
                   credictCards: state.credictCardsStats.cardsWithNegativeBalance,
-                  title: 'Cards running versy very low...',
+                  title: 'Cards running very very low...',
                 ),
               ],
             ),

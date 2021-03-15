@@ -99,7 +99,7 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
   }
 
   List<CredictCard> _cardsWithLowAmount(List<CredictCard> cards) {
-    return cards.where((element) => element.balance < 100.00).toList();
+    return cards.where((element) => element.balance < 100.00 && !element.balance.isNegative).toList();
   }
 
   List<CredictCard> _cardsWithNegativeAmount(List<CredictCard> cards) {
