@@ -62,9 +62,25 @@ class _CardsStatsCard extends StatelessWidget {
     return BlocBuilder<StatsViewBloc, StatsViewState>(
       builder: (context, state) {
         if (state is StatsViewLoadSuccess) {
-          return Container(
-            color: Colors.green.withOpacity(0.3),
-            child: Text('Cards stats'),
+          return StatCardBase(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                CardsStatsGrid(stats: state.credictCardsStats),
+                const SizedBox(height: 20),
+                CardsStatsList(
+                  credictCards: state.credictCardsStats.cardsWithSmallAmount,
+                  title: 'Cards running low...',
+                ),
+                const SizedBox(height: 20),
+                CardsStatsList(
+                  credictCards: state.credictCardsStats.cardsWithNegativeBalance,
+                  title: 'Cards running versy very low...',
+                ),
+              ],
+            ),
           );
         } else {
           return Container();

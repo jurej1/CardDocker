@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'card_purpose_stat.dart';
+import 'models.dart';
 
 class CredictCardsStats extends Equatable {
   final int numOfCards;
@@ -10,6 +11,9 @@ class CredictCardsStats extends Equatable {
   final double biggestBalance;
   final double smallestBalance;
 
+  final List<CredictCard> cardsWithSmallAmount;
+  final List<CredictCard> cardsWithNegativeBalance;
+
   const CredictCardsStats({
     required this.numOfCards,
     required this.purposeStats,
@@ -17,6 +21,8 @@ class CredictCardsStats extends Equatable {
     required this.biggestBalance,
     required this.smallestBalance,
     required this.totalBalance,
+    required this.cardsWithNegativeBalance,
+    required this.cardsWithSmallAmount,
   });
 
   static final empty = CredictCardsStats(
@@ -26,6 +32,8 @@ class CredictCardsStats extends Equatable {
     purposeStats: const [],
     smallestBalance: 0,
     totalBalance: 0,
+    cardsWithNegativeBalance: const [],
+    cardsWithSmallAmount: const [],
   );
 
   @override
@@ -36,6 +44,8 @@ class CredictCardsStats extends Equatable {
         totalBalance,
         biggestBalance,
         smallestBalance,
+        cardsWithNegativeBalance,
+        cardsWithSmallAmount
       ];
 
   CredictCardsStats copyWith({
@@ -45,6 +55,8 @@ class CredictCardsStats extends Equatable {
     double? totalBalance,
     double? biggestBalance,
     double? smallestBalance,
+    List<CredictCard>? cardsWithSmallAmount,
+    List<CredictCard>? cardsWithNegativeBalance,
   }) {
     return CredictCardsStats(
       numOfCards: numOfCards ?? this.numOfCards,
@@ -53,6 +65,8 @@ class CredictCardsStats extends Equatable {
       totalBalance: totalBalance ?? this.totalBalance,
       biggestBalance: biggestBalance ?? this.biggestBalance,
       smallestBalance: smallestBalance ?? this.smallestBalance,
+      cardsWithSmallAmount: cardsWithSmallAmount ?? this.cardsWithSmallAmount,
+      cardsWithNegativeBalance: cardsWithNegativeBalance ?? this.cardsWithNegativeBalance,
     );
   }
 }

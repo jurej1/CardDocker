@@ -44,9 +44,7 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
   @override
   CredictCardsStats getCredictCardStats(List<CredictCard> cards) {
     final credictCardStats = CredictCardsStats.empty;
-    final double totalBalance = cards.fold(0.0, (previousValue, element) {
-      return previousValue + element.balance;
-    });
+    final double totalBalance = _totalBalance(cards);
     final double average = totalBalance / cards.length;
 
     return credictCardStats.copyWith(
@@ -55,6 +53,9 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
       averageBalance: average,
       biggestBalance: _biggestBalance(cards),
       smallestBalance: _smallestBalance(cards),
+      totalBalance: totalBalance,
+      cardsWithNegativeBalance: _cardsWithNegativeAmount(cards),
+      cardsWithSmallAmount: _cardsWithLowAmount(cards),
     );
   }
 
@@ -64,6 +65,10 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   double _smallestBalance(List<CredictCard> cards) {
     return cards.reduce((a, b) => a.balance < b.balance ? a : b).balance;
+  }
+
+  double _totalBalance(List<CredictCard> cards) {
+    return cards.fold(0.0, (previousValue, element) => previousValue += element.balance);
   }
 
   List<CardTypeStat> _getCardTypes(List<CredictCard> cards) {
@@ -91,5 +96,13 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
     }
 
     return cardsTypes..sort((a, b) => b.numOfCards.compareTo(a.numOfCards));
+  }
+
+  List<CredictCard> _cardsWithLowAmount(List<CredictCard> cards) {
+    return cards.where((element) => element.balance < 100.00).toList();
+  }
+
+  List<CredictCard> _cardsWithNegativeAmount(List<CredictCard> cards) {
+    return cards.where((element) => element.balance.isNegative).toList();
   }
 }
