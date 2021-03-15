@@ -292,12 +292,12 @@ class FirebaseTransactionsRepository implements TransactionsRepository {
 
     for (int i = 0; i < length; i++) {
       int amount = transactions.fold(0, (previousValue, element) {
-        final searchDate = jiffy.Jiffy(currentDate)..subtract(days: substract);
+        final searchDate = currentDate.subtract(Duration(days: substract));
         final day = searchDate.day;
         final month = searchDate.month;
         final year = searchDate.year;
 
-        final elementDay = jiffy.Jiffy(element.created!);
+        final elementDay = element.created!;
         final eDay = elementDay.day;
         final eMonth = elementDay.month;
         final eYear = elementDay.year;
