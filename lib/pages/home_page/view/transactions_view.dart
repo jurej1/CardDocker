@@ -6,31 +6,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TransactionsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TransactionsBloc, TransactionsState>(
-      builder: (context, state) {
-        if (state is TransactionsLoading) {
-          return Center(
-            child: const CircularProgressIndicator(),
-          );
-        } else if (state is TransactionsFailure) {
-          return Center(
-            child: Text('Oops something went wrong'),
-          );
-        } else if (state is TransactionsLoadSuccess) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text('Transactions'),
-              actions: [
-                ActionSelector(),
-              ],
-            ),
-            body: TransactionsList(transactions: state.transactions),
-          );
-        } else {
-          return Container();
-        }
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Transactions'),
+        actions: [
+          ActionSelector(),
+        ],
+      ),
+      body: BlocBuilder<TransactionsBloc, TransactionsState>(
+        builder: (context, state) {
+          if (state is TransactionsLoading) {
+            return Center(
+              child: const CircularProgressIndicator(),
+            );
+          } else if (state is TransactionsFailure) {
+            return Center(
+              child: Text('Oops something went wrong'),
+            );
+          } else if (state is TransactionsLoadSuccess) {
+            return TransactionsList(transactions: state.transactions);
+          } else {
+            return Container();
+          }
+        },
+      ),
+      bottomNavigationBar: const PageSelector(),
     );
   }
 }

@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PageSelector extends StatelessWidget {
   final pages = HomePageType.values;
 
+  const PageSelector();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageCubit, HomePageType>(

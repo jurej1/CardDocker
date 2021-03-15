@@ -9,7 +9,6 @@ class CarouselView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        centerTitle: true,
         actions: [
           ActionSelector(),
         ],
@@ -29,6 +28,7 @@ class CarouselView extends StatelessWidget {
           }
         },
       ),
+      bottomNavigationBar: const PageSelector(),
     );
   }
 }
@@ -47,7 +47,7 @@ class _CarouselList extends StatelessWidget {
       height: height,
       width: width,
       child: ListView(
-        physics: const BouncingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         children: [
           CardsCarousel(cards: state.cards!),
           Divider(

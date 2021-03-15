@@ -1,9 +1,9 @@
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/pages/login_page/login_page.dart';
-import 'package:card_docker/widgets/or_divider.dart';
-import 'package:card_docker/widgets/switch_view_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../or_divider.dart';
+import '../switch_view_button.dart';
 import '../widgets/widgets.dart';
 
 class SignUpView extends StatefulWidget {

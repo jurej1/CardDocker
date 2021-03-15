@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:formz/formz.dart';
 
 enum CreatedValidationError { invalid }
@@ -9,7 +8,7 @@ class Created extends FormzInput<DateTime, CreatedValidationError> {
 
   @override
   CreatedValidationError? validator(DateTime? value) {
-    final currentDate = Timestamp.now().toDate();
+    final currentDate = DateTime.now();
 
     if (value!.isAfter(currentDate)) {
       return CreatedValidationError.invalid;

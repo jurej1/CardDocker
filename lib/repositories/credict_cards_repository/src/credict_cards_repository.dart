@@ -8,4 +8,6 @@ abstract class CredictCardsRepository {
   Future<void> deleteCredictCard(CredictCard credictCard);
 
   Future<void> updateCredictCard(CredictCard credictCard);
+
+  CredictCardsStats getCredictCardStats(List<CredictCard> cards);
 }

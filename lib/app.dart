@@ -36,6 +36,18 @@ class App extends StatelessWidget {
             firebaseTransactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
           ),
         ),
+        BlocProvider<TransactionsStatsBloc>(
+          create: (context) => TransactionsStatsBloc(
+            transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+            transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
+          ),
+        ),
+        BlocProvider<CardsStatsBloc>(
+          create: (context) => CardsStatsBloc(
+            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+            cardsBloc: BlocProvider.of<CardsBloc>(context),
+          ),
+        ),
       ],
       child: _AppView(),
     );
@@ -52,6 +64,7 @@ class _AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(centerTitle: true),
         buttonTheme: ButtonThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -86,11 +99,25 @@ class _AppView extends StatelessWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider<CarouselBloc>(
+                lazy: false,
                 create: (context) => CarouselBloc(
                   cardsBloc: BlocProvider.of<CardsBloc>(context),
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
                 ),
               ),
+              BlocProvider<StatsViewBloc>(
+                lazy: false,
+                create: (context) => StatsViewBloc(
+                  transactionsStatsBloc: BlocProvider.of<TransactionsStatsBloc>(context),
+                  cardsStatsBloc: BlocProvider.of<CardsStatsBloc>(context),
+                ),
+              ),
+              BlocProvider<TransactionDataBarChartBloc>(
+                lazy: false,
+                create: (context) => TransactionDataBarChartBloc(
+                  statsViewBloc: BlocProvider.of<StatsViewBloc>(context),
+                ),
+              )
             ],
             child: HomePage(),
           );
