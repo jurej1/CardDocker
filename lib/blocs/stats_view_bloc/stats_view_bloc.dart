@@ -55,7 +55,7 @@ class StatsViewBloc extends Bloc<StatsViewEvent, StatsViewState> {
         basicTransactionsStats: transactionsState.basicStats,
         credictCardsStats: (_cardsStatsBloc.state as CardsStatsLoadSuccess).cardsStats,
       ));
-    } else if (transactionsState is TranasctionsStatsFailure) {
+    } else if (transactionsState is TransactionsStatsFailure) {
       add(_StatsViewError());
     }
   }

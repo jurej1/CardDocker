@@ -35,10 +35,14 @@ class TransactionsStatsBloc extends Bloc<TransactionsStatsEvent, TransactionsSta
     TransactionsStatsEvent event,
   ) async* {
     if (event is _TransactionsUpdated) {
-      BasicTransactionsStats stats = _transactionsRepository.getBasicTransactionsStats(event.transactions);
-      yield TransactionsStatsLoadSuccess(basicStats: stats);
+      try {
+        BasicTransactionsStats stats = _transactionsRepository.getBasicTransactionsStats(event.transactions);
+        yield TransactionsStatsLoadSuccess(basicStats: stats);
+      } catch (e) {
+        yield TransactionsStatsFailure();
+      }
     } else if (event is _TransactionsError) {
-      yield TranasctionsStatsFailure();
+      yield TransactionsStatsFailure();
     }
   }
 

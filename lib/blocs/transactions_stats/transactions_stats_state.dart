@@ -18,4 +18,4 @@ class TransactionsStatsLoadSuccess extends TransactionsStatsState {
   List<Object> get props => [basicStats];
 }
 
-class TranasctionsStatsFailure extends TransactionsStatsState {}
+class TransactionsStatsFailure extends TransactionsStatsState {}
