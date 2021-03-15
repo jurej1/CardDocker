@@ -68,14 +68,14 @@ class _CardsStatsCard extends StatelessWidget {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
-                CardsStatsGrid(stats: state.credictCardsStats),
+                CredictCardsStatsGrid(stats: state.credictCardsStats),
                 const SizedBox(height: 20),
-                CardsStatsList(
+                CredictCardsStatsList(
                   credictCards: state.credictCardsStats.cardsWithSmallAmount,
                   title: 'Cards running low...',
                 ),
                 const SizedBox(height: 20),
-                CardsStatsList(
+                CredictCardsStatsList(
                   credictCards: state.credictCardsStats.cardsWithNegativeBalance,
                   title: 'Cards running very very low...',
                 ),

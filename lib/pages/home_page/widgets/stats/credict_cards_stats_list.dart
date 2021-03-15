@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/src/models/models.dart';
 
-class CardsStatsList extends StatelessWidget {
+class CredictCardsStatsList extends StatelessWidget {
   final List<CredictCard> credictCards;
   final int _length;
   final String title;
   final BorderRadius _borderRadius = BorderRadius.circular(12);
 
-  CardsStatsList({
+  CredictCardsStatsList({
     Key? key,
     required this.credictCards,
     required this.title,

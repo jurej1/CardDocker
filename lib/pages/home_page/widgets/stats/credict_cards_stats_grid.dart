@@ -3,10 +3,10 @@ import 'package:card_docker/pages/home_page/widgets/stats/text_column.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/models/credict_cards_stats.dart';
 import 'package:flutter/material.dart';
 
-class CardsStatsGrid extends StatelessWidget {
+class CredictCardsStatsGrid extends StatelessWidget {
   final CredictCardsStats stats;
 
-  const CardsStatsGrid({Key? key, required this.stats}) : super(key: key);
+  const CredictCardsStatsGrid({Key? key, required this.stats}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
