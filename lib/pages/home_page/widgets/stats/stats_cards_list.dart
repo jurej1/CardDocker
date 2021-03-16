@@ -36,7 +36,7 @@ class _TransactionsStatsCard extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               children: [
                 TransactionsStatsGrid(stats: state.transactionsStats),
                 const SizedBox(height: 20),
@@ -62,9 +62,27 @@ class _CardsStatsCard extends StatelessWidget {
     return BlocBuilder<StatsViewBloc, StatsViewState>(
       builder: (context, state) {
         if (state is StatsViewLoadSuccess) {
-          return Container(
-            color: Colors.green.withOpacity(0.3),
-            child: Text('Cards stats'),
+          return StatCardBase(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              children: [
+                CredictCardsStatsGrid(stats: state.credictCardsStats),
+                const SizedBox(height: 20),
+                CredictCardTypePieChart(purposeStats: state.credictCardsStats.purposeStats),
+                const SizedBox(height: 20),
+                CredictCardsStatsList(
+                  credictCards: state.credictCardsStats.cardsWithSmallAmount,
+                  title: 'Cards running low...',
+                ),
+                const SizedBox(height: 20),
+                CredictCardsStatsList(
+                  credictCards: state.credictCardsStats.cardsWithNegativeBalance,
+                  title: 'Cards running very very low...',
+                ),
+              ],
+            ),
           );
         } else {
           return Container();
