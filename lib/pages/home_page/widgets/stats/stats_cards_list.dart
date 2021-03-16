@@ -70,6 +70,8 @@ class _CardsStatsCard extends StatelessWidget {
               children: [
                 CredictCardsStatsGrid(stats: state.credictCardsStats),
                 const SizedBox(height: 20),
+                CredictCardTypePieChart(purposeStats: state.credictCardsStats.purposeStats),
+                const SizedBox(height: 20),
                 CredictCardsStatsList(
                   credictCards: state.credictCardsStats.cardsWithSmallAmount,
                   title: 'Cards running low...',
