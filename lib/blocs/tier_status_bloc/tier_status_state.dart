@@ -14,11 +14,13 @@ class TierStatusLoadSuccess extends TierStatusState {
   final int transactionsAmount;
   final Tier nextTier;
   final int amountTillNextTier;
+  final bool hasReachedNewTier;
 
   TierStatusLoadSuccess({
     required this.currentTier,
     required this.nextTier,
     required this.transactionsAmount,
+    required this.hasReachedNewTier,
   }) : amountTillNextTier = nextTier.amount - transactionsAmount;
 
   @override

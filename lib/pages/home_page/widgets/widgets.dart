@@ -32,3 +32,4 @@ export 'stats/chart_board.dart';
 export 'profile/profile_photo.dart';
 export 'profile/name_output.dart';
 export 'profile/logout_button.dart';
+export 'profile/tier_status_output.dart';

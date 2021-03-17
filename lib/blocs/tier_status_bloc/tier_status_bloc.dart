@@ -45,6 +45,10 @@ class TierStatusBloc extends Bloc<TierStatusEvent, TierStatusState> {
         currentTier: currentTier,
         nextTier: nextTier,
         transactionsAmount: transactionsAmount,
+        hasReachedNewTier: _hasReachedNewTier(
+          tier: currentTier,
+          nextTier: nextTier,
+        ),
       );
     } catch (error) {
       yield TierStatusFailure();
@@ -56,6 +60,23 @@ class TierStatusBloc extends Bloc<TierStatusEvent, TierStatusState> {
       add(_TransactionsChanged(transactions: transactionsState.transactions));
     } else if (transactionsState is TransactionsFailure) {
       add(_TransactionsError());
+    }
+  }
+
+  bool _hasReachedNewTier({required Tier tier, required Tier nextTier}) {
+    if (state is TierStatusLoadSuccess) {
+      final currentState = state as TierStatusLoadSuccess;
+
+      final isCurrentTierApproved = !(tier == currentState.currentTier);
+      final isNextTierApproved = !(tier == currentState.nextTier);
+
+      if (isCurrentTierApproved && isNextTierApproved) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
     }
   }
 
