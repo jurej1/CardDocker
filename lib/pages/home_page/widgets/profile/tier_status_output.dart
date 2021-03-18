@@ -1,17 +1,18 @@
-import 'package:card_docker/blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:card_docker/blocs/blocs.dart';
 
 class TierStatusOutput extends StatelessWidget {
   final _containerHeight = 80.00;
   late final _barHeight;
-  late final _barWidth;
+  // late final _barWidth;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     _barHeight = _containerHeight * 0.25;
-    _barWidth = MediaQuery.of(context).size.width - 40; // - 40 == padding from the lisView
+    // _barWidth = MediaQuery.of(context).size.width - 40; // - 40 == padding from the lisView
 
     return BlocBuilder<TierStatusBloc, TierStatusState>(
       builder: (context, state) {
@@ -29,7 +30,6 @@ class TierStatusOutput extends StatelessWidget {
           final xPercent = xAmount / 100;
 
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
             height: _containerHeight,
             width: screenWidth,
             child: Column(
@@ -39,25 +39,11 @@ class TierStatusOutput extends StatelessWidget {
                   beginText: state.currentTier.title,
                   endText: state.nextTier.title,
                 ),
-                SizedBox(
-                  height: _barHeight,
-                  width: screenWidth,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      height: _barHeight,
-                      width: _barWidth,
-                      color: Colors.grey[500],
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: xPercent,
-                        heightFactor: 1,
-                        child: ColoredBox(
-                          color: Colors.green,
-                        ),
-                      ),
-                    ),
-                  ),
+                _TierBar(
+                  barHeight: _barHeight,
+                  barWidth: screenWidth,
+                  xPercent: xPercent,
+                  transactionsAmount: state.transactionsAmount,
                 ),
                 _TextRow(
                   beginText: state.currentTier.amount.toString(),
@@ -70,6 +56,50 @@ class TierStatusOutput extends StatelessWidget {
           return Container();
         }
       },
+    );
+  }
+}
+
+class _TierBar extends StatelessWidget {
+  final double barHeight;
+  final double barWidth;
+  final double xPercent;
+  final int transactionsAmount;
+
+  const _TierBar({
+    Key? key,
+    required this.barHeight,
+    required this.barWidth,
+    required this.xPercent,
+    required this.transactionsAmount,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: barHeight,
+      width: barWidth,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          height: barHeight,
+          width: barWidth,
+          color: Colors.grey[400],
+          child: FractionallySizedBox(
+            alignment: Alignment.centerLeft,
+            widthFactor: xPercent,
+            heightFactor: 1,
+            child: Container(
+              color: Colors.green,
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(right: 5),
+              child: Text(
+                transactionsAmount.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
