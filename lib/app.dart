@@ -1,9 +1,4 @@
-import 'package:card_docker/blocs/carousel_bloc/carousel_bloc.dart';
-import 'package:card_docker/pages/add_credict_card/add_credict_card_page.dart';
-import 'package:card_docker/pages/add_transaction/add_transaction_page.dart';
-import 'package:card_docker/pages/home_page/home_page.dart';
-import 'package:card_docker/pages/login_page/login_page.dart';
-import 'package:card_docker/pages/sign_up/sign_up_page.dart';
+import 'package:card_docker/pages/pages.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:card_docker/repositories/transactions_repository/src/firebase_transaction_repository.dart';
@@ -11,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
-import 'pages/splash_page/splash_page.dart';
 
 class App extends StatelessWidget {
   @override
@@ -117,6 +111,12 @@ class _AppView extends StatelessWidget {
                 create: (context) => TransactionDataBarChartBloc(
                   statsViewBloc: BlocProvider.of<StatsViewBloc>(context),
                 ),
+              ),
+              BlocProvider<TierStatusBloc>(
+                lazy: false,
+                create: (context) => TierStatusBloc(
+                  transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+                ),
               )
             ],
             child: HomePage(),
@@ -125,6 +125,7 @@ class _AppView extends StatelessWidget {
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),
+        SettingsPage.routeName: (context) => SettingsPage(),
         AddCredictCardPage.routeName: (context) => AddCredictCardPage(),
         AddTransactionPage.routeName: (context) => AddTransactionPage(),
       },
