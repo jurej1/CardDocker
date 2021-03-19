@@ -8,7 +8,7 @@ class CarouselView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('CardDocker'),
         actions: [
           ActionSelector(),
         ],
@@ -50,9 +50,7 @@ class _CarouselList extends StatelessWidget {
         physics: const ClampingScrollPhysics(),
         children: [
           CardsCarousel(cards: state.cards!),
-          Divider(
-            color: Colors.black45,
-          ),
+          Divider(color: Colors.black45),
           TransactionsTitle(),
           CardTransactionsList(
             transactions: state.currentCardTransactions!,
