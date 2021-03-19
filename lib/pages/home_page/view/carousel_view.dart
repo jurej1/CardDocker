@@ -49,7 +49,10 @@ class _CarouselList extends StatelessWidget {
       child: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          CardsCarousel(cards: state.cards!),
+          CardsCarousel(
+            cards: state.cards!,
+            selectedCard: state.index,
+          ),
           SelectedCardIndicator(),
           Divider(color: Colors.black45),
           TransactionsTitle(),
