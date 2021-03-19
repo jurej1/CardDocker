@@ -9,6 +9,8 @@ abstract class StatsViewState extends Equatable {
 
 class StatsViewLoading extends StatsViewState {}
 
+class StatsViewTransactionsNotAvailable extends StatsViewState {}
+
 class StatsViewLoadSuccess extends StatsViewState {
   final BasicTransactionsStats transactionsStats;
   final CredictCardsStats credictCardsStats;

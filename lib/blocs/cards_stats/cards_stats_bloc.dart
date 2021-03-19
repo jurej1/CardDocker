@@ -34,8 +34,12 @@ class CardsStatsBloc extends Bloc<CardsStatsEvent, CardsStatsState> {
     CardsStatsEvent event,
   ) async* {
     if (event is _CardsUpdated) {
-      CredictCardsStats stats = _firebaseCredictCardRepository.getCredictCardStats(event.cards);
-      yield CardsStatsLoadSuccess(stats);
+      if (event.cards.isNotEmpty) {
+        CredictCardsStats stats = _firebaseCredictCardRepository.getCredictCardStats(event.cards);
+        yield CardsStatsLoadSuccess(cardsStats: stats);
+      } else {
+        yield CardsStatsLoadSuccess();
+      }
     } else if (event is _CardsError) {
       yield CardsStatsFailure();
     }

@@ -17,9 +17,6 @@ class App extends StatelessWidget {
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
-        BlocProvider<HomePageCubit>(
-          create: (context) => HomePageCubit(),
-        ),
         BlocProvider<CardsBloc>(
           create: (context) => CardsBloc(
             firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
@@ -92,6 +89,9 @@ class _AppView extends StatelessWidget {
         HomePage.routeName: (context) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider<HomePageCubit>(
+                create: (context) => HomePageCubit(),
+              ),
               BlocProvider<CarouselBloc>(
                 lazy: false,
                 create: (context) => CarouselBloc(
