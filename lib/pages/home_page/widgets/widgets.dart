@@ -5,7 +5,7 @@ export 'page_selector.dart';
 //Carousel
 export 'carousel/cards_carousel.dart';
 export 'carousel/card_transactions_list.dart';
-export 'carousel/carousel_card.dart';
+export 'carousel/credict_card_widget.dart';
 export 'carousel/transactions_title.dart';
 
 //Transactions
