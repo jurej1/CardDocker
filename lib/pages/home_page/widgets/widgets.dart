@@ -33,3 +33,5 @@ export 'profile/profile_photo.dart';
 export 'profile/name_output.dart';
 export 'profile/logout_button.dart';
 export 'profile/tier_status_output.dart';
+export 'profile/about_us_tile.dart';
+export 'profile/settings_tile.dart';
