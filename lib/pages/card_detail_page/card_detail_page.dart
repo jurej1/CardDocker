@@ -1,3 +1,4 @@
+import 'package:card_docker/pages/card_detail_page/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class CardDetailPage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Credict card'),
             actions: [
-              _ActionSelector(
+              CardDetailActionSelector(
                 card: state.card,
               ),
             ],
@@ -30,69 +31,10 @@ class CardDetailPage extends StatelessWidget {
             children: [
               CredictCardWidget(card: state.card),
               box,
-              _TransactionsList(),
+              FilteredTransactionsList(),
             ],
           ),
         );
-      },
-    );
-  }
-}
-
-class _TransactionsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<FilteredTransactionsCubit, FilteredTransactionsState>(
-      builder: (context, state) {
-        if (state is FilteredTransactionsLoadSuccess) {
-          if (state.transactions.isNotEmpty) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).primaryColor.withOpacity(0.25),
-              ),
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: TransactionsList(transactions: state.transactions),
-            );
-          } else {
-            return Container();
-          }
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-}
-
-enum CardDetailAction { delete, edit }
-
-class _ActionSelector extends StatelessWidget {
-  final CredictCard card;
-
-  const _ActionSelector({
-    Key? key,
-    required this.card,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<CardDetailAction>(
-      icon: Icon(Icons.more_vert),
-      itemBuilder: (context) {
-        return CardDetailAction.values.map((e) {
-          return PopupMenuItem<CardDetailAction>(
-            value: e,
-            child: Text(describeEnum(e).toUpperCase()),
-          );
-        }).toList();
-      },
-      onSelected: (action) {
-        if (action == CardDetailAction.edit) {
-          Navigator.of(context).pushNamed(AddCredictCardPage.routeName, arguments: card);
-        } else if (action == CardDetailAction.delete) {
-          //TODO
-        }
       },
     );
   }
