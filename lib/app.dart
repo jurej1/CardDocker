@@ -138,11 +138,21 @@ class _AppView extends StatelessWidget {
         CardDetailPage.routeName: (context) {
           final card = ModalRoute.of(context)!.settings.arguments as CredictCard;
 
-          return BlocProvider(
-            create: (context) => FilteredTransactionsBloc(
-              card: card,
-              transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
-            ),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => FilteredTransactionsBloc(
+                  card: card,
+                  transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => DetailCardCubit(
+                  card: card,
+                  cardsBloc: BlocProvider.of<CardsBloc>(context),
+                ),
+              ),
+            ],
             child: CardDetailPage(),
           );
         },
@@ -150,7 +160,13 @@ class _AppView extends StatelessWidget {
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),
         SettingsPage.routeName: (context) => SettingsPage(),
-        AddCredictCardPage.routeName: (context) => AddCredictCardPage(),
+        AddCredictCardPage.routeName: (context) {
+          final CredictCard? card = ModalRoute.of(context)!.settings.arguments as CredictCard?;
+
+          return AddCredictCardPage(
+            credictCard: card,
+          );
+        },
         AddTransactionPage.routeName: (context) => AddTransactionPage(),
       },
     );
