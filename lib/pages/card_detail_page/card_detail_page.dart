@@ -42,7 +42,7 @@ class CardDetailPage extends StatelessWidget {
 class _TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FilteredTransactionsBloc, FilteredTransactionsState>(
+    return BlocBuilder<FilteredTransactionsCubit, FilteredTransactionsState>(
       builder: (context, state) {
         if (state is FilteredTransactionsLoadSuccess) {
           if (state.transactions.isNotEmpty) {

@@ -141,8 +141,8 @@ class _AppView extends StatelessWidget {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => FilteredTransactionsBloc(
-                  card: card,
+                create: (context) => FilteredTransactionsCubit(
+                  credictCard: card,
                   transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
                 ),
               ),

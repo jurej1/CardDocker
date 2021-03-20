@@ -12,5 +12,5 @@ export 'cards_stats/cards_stats_bloc.dart';
 export 'stats_view_bloc/stats_view_bloc.dart';
 export 'transaction_data_bar_chart/transaction_data_bar_chart_bloc.dart';
 export 'tier_status_bloc/tier_status_bloc.dart';
-export 'filtered_transactions/filtered_transactions_bloc.dart';
+export 'filtered_transactions_cubit/filtered_transactions_cubit.dart';
 export 'detail_card_cubit/detail_card_cubit.dart';

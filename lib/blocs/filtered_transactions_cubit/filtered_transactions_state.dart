@@ -1,4 +1,4 @@
-part of 'filtered_transactions_bloc.dart';
+part of 'filtered_transactions_cubit.dart';
 
 abstract class FilteredTransactionsState extends Equatable {
   const FilteredTransactionsState();
@@ -7,15 +7,12 @@ abstract class FilteredTransactionsState extends Equatable {
   List<Object> get props => [];
 }
 
-class FilteredTransactionsLoading extends FilteredTransactionsState {}
-
 class FilteredTransactionsLoadSuccess extends FilteredTransactionsState {
   final List<Transaction> transactions;
 
   const FilteredTransactionsLoadSuccess({
     this.transactions = const [],
   });
-
   @override
   List<Object> get props => [transactions];
 }
