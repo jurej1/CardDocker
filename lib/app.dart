@@ -135,6 +135,17 @@ class _AppView extends StatelessWidget {
             ),
           );
         },
+        CardDetailPage.routeName: (context) {
+          final card = ModalRoute.of(context)!.settings.arguments as CredictCard;
+
+          return BlocProvider(
+            create: (context) => FilteredTransactionsBloc(
+              card: card,
+              transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
+            ),
+            child: CardDetailPage(),
+          );
+        },
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         SplashPage.routeName: (context) => SplashPage(),

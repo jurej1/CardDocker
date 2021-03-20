@@ -1,3 +1,4 @@
+import 'package:card_docker/pages/pages.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -31,8 +32,9 @@ class CardsCarousel extends StatelessWidget {
 class _CardsLoadedCarousel extends StatelessWidget {
   final List<CredictCard> cards;
   final int? selectedCard;
+  final cardBorderRadisu = BorderRadius.circular(12);
 
-  const _CardsLoadedCarousel({
+  _CardsLoadedCarousel({
     Key? key,
     required this.cards,
     this.selectedCard,
@@ -49,7 +51,30 @@ class _CardsLoadedCarousel extends StatelessWidget {
     } else {
       return CarouselSlider.builder(
         itemCount: cards.length,
-        itemBuilder: (context, index, _) => CredictCardWidget(card: cards[index]),
+        itemBuilder: (context, index, _) {
+          final card = cards[index];
+
+          return Material(
+            color: card.color,
+            shape: RoundedRectangleBorder(
+              borderRadius: cardBorderRadisu,
+            ),
+            child: InkWell(
+              borderRadius: cardBorderRadisu,
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  CardDetailPage.routeName,
+                  arguments: card,
+                );
+              },
+              splashColor: Theme.of(context).primaryColor.withOpacity(0.5),
+              child: CredictCardWidget(
+                card: card,
+                isCarouselCard: true,
+              ),
+            ),
+          );
+        },
         options: CarouselOptions(
           initialPage: selectedCard!,
           scrollDirection: Axis.horizontal, //Experiment with vertical

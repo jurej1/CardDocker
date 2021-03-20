@@ -5,3 +5,4 @@ export 'login_page/login_page.dart';
 export 'settings_page/settings_page.dart';
 export 'sign_up/sign_up_page.dart';
 export 'splash_page/splash_page.dart';
+export 'card_detail_page/card_detail_page.dart';

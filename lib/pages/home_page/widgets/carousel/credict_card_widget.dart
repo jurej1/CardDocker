@@ -7,8 +7,13 @@ import 'package:intl/intl.dart';
 
 class CredictCardWidget extends StatelessWidget {
   final CredictCard card;
+  final bool isCarouselCard;
 
-  const CredictCardWidget({Key? key, required this.card}) : super(key: key);
+  const CredictCardWidget({
+    Key? key,
+    required this.card,
+    this.isCarouselCard = false,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -19,8 +24,8 @@ class CredictCardWidget extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
-        color: card.color,
-        borderRadius: BorderRadius.circular(14),
+        color: isCarouselCard ? Colors.transparent : card.color,
+        borderRadius: isCarouselCard ? null : BorderRadius.circular(14),
       ),
       child: Stack(
         alignment: Alignment.centerLeft,
