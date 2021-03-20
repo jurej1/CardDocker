@@ -19,33 +19,20 @@ class ProfileView extends StatelessWidget {
           if (state is Authenticated) {
             final user = state.user;
 
-            return BlocListener<TierStatusBloc, TierStatusState>(
-              listener: (context, state) {
-                if (state is TierStatusLoadSuccess) {
-                  if (state.hasReachedNewTier) {
-                    /* 
-                      TODO
-                      do some dialog that pops up when
-                      the user reaches new tier
-                    */
-                  }
-                }
-              },
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                children: [
-                  ProfilePhoto(imageUrl: user.photoUrl),
-                  TierStatusOutput(),
-                  box,
-                  NameOutput(name: user.displayName),
-                  box,
-                  AboutUsTile(),
-                  SettingsTile(),
-                  box,
-                  LogoutButton(),
-                ],
-              ),
+            return ListView(
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+              children: [
+                ProfilePhoto(imageUrl: user.photoUrl),
+                TierStatusOutput(),
+                box,
+                NameOutput(name: user.displayName),
+                box,
+                AboutUsTile(),
+                SettingsTile(),
+                box,
+                LogoutButton(),
+              ],
             );
           } else {
             return Center();

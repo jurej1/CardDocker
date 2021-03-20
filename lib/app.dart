@@ -119,7 +119,20 @@ class _AppView extends StatelessWidget {
                 ),
               )
             ],
-            child: HomePage(),
+            child: BlocListener<TierStatusBloc, TierStatusState>(
+              listener: (context, state) {
+                if (state is TierStatusLoadSuccess) {
+                  if (state.hasReachedNewTier) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Congratulations for reaching next tier'),
+                      ),
+                    );
+                  }
+                }
+              },
+              child: HomePage(),
+            ),
           );
         },
         LoginPage.routeName: (context) => LoginPage(),
