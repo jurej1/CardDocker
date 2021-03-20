@@ -38,7 +38,7 @@ class TierStatusBloc extends Bloc<TierStatusEvent, TierStatusState> {
     try {
       final transactionsAmount = event.transactions.length;
 
-      final currentTier = _tierValues.lastWhere((element) => element.amount < transactionsAmount);
+      final currentTier = _tierValues.lastWhere((element) => element.amount <= transactionsAmount);
       final nextTier = _tierValues.firstWhere((element) => element.amount > transactionsAmount);
 
       yield TierStatusLoadSuccess(

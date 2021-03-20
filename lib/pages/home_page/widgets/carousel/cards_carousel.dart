@@ -1,28 +1,42 @@
-import 'package:card_docker/blocs/carousel_bloc/carousel_bloc.dart';
-import 'package:card_docker/pages/home_page/widgets/carousel/carousel_card.dart';
-import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:card_docker/blocs/carousel_bloc/carousel_bloc.dart';
+import 'package:card_docker/pages/home_page/widgets/carousel/credict_card_widget.dart';
+import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+
 class CardsCarousel extends StatelessWidget {
   final List<CredictCard> cards;
+  final int? selectedCard;
 
-  const CardsCarousel({Key? key, required this.cards}) : super(key: key);
+  const CardsCarousel({
+    Key? key,
+    required this.cards,
+    required this.selectedCard,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
-      child: _CardsLoadedCarousel(cards: cards),
+      child: _CardsLoadedCarousel(
+        cards: cards,
+        selectedCard: selectedCard,
+      ),
     );
   }
 }
 
 class _CardsLoadedCarousel extends StatelessWidget {
   final List<CredictCard> cards;
+  final int? selectedCard;
 
-  const _CardsLoadedCarousel({Key? key, required this.cards}) : super(key: key);
+  const _CardsLoadedCarousel({
+    Key? key,
+    required this.cards,
+    this.selectedCard,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +49,9 @@ class _CardsLoadedCarousel extends StatelessWidget {
     } else {
       return CarouselSlider.builder(
         itemCount: cards.length,
-        itemBuilder: (context, index, _) => CarouselCard(card: cards[index]),
+        itemBuilder: (context, index, _) => CredictCardWidget(card: cards[index]),
         options: CarouselOptions(
+          initialPage: selectedCard!,
           scrollDirection: Axis.horizontal, //Experiment with vertical
           viewportFraction: 0.85,
           scrollPhysics: const BouncingScrollPhysics(),

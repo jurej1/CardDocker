@@ -44,19 +44,23 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
   @override
   CredictCardsStats getCredictCardStats(List<CredictCard> cards) {
     final credictCardStats = CredictCardsStats.empty;
-    final double totalBalance = _totalBalance(cards);
-    final double average = totalBalance / cards.length;
+    if (cards.isNotEmpty) {
+      final double totalBalance = _totalBalance(cards);
+      final double average = totalBalance / cards.length;
 
-    return credictCardStats.copyWith(
-      numOfCards: cards.length,
-      purposeStats: _getCardTypes(cards),
-      averageBalance: average,
-      biggestBalance: _biggestBalance(cards),
-      smallestBalance: _smallestBalance(cards),
-      totalBalance: totalBalance,
-      cardsWithNegativeBalance: _cardsWithNegativeAmount(cards),
-      cardsWithSmallAmount: _cardsWithLowAmount(cards),
-    );
+      return credictCardStats.copyWith(
+        numOfCards: cards.length,
+        purposeStats: _getCardTypes(cards),
+        averageBalance: average,
+        biggestBalance: _biggestBalance(cards),
+        smallestBalance: _smallestBalance(cards),
+        totalBalance: totalBalance,
+        cardsWithNegativeBalance: _cardsWithNegativeAmount(cards),
+        cardsWithSmallAmount: _cardsWithLowAmount(cards),
+      );
+    } else {
+      return credictCardStats;
+    }
   }
 
   double _biggestBalance(List<CredictCard> cards) {

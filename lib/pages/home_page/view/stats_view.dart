@@ -19,6 +19,10 @@ class StatsView extends StatelessWidget {
             return Center(
               child: Text('Oops something went wrong'),
             );
+          } else if (state is StatsViewTransactionsNotAvailable) {
+            return Center(
+              child: Text('Transactions not available. Start by adding credict cards and transactions.'),
+            );
           } else {
             return Container();
           }

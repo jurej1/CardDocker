@@ -4,18 +4,18 @@ abstract class TransactionsStatsState extends Equatable {
   const TransactionsStatsState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class TransactionStatsLoading extends TransactionsStatsState {}
 
 class TransactionsStatsLoadSuccess extends TransactionsStatsState {
-  final BasicTransactionsStats basicStats;
+  final BasicTransactionsStats? basicStats;
 
-  const TransactionsStatsLoadSuccess({required this.basicStats});
+  const TransactionsStatsLoadSuccess({this.basicStats});
 
   @override
-  List<Object> get props => [basicStats];
+  List<Object?> get props => [basicStats];
 }
 
 class TransactionsStatsFailure extends TransactionsStatsState {}

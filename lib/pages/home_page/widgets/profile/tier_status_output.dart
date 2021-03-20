@@ -25,8 +25,8 @@ class TierStatusOutput extends StatelessWidget {
             ),
           );
         } else if (state is TierStatusLoadSuccess) {
-          final nextDiffAmount = state.nextTier.amount;
-          final xAmount = ((state.transactionsAmount * 100) / nextDiffAmount);
+          final totalDiff = state.nextTier.amount;
+          final xAmount = ((state.transactionsAmount * 100) / totalDiff);
           final xPercent = xAmount / 100;
 
           return Container(
@@ -46,7 +46,7 @@ class TierStatusOutput extends StatelessWidget {
                   transactionsAmount: state.transactionsAmount,
                 ),
                 _TextRow(
-                  beginText: state.currentTier.amount.toString(),
+                  beginText: '1',
                   endText: state.nextTier.amount.toString(),
                 ),
               ],

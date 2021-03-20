@@ -10,9 +10,9 @@ abstract class CardsStatsState extends Equatable {
 class CardsStatsLoading extends CardsStatsState {}
 
 class CardsStatsLoadSuccess extends CardsStatsState {
-  final CredictCardsStats cardsStats;
+  final CredictCardsStats? cardsStats;
 
-  const CardsStatsLoadSuccess(this.cardsStats);
+  const CardsStatsLoadSuccess({this.cardsStats});
 
   @override
   List<Object?> get props => [cardsStats];

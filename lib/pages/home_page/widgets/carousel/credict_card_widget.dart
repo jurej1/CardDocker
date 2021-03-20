@@ -5,10 +5,10 @@ import 'package:card_docker/repositories/credict_cards_repository/credict_cards_
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CarouselCard extends StatelessWidget {
+class CredictCardWidget extends StatelessWidget {
   final CredictCard card;
 
-  const CarouselCard({Key? key, required this.card}) : super(key: key);
+  const CredictCardWidget({Key? key, required this.card}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

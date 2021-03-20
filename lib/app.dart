@@ -17,9 +17,6 @@ class App extends StatelessWidget {
             firebaseAuthenticationRepository: RepositoryProvider.of<FirebaseAuthenticationRepository>(context),
           )..add(AppStarted()),
         ),
-        BlocProvider<HomePageCubit>(
-          create: (context) => HomePageCubit(),
-        ),
         BlocProvider<CardsBloc>(
           create: (context) => CardsBloc(
             firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
@@ -92,6 +89,9 @@ class _AppView extends StatelessWidget {
         HomePage.routeName: (context) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider<HomePageCubit>(
+                create: (context) => HomePageCubit(),
+              ),
               BlocProvider<CarouselBloc>(
                 lazy: false,
                 create: (context) => CarouselBloc(
@@ -119,7 +119,20 @@ class _AppView extends StatelessWidget {
                 ),
               )
             ],
-            child: HomePage(),
+            child: BlocListener<TierStatusBloc, TierStatusState>(
+              listener: (context, state) {
+                if (state is TierStatusLoadSuccess) {
+                  if (state.hasReachedNewTier) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Congratulations for reaching next tier'),
+                      ),
+                    );
+                  }
+                }
+              },
+              child: HomePage(),
+            ),
           );
         },
         LoginPage.routeName: (context) => LoginPage(),

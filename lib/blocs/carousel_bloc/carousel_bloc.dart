@@ -41,16 +41,25 @@ class CarouselBloc extends Bloc<CarouselEvent, CarouselState> {
   Stream<CarouselState> _mapCarouselUpdatedToState(_CarouselUpdated event) async* {
     if (_transactionsBloc.state is TransactionsLoadSuccess && _cardsBloc.state is CardsLoadSuccess) {
       final cards = event.cards;
-      final currentCard = cards.first;
-      final cardTransactions =
-          (_transactionsBloc.state as TransactionsLoadSuccess).transactions.where((element) => element.cardId == currentCard.id).toList();
 
-      yield CarouselLoadSuccess(
-        cards: cards,
-        currentCardTransactions: cardTransactions,
-        index: 0,
-        selectedCard: currentCard,
-      );
+      if (cards.isNotEmpty) {
+        final currentCard = cards.first;
+        final cardTransactions =
+            (_transactionsBloc.state as TransactionsLoadSuccess).transactions.where((element) => element.cardId == currentCard.id).toList();
+
+        yield CarouselLoadSuccess(
+          cards: cards,
+          currentCardTransactions: cardTransactions,
+          index: 0,
+          selectedCard: currentCard,
+        );
+      } else {
+        yield CarouselLoadSuccess(
+          cards: [],
+          currentCardTransactions: [],
+          index: 0,
+        );
+      }
     }
   }
 
