@@ -52,7 +52,7 @@ class _CardsLoadedCarousel extends StatelessWidget {
       return CarouselSlider.builder(
         itemCount: cards.length,
         itemBuilder: (context, index, _) {
-          final card = cards[index];
+          final CredictCard card = cards[index];
 
           return Material(
             color: card.color,
