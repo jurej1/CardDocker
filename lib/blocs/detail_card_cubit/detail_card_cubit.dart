@@ -15,7 +15,10 @@ class DetailCardCubit extends Cubit<DetailCardState> {
         super(DetailCardState(card: card)) {
     _cardsSubscription = _cardsBloc.listen((cardsState) {
       if (cardsState is CardsLoadSuccess) {
-        final updatedCard = cardsState.cards.firstWhere((element) => element.id == card.id);
+        final updatedCard = cardsState.cards.firstWhere(
+          (element) => element.id == card.id,
+          orElse: () => CredictCard.empty(),
+        );
         emit(DetailCardState(card: updatedCard));
       }
     });

@@ -1,6 +1,8 @@
+import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../pages.dart';
 
@@ -30,7 +32,7 @@ class CardDetailActionSelector extends StatelessWidget {
         if (action == CardDetailAction.edit) {
           Navigator.of(context).pushNamed(AddCredictCardPage.routeName, arguments: card);
         } else if (action == CardDetailAction.delete) {
-          //TODO
+          BlocProvider.of<CardsBloc>(context).add(CardDelete(card));
         }
       },
     );
