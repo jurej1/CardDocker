@@ -80,6 +80,9 @@ class _TextColumn extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
+        SizedBox(
+          height: 2,
+        ),
         Text(
           content,
         ),
