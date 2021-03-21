@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseCredictCardRepository implements CredictCardsRepository {
   final _cardsRef = FirebaseFirestore.instance.collection('credict_cards');
+  final _transactionsRef = FirebaseFirestore.instance.collection('transaction');
 
   @override
   Future<void> addCredictCard(CredictCard credictCard) {
@@ -33,7 +34,14 @@ class FirebaseCredictCardRepository implements CredictCardsRepository {
 
   @override
   Future<void> deleteCredictCard(CredictCard credictCard) {
-    return _cardsRef.doc(credictCard.id!).delete();
+    return Future.wait([
+      _cardsRef.doc(credictCard.id!).delete(),
+      _transactionsRef.where('cardId', isEqualTo: credictCard.id).get().then((value) {
+        for (int i = 0; i < value.docs.length; i++) {
+          _transactionsRef.doc(value.docs[i].id).delete();
+        }
+      }),
+    ]);
   }
 
   @override
