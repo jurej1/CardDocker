@@ -7,6 +7,9 @@ class StatsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Statistics'),
+      ),
       body: BlocBuilder<StatsViewBloc, StatsViewState>(
         builder: (context, state) {
           if (state is StatsViewLoading) {
