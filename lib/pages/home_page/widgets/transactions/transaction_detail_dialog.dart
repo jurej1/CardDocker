@@ -1,4 +1,5 @@
 import 'package:card_docker/blocs/blocs.dart';
+import 'package:card_docker/pages/add_transaction/add_transaction_page.dart';
 import 'package:card_docker/repositories/transactions_repository/src/enums/transactions_purpose.dart';
 import 'package:card_docker/repositories/transactions_repository/src/models/models.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +25,10 @@ void showTransactionDetailDialog({
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             children: [
-              _OutputRow(title: 'Title', content: transaction.title),
+              _OutputRow(
+                title: 'Title',
+                content: transaction.title,
+              ),
               box,
               _OutputRow(
                 title: 'Amount',
@@ -47,30 +51,37 @@ void showTransactionDetailDialog({
             ],
           ),
         ),
+        actionsPadding: EdgeInsets.symmetric(horizontal: 10),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Close'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Close'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).popAndPushNamed(AddTransactionPage.routeName, arguments: transaction);
+                },
+                child: Text(
+                  'Edit',
+                  style: TextStyle(color: Colors.blue),
                 ),
-                TextButton(
-                  onPressed: () {
-                    BlocProvider.of<TransactionsBloc>(context).add(DeleteTransaction(transaction));
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Delete',
-                    style: TextStyle(color: Colors.red),
-                  ),
+              ),
+              TextButton(
+                onPressed: () {
+                  BlocProvider.of<TransactionsBloc>(context).add(DeleteTransaction(transaction));
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
                 ),
-              ],
-            ),
+              ),
+            ],
           )
         ],
       );
