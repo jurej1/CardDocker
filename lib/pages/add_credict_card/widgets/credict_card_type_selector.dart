@@ -5,6 +5,7 @@ import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TypeSelector extends StatelessWidget {
   @override
@@ -53,6 +54,7 @@ class TypeSelector extends StatelessWidget {
           return ListTile(
             title: Text(credictCardTypeName(type)),
             selected: type == currentType,
+            leading: FaIcon(credictCardTypeToIconData(type)),
             onTap: () => Navigator.of(context).pop(type),
           );
         },

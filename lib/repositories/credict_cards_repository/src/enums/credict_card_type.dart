@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 enum CredictCardType {
   business,
   rewards,
@@ -26,5 +29,27 @@ CredictCardType stringToCredictCardType(String value) {
     return CredictCardType.debit;
   } else {
     return CredictCardType.none;
+  }
+}
+
+IconData credictCardTypeToIconData(CredictCardType type) {
+  if (type == CredictCardType.business) {
+    return FontAwesomeIcons.briefcase;
+  } else if (type == CredictCardType.credict) {
+    return FontAwesomeIcons.creditCard;
+  } else if (type == CredictCardType.debit) {
+    return FontAwesomeIcons.moneyCheck;
+  } else if (type == CredictCardType.none) {
+    return FontAwesomeIcons.moneyBill;
+  } else if (type == CredictCardType.premiumRewards) {
+    return FontAwesomeIcons.gem;
+  } else if (type == CredictCardType.retail) {
+    return FontAwesomeIcons.store;
+  } else if (type == CredictCardType.rewards) {
+    return FontAwesomeIcons.award;
+  } else if (type == CredictCardType.students) {
+    return FontAwesomeIcons.graduationCap;
+  } else {
+    return FontAwesomeIcons.creditCard;
   }
 }
