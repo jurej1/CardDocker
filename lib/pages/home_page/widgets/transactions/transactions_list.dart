@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class TransactionsList extends StatelessWidget {
   final List<Transaction> transactions;
-
   const TransactionsList({Key? key, required this.transactions}) : super(key: key);
 
   @override

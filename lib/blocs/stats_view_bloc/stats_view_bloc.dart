@@ -69,7 +69,7 @@ class StatsViewBloc extends Bloc<StatsViewEvent, StatsViewState> {
 
   Stream<StatsViewState> _mapStatsUpdatedToState(_StatsUpdated event) async* {
     if (_transactionsStatsBloc.state is TransactionsStatsLoadSuccess && _cardsStatsBloc.state is CardsStatsLoadSuccess) {
-      if (event.basicTransactionsStats != null && event.basicTransactionsStats != null) {
+      if (event.credictCardsStats != null && event.basicTransactionsStats != null) {
         yield StatsViewLoadSuccess(
           transactionsStats: event.basicTransactionsStats!,
           credictCardsStats: event.credictCardsStats!,
