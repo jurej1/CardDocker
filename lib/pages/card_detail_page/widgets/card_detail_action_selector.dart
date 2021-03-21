@@ -21,12 +21,14 @@ class CardDetailActionSelector extends StatelessWidget {
     return PopupMenuButton<CardDetailAction>(
       icon: Icon(Icons.more_vert),
       itemBuilder: (context) {
-        return CardDetailAction.values.map((e) {
-          return PopupMenuItem<CardDetailAction>(
-            value: e,
-            child: Text(describeEnum(e).toUpperCase()),
-          );
-        }).toList();
+        return CardDetailAction.values.map(
+          (e) {
+            return PopupMenuItem<CardDetailAction>(
+              value: e,
+              child: Text(_text(e)),
+            );
+          },
+        ).toList();
       },
       onSelected: (action) {
         if (action == CardDetailAction.edit) {
@@ -36,5 +38,15 @@ class CardDetailActionSelector extends StatelessWidget {
         }
       },
     );
+  }
+
+  String _text(CardDetailAction action) {
+    if (action == CardDetailAction.delete) {
+      return 'Delete';
+    } else if (action == CardDetailAction.edit) {
+      return 'Edit';
+    } else {
+      return '-';
+    }
   }
 }
