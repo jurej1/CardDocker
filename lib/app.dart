@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
+import 'repositories/transactions_repository/transactions_repository.dart';
 
 class App extends StatelessWidget {
   @override
@@ -167,7 +168,12 @@ class _AppView extends StatelessWidget {
             credictCard: card,
           );
         },
-        AddTransactionPage.routeName: (context) => AddTransactionPage(),
+        AddTransactionPage.routeName: (context) {
+          final Transaction? transaction = ModalRoute.of(context)!.settings.arguments as Transaction;
+          return AddTransactionPage(
+            transaction: transaction,
+          );
+        },
       },
     );
   }
