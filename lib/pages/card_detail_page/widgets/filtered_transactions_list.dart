@@ -16,7 +16,26 @@ class FilteredTransactionsList extends StatelessWidget {
                 color: Theme.of(context).primaryColor.withOpacity(0.25),
               ),
               height: MediaQuery.of(context).size.height * 0.4,
-              child: TransactionsList(transactions: state.transactions),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: Text(
+                      'Transactions',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: TransactionsList(
+                      transactions: state.transactions,
+                    ),
+                  ),
+                ],
+              ),
             );
           } else {
             return Container();

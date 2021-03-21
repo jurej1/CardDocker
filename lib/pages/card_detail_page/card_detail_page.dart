@@ -31,11 +31,14 @@ class CardDetailPage extends StatelessWidget {
               ],
             ),
             body: ListView(
+              physics: ClampingScrollPhysics(),
               padding: const EdgeInsets.all(20),
               children: [
                 CredictCardWidget(card: state.card),
                 box,
                 FilteredTransactionsList(),
+                box,
+                CardInfo(card: state.card),
               ],
             ),
           );
