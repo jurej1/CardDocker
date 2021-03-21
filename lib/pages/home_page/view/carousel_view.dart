@@ -29,6 +29,8 @@ class CarouselView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: const PageSelector(),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
     );
   }
 }

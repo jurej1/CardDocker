@@ -11,11 +11,10 @@ class StatsCardsList extends StatelessWidget {
       height: size.height,
       width: size.width,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.all(20),
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: kToolbarHeight * 0.6),
             _TransactionsStatsCard(),
             const SizedBox(height: 15),
             _CardsStatsCard(),
