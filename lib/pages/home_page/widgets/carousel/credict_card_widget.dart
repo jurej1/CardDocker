@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:card_docker/functions/credict_card_company_name.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class CredictCardWidget extends StatelessWidget {
@@ -46,10 +47,11 @@ class CredictCardWidget extends StatelessWidget {
             right: 0,
             left: 0,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 35, maxWidth: width),
+              constraints: BoxConstraints(maxHeight: 40, maxWidth: width),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   _DateOutput(created: card.created!),
                   _CompanyOutput(company: card.company),
@@ -143,23 +145,13 @@ class _CompanyOutput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 40),
+    return Container(
+      alignment: Alignment.bottomRight,
       child: FittedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Placeholder(
-              fallbackHeight: 40,
-              fallbackWidth: 80,
-            ),
-            Text(
-              credictCardCompanyName(company),
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ],
+        child: FaIcon(
+          credictCardCompanyToIconData(company),
+          color: Colors.grey[300],
+          size: 28,
         ),
       ),
     );
