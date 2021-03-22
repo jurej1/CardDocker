@@ -3,6 +3,7 @@ import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TransactionPurposeSelector extends StatelessWidget {
   @override
@@ -37,6 +38,7 @@ class TransactionPurposeSelector extends StatelessWidget {
               final purpose = TransactionPurpose.values[index];
 
               return ListTile(
+                leading: FaIcon(transactionPurposeToIconData(purpose)),
                 contentPadding: EdgeInsets.zero,
                 onTap: () => Navigator.of(context).pop(purpose),
                 title: Text(transactionPurposeToString(purpose)),

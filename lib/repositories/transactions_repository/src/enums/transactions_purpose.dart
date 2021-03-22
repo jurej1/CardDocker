@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 enum TransactionPurpose {
   rent,
   autoInsurance,
@@ -103,5 +106,49 @@ String transactionPurposeToString(TransactionPurpose? purpose) {
     return 'Water';
   } else {
     return '';
+  }
+}
+
+IconData transactionPurposeToIconData(TransactionPurpose purpose) {
+  if (purpose == TransactionPurpose.alcohol) {
+    return FontAwesomeIcons.cocktail;
+  } else if (purpose == TransactionPurpose.autoInsurance) {
+    return FontAwesomeIcons.carCrash;
+  } else if (purpose == TransactionPurpose.carPayment) {
+    return FontAwesomeIcons.car;
+  } else if (purpose == TransactionPurpose.clothing) {
+    return FontAwesomeIcons.userTie;
+  } else if (purpose == TransactionPurpose.electricity) {
+    return FontAwesomeIcons.bolt;
+  } else if (purpose == TransactionPurpose.food) {
+    return FontAwesomeIcons.hamburger;
+  } else if (purpose == TransactionPurpose.gasoline) {
+    return FontAwesomeIcons.gasPump;
+  } else if (purpose == TransactionPurpose.gym) {
+    return FontAwesomeIcons.dumbbell;
+  } else if (purpose == TransactionPurpose.healthInsurance) {
+    return FontAwesomeIcons.heartbeat;
+  } else if (purpose == TransactionPurpose.homeDecor) {
+    return FontAwesomeIcons.home;
+  } else if (purpose == TransactionPurpose.internet) {
+    return FontAwesomeIcons.wifi;
+  } else if (purpose == TransactionPurpose.largePurchase) {
+    return FontAwesomeIcons.coins;
+  } else if (purpose == TransactionPurpose.medicalCosts) {
+    return FontAwesomeIcons.userMd;
+  } else if (purpose == TransactionPurpose.movies) {
+    return FontAwesomeIcons.ticketAlt;
+  } else if (purpose == TransactionPurpose.none) {
+    return FontAwesomeIcons.moneyBillWave;
+  } else if (purpose == TransactionPurpose.publicTransportation) {
+    return FontAwesomeIcons.subway;
+  } else if (purpose == TransactionPurpose.rent) {
+    return FontAwesomeIcons.building;
+  } else if (purpose == TransactionPurpose.sanitation) {
+    return FontAwesomeIcons.toiletPaper;
+  } else if (purpose == TransactionPurpose.water) {
+    return FontAwesomeIcons.tint;
+  } else {
+    return FontAwesomeIcons.moneyBillWave;
   }
 }

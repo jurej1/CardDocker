@@ -4,6 +4,7 @@ import 'package:card_docker/pages/add_credict_card/widgets/widgets.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CompanySelector extends StatelessWidget {
   @override
@@ -19,8 +20,7 @@ class CompanySelector extends StatelessWidget {
               barrierColor: Colors.black.withOpacity(0.6),
               builder: (_) => _companiesBottomSheet(context, state.company),
             );
-
-            BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardCompanyChanged(company!));
+            if (company != null) BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardCompanyChanged(company));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,6 +52,7 @@ class CompanySelector extends StatelessWidget {
 
           return ListTile(
             selected: company == selectedCompany,
+            leading: FaIcon(credictCardCompanyToIconData(company)),
             title: Text(credictCardCompanyName(company)),
             onTap: () => Navigator.of(context).pop(company),
           );
