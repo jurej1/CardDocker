@@ -21,8 +21,7 @@ class TypeSelector extends StatelessWidget {
               barrierColor: Colors.black.withOpacity(0.6),
               builder: (_) => _typeSelectorBottomSheet(state.type),
             );
-
-            BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardTypeChanged(type!));
+            if (type != null) BlocProvider.of<AddCredictCardFormBloc>(context).add(CredictCardTypeChanged(type));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
