@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:card_docker/repositories/transactions_repository/transactions_repository.dart';
@@ -9,11 +10,11 @@ part 'transactions_event.dart';
 part 'transactions_state.dart';
 
 class TransactionsBloc extends Bloc<TransactionsEvent, TransactionsState> {
-  TransactionsBloc({required FirebaseTransactionsRepository firebaseTransactionsRepository})
+  TransactionsBloc({required TransactionsRepository firebaseTransactionsRepository})
       : _firebaseTransactionsRepository = firebaseTransactionsRepository,
         super(TransactionsLoading());
 
-  late final FirebaseTransactionsRepository _firebaseTransactionsRepository;
+  late final TransactionsRepository _firebaseTransactionsRepository;
   late final StreamSubscription _transactionsSubscription;
 
   @override

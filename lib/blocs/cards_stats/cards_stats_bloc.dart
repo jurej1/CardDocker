@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:card_docker/blocs/blocs.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+import 'package:card_docker/repositories/credict_cards_repository/src/credict_cards_repository.dart';
 import 'package:card_docker/repositories/credict_cards_repository/src/models/models.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,7 +12,7 @@ part 'cards_stats_state.dart';
 
 class CardsStatsBloc extends Bloc<CardsStatsEvent, CardsStatsState> {
   CardsStatsBloc({
-    required FirebaseCredictCardRepository firebaseCredictCardRepository,
+    required CredictCardsRepository firebaseCredictCardRepository,
     required CardsBloc cardsBloc,
   })   : _cardsBloc = cardsBloc,
         _firebaseCredictCardRepository = firebaseCredictCardRepository,
@@ -25,7 +26,7 @@ class CardsStatsBloc extends Bloc<CardsStatsEvent, CardsStatsState> {
     });
   }
 
-  final FirebaseCredictCardRepository _firebaseCredictCardRepository;
+  final CredictCardsRepository _firebaseCredictCardRepository;
   final CardsBloc _cardsBloc;
   late final StreamSubscription _cardsSubscription;
 

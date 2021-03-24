@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_docker/repositories/credict_cards_repository/src/credict_cards_repository.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
@@ -10,11 +11,11 @@ part 'cards_state.dart';
 
 class CardsBloc extends Bloc<CardsEvent, CardsState> {
   CardsBloc({
-    required FirebaseCredictCardRepository firebaseCredictCardRepository,
+    required CredictCardsRepository firebaseCredictCardRepository,
   })   : _firebaseCredictCardRepository = firebaseCredictCardRepository,
         super(CardsLoading());
 
-  late final FirebaseCredictCardRepository _firebaseCredictCardRepository;
+  late final CredictCardsRepository _firebaseCredictCardRepository;
   late final StreamSubscription _cardsSubscription;
 
   @override

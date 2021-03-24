@@ -1,7 +1,9 @@
 import 'package:card_docker/pages/pages.dart';
 import 'package:card_docker/repositories/authentication_repository/authentication_repository.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
+import 'package:card_docker/repositories/credict_cards_repository/src/credict_cards_repository.dart';
 import 'package:card_docker/repositories/transactions_repository/src/firebase_transaction_repository.dart';
+import 'package:card_docker/repositories/transactions_repository/src/transactions_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,23 +22,23 @@ class App extends StatelessWidget {
         ),
         BlocProvider<CardsBloc>(
           create: (context) => CardsBloc(
-            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+            firebaseCredictCardRepository: RepositoryProvider.of<CredictCardsRepository>(context),
           ),
         ),
         BlocProvider<TransactionsBloc>(
           create: (context) => TransactionsBloc(
-            firebaseTransactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
+            firebaseTransactionsRepository: RepositoryProvider.of<TransactionsRepository>(context),
           ),
         ),
         BlocProvider<TransactionsStatsBloc>(
           create: (context) => TransactionsStatsBloc(
             transactionsBloc: BlocProvider.of<TransactionsBloc>(context),
-            transactionsRepository: RepositoryProvider.of<FirebaseTransactionsRepository>(context),
+            transactionsRepository: RepositoryProvider.of<TransactionsRepository>(context),
           ),
         ),
         BlocProvider<CardsStatsBloc>(
           create: (context) => CardsStatsBloc(
-            firebaseCredictCardRepository: RepositoryProvider.of<FirebaseCredictCardRepository>(context),
+            firebaseCredictCardRepository: RepositoryProvider.of<CredictCardsRepository>(context),
             cardsBloc: BlocProvider.of<CardsBloc>(context),
           ),
         ),
