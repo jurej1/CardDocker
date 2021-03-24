@@ -1,10 +1,9 @@
 import 'dart:math';
 
-import 'package:card_docker/functions/credict_card_company_name.dart';
 import 'package:card_docker/repositories/credict_cards_repository/credict_cards_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CredictCardWidget extends StatelessWidget {
   final CredictCard card;
@@ -99,7 +98,11 @@ class _BalanceOutput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '\$ ${balance.toStringAsFixed(2)}',
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+      style: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
     );
   }
 }
