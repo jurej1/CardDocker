@@ -55,6 +55,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> with SingleTickerProviderSt
               height: photoHeight,
               width: photoHeight,
               decoration: BoxDecoration(
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     blurRadius: _glowAnimation.value,
@@ -63,11 +64,12 @@ class _ProfilePhotoState extends State<ProfilePhoto> with SingleTickerProviderSt
                   ),
                 ],
                 shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    'https://cdn.britannica.com/66/9666-004-C3F1037C/Juan-Peron-1954.jpg',
-                  ),
-                  fit: BoxFit.cover,
+              ),
+              child: Transform.scale(
+                scale: 0.8,
+                child: Icon(
+                  Icons.person,
+                  size: photoHeight,
                 ),
               ),
             );
