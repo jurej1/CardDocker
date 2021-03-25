@@ -30,6 +30,6 @@
 ![image](https://user-images.githubusercontent.com/68319418/112502423-58d09500-8d8a-11eb-82f2-c0bffaf0993d.png)
 
 The app state is managment by BLOC library.
-
+Disclaimer: The app is not perfect.
 
 
